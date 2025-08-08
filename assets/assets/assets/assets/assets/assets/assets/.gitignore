@@ -1,9 +1,0 @@
-# Ignore macOS junk
-.DS_Store
-
-# Ignore temporary files
-*.tmp
-*.log
-
-# Ignore Netlify folder if created locally
-.netlify
