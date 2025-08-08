@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0e6bff" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#ff7a00" stop-opacity=".25"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="400" fill="url(#bg)"/>
+  <rect x="20" y="20" width="600" height="360" rx="16" fill="#0f172a" opacity=".85"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+        font-family="Inter, Arial" font-weight="800" font-size="24" fill="#e5e7eb">
+    Merch Teaser
+  </text>
+</svg>
