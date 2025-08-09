@@ -1,9 +1,8 @@
-<!-- Save this as teaser-3.svg inside /assets -->
 <svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="300" height="200" rx="16" fill="url(#paint0_linear)" />
   <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-        font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">
-    OHS Haven Merch Teaser 3 — Coming Soon
+        font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white">
+    Merch Teaser 3 — Coming Soon
   </text>
   <defs>
     <linearGradient id="paint0_linear" x1="0" y1="0" x2="300" y2="200" gradientUnits="userSpaceOnUse">
@@ -12,4 +11,3 @@
     </linearGradient>
   </defs>
 </svg>
-
