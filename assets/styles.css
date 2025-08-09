@@ -1,66 +1,137 @@
-:root{
-  --bg:#0a0f1d; --grad1:#0b3ea8; --grad2:#8b4a2d;
-  --card:#0f172a; --text:#e5e7eb; --muted:#a7b0c0;
-  --brand:#0e6bff; --accent:#ff7a00; --ok:#20c997; --line:rgba(255,255,255,.08);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:Inter,system-ui,Segoe UI,Helvetica,Arial,sans-serif; color:var(--text);
-  background:
-    radial-gradient(1200px 700px at -10% -20%, rgba(14,107,255,.25), transparent 60%),
-    radial-gradient(900px 500px at 120% 120%, rgba(255,122,0,.18), transparent 60%),
-    linear-gradient(130deg,var(--grad1),var(--grad2));
-}
-.container{max-width:1100px;margin:0 auto;padding:24px}
-.nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-.nav img{height:44px}
-.small{font-size:12px;color:var(--muted)}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start;padding:18px 0}
-.hero h1{font-size:46px;line-height:1.1;margin:.2em 0}
-.hero p{color:var(--muted);font-size:16px;line-height:1.6}
-.card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 18px 70px rgba(0,0,0,.35)}
-.media{border-radius:18px;overflow:hidden;border:1px solid var(--line)}
-.media iframe{width:100%;aspect-ratio:16/9;border:0}
-.btn{appearance:none;border:none;cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  padding:12px 18px;border-radius:12px;font-weight:800;letter-spacing:.2px;
-  transition:transform .05s ease, box-shadow .15s ease, background .2s ease}
-.btn:active{transform:translateY(1px)}
-.btn.primary{background:var(--brand);color:#fff;box-shadow:0 6px 18px rgba(14,107,255,.35)}
-.btn.primary:hover{filter:brightness(1.06)}
-.btn.secondary{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
-.btn.secondary:hover{background:rgba(255,255,255,.09)}
-.btn.accent{background:var(--accent);color:#1d1306;box-shadow:0 6px 18px rgba(255,122,0,.35)}
-.btn.accent:hover{filter:brightness(1.06)}
-.btn.disabled{pointer-events:none;opacity:.55}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:6px}
-.section{padding:28px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.feature{background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:16px;padding:14px}
-.feature h3{margin:6px 0 8px;font-size:18px}
-.feature p{margin:0;color:var(--muted);font-size:14px}
-.teasers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.teasers img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}
-.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px}
-@media (max-width:880px){ .hero{grid-template-columns:1fr} .hero h1{font-size:36px} }
-.feature {
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 16px;
-  padding: 16px;
-  backdrop-filter: blur(4px);
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OHS Haven — Melly Lite</title>
+  <meta name="description" content="Melly by OHS Haven: AI-powered OHS compliance, training, and automation." />
+  <meta name="theme-color" content="#0e6bff" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Nav -->
+    <nav class="nav">
+      <img src="assets/logo.svg" alt="OHS Haven logo" height="44" width="200" />
+      <div class="right">
+        <a class="small" href="#" aria-disabled="true" onclick="return false;">Docs (soon)</a>
+        <a class="small" href="#" aria-disabled="true" onclick="return false;">Products (soon)</a>
+        <a class="small" href="#" aria-disabled="true" onclick="return false;">Login (soon)</a>
+      </div>
+    </nav>
 
-.teasers img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: #0b1220;
-}
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <span class="badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(32,201,151,.12);color:#c7fff0;border:1px solid rgba(32,201,151,.35);padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px">● Melly Private Beta</span>
+        <h1>AI Safety Copilot for real-world OHS.</h1>
+        <p>Melly turns messy compliance into clean, print-ready packs: policies, risk assessments, checklists, training, and multilingual posters — in minutes, not weeks.</p>
 
-.actions .btn { font-size: 16px; }
+        <!-- Primary CTAs -->
+        <div class="actions">
+          <a class="btn primary" href="https://www.youtube.com/watch?v=xcz8F7JpO_E" target="_blank" rel="noopener">Watch the Demo</a>
+          <a class="btn secondary" href="mailto:hello@ohshaven.com?subject=OHS%20Haven%20—%20Melly%20Beta&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.">Email Us</a>
+          <a class="btn accent" href="mailto:hello@ohshaven.com?subject=Join%20Melly%20Early%20Access&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.%0ACompany%3A%20%0AContact%3A%20">Get Early Access</a>
+        </div>
+
+        <!-- Quick request CTAs -->
+        <div class="actions">
+          <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Request:%20Daily%20Checklist%20for%20Service%20Station&body=Hi%20OHS%20Haven%2C%0A%0APlease%20send%20me%20the%20Daily%20Checklist%20for%20a%20Service%20Station.%0A%0ACompany%20Name%3A%20%0ASite%20Address%3A%20%0AContact%20Name%20%2B%20Number%3A%20%0AEmail%3A%20%0ADeadline%3A%20%0A%0AAny%20notes%20or%20specific%20requirements%3A%20%0A%0AThanks!">Request Daily Checklist (Service Station)</a>
+          <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Request:%20Baseline%20Risk%20Assessment%20for%20Food%20Outlet&body=Hi%20OHS%20Haven%2C%0A%0APlease%20send%20me%20a%20Baseline%20Risk%20Assessment%20for%20a%20Food%20Outlet.%0A%0ABusiness%20Name%3A%20%0AAddress%3A%20%0AContact%20Name%20%2B%20Number%3A%20%0AEmail%3A%20%0ADeadline%3A%20%0A%0AType%20of%20food%20operation%3A%20%0A%0AAny%20special%20risks%3A%20%0A%0AThanks!">Baseline Risk Assessment (Food Outlet)</a>
+          <a class="btn accent" href="mailto:hello@ohshaven.com?subject=Merch%20Enquiry%20-%20T-Shirts&body=Hi%20OHS%20Haven%2C%0A%0AI%27m%20interested%20in%20ordering%20OHS%20Haven%20T-Shirts.%0A%0AQuantity%3A%20%0ASizes%3A%20%0AColour%20preferences%3A%20%0ALogo%2FCustomisation%3A%20%0A%0AThanks!">Order OHS Haven T-Shirts</a>
+          <a class="btn disabled" id="slidesBtn" href="#" aria-disabled="true" onclick="return false;" title="Slides demo will unlock when linked">Google Slides Demo (soon)</a>
+        </div>
+      </div>
+
+      <!-- Demo video -->
+      <div class="card media">
+        <iframe src="https://www.youtube.com/embed/xcz8F7JpO_E" title="Melly Demo" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS (Side-by-side image + text) -->
+    <section class="section card" id="how-it-works">
+      <div class="hero" style="grid-template-columns: 1fr 1fr; align-items:center;">
+        <!-- Visual -->
+        <div class="media">
+          <img src="assets/teaser-2.svg" alt="Melly workflow preview" style="width:100%;display:block;border-radius:14px;border:1px solid var(--line)">
+        </div>
+        <!-- Text -->
+        <div>
+          <div class="kicker">How it works</div>
+          <h2 style="margin:.2em 0 8px;font-size:32px;line-height:1.2">From chaos to compliance in 3 moves.</h2>
+          <div class="feature" style="margin-bottom:10px;">
+            <h3>1) Tell Melly your context</h3>
+            <p>Industry, site type, headcount, languages, equipment, and known risks.</p>
+          </div>
+          <div class="feature" style="margin-bottom:10px;">
+            <h3>2) Generate your pack</h3>
+            <p>Policies, baseline RA, daily/weekly checklists, toolbox talks, and multilingual posters.</p>
+          </div>
+          <div class="feature" style="margin-bottom:12px;">
+            <h3>3) Export & brief</h3>
+            <p>PDF/Docx/CSV exports, versioned logs, and easy sharing to email/Slack/Drive.</p>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Join%20Melly%20Early%20Access&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.%0ACompany%3A%20%0AContact%3A%20">Get Early Access</a>
+            <a class="btn secondary" href="mailto:hello@ohshaven.com">Talk to us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+      <div class="kicker">What Melly does</div>
+      <div class="grid">
+        <div class="feature"><h3>Instant OHS Files</h3><p>Auto-generate policies, evacs, and baseline risks tailored to sector.</p></div>
+        <div class="feature"><h3>Multilingual Posters</h3><p>English, Zulu, Xhosa, Sotho, Afrikaans — simple, visual, print-ready.</p></div>
+        <div class="feature"><h3>One-Click Training</h3><p>Toolbox talks, lesson-learned clips, attendance registers — done.</p></div>
+        <div class="feature"><h3>Compliance Alerts</h3><p>Daily/weekly/monthly checks with reminders and exportable logs.</p></div>
+      </div>
+    </section>
+
+    <!-- Teasers -->
+    <section class="section">
+      <div class="kicker">Merch & Resources</div>
+      <div class="teasers">
+        <img src="assets/teaser-1.svg" alt="OHS Haven T-Shirt mockup (coming soon)">
+        <img src="assets/teaser-2.svg" alt="Merch teaser 2 (coming soon)">
+        <img src="assets/teaser-3.svg" alt="Merch teaser 3 (coming soon)">
+        <img src="assets/teaser-4.svg" alt="Merch teaser 4 (coming soon)">
+      </div>
+      <p class="small">Real products drop at launch. For now: just a taste.</p>
+    </section>
+
+    <!-- Audience -->
+    <section class="section card">
+      <div class="kicker">Who it’s for</div>
+      <div class="grid">
+        <div class="feature"><h3>Service Stations</h3><p>Spill response, evacuation, customer service training.</p></div>
+        <div class="feature"><h3>Retail & Food</h3><p>Back-of-house safety, hygiene, stacking & storage.</p></div>
+        <div class="feature"><h3>Construction</h3><p>HIRA, permits-to-work, working at heights & scaffolding.</p></div>
+        <div class="feature"><h3>Warehousing</h3><p>Forklifts, planograms, fire routes, and incident registers.</p></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="section footer">
+      <div>© <span id="y"></span> OHS Haven. All rights reserved.</div>
+      <div class="small">Privacy & Terms coming at launch.</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // Enable the Slides button later by calling:
+    // enableSlidesDemo('YOUR_PUBLISHED_SLIDES_URL');
+    function enableSlidesDemo(url){
+      var b = document.getElementById('slidesBtn');
+      b.href = url; b.classList.remove('disabled'); b.classList.add('primary');
+      b.setAttribute('aria-disabled','false'); b.title='Open Google Slides Demo'; b.onclick=null;
+    }
+  </script>
+</body>
+</html>
+
