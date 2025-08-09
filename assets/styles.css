@@ -46,3 +46,21 @@ body{
 .teasers img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}
 .footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px}
 @media (max-width:880px){ .hero{grid-template-columns:1fr} .hero h1{font-size:36px} }
+.feature {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: 16px;
+  backdrop-filter: blur(4px);
+}
+
+.teasers img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #0b1220;
+}
+
+.actions .btn { font-size: 16px; }
