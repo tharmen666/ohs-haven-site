@@ -1,156 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>OHS Haven — Melly Lite</title>
-  <meta name="description" content="Melly by OHS Haven: AI-powered OHS compliance, training, and automation." />
-  <meta name="theme-color" content="#0e6bff" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="assets/styles.css" />
-</head>
-<body>
-  <div class="container">
-    <!-- Nav -->
-    <nav class="nav">
-      <img src="assets/logo.svg" alt="OHS Haven logo" height="44" width="200" />
-      <div class="right">
-        <a class="small" href="#" aria-disabled="true" onclick="return false;">Docs (soon)</a>
-        <a class="small" href="#" aria-disabled="true" onclick="return false;">Products (soon)</a>
-        <a class="small" href="#" aria-disabled="true" onclick="return false;">Login (soon)</a>
-      </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div>
-        <span class="badge" style="display:inline-flex;align-items:center;gap:8px;background:rgba(32,201,151,.12);color:#c7fff0;border:1px solid rgba(32,201,151,.35);padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px">● Melly Private Beta</span>
-        <h1>AI Safety Copilot for real-world OHS.</h1>
-        <p>Melly turns messy compliance into clean, print-ready packs: policies, risk assessments, checklists, training, and multilingual posters — in minutes, not weeks.</p>
-
-        <!-- Primary CTAs -->
-        <div class="actions">
-          <a class="btn primary" href="https://www.youtube.com/watch?v=xcz8F7JpO_E" target="_blank" rel="noopener">Watch the Demo</a>
-          <a class="btn secondary" href="mailto:hello@ohshaven.com?subject=OHS%20Haven%20—%20Melly%20Beta&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.">Email Us</a>
-          <a class="btn accent" href="mailto:hello@ohshaven.com?subject=Join%20Melly%20Early%20Access&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.%0ACompany%3A%20%0AContact%3A%20">Get Early Access</a>
-        </div>
-
-        <!-- Quick request CTAs -->
-        <div class="actions">
-          <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Request:%20Daily%20Checklist%20for%20Service%20Station&body=Hi%20OHS%20Haven%2C%0A%0APlease%20send%20me%20the%20Daily%20Checklist%20for%20a%20Service%20Station.%0A%0ACompany%20Name%3A%20%0ASite%20Address%3A%20%0AContact%20Name%20%2B%20Number%3A%20%0AEmail%3A%20%0ADeadline%3A%20%0A%0AAny%20notes%20or%20specific%20requirements%3A%20%0A%0AThanks!">Request Daily Checklist (Service Station)</a>
-          <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Request:%20Baseline%20Risk%20Assessment%20for%20Food%20Outlet&body=Hi%20OHS%20Haven%2C%0A%0APlease%20send%20me%20a%20Baseline%20Risk%20Assessment%20for%20a%20Food%20Outlet.%0A%0ABusiness%20Name%3A%20%0AAddress%3A%20%0AContact%20Name%20%2B%20Number%3A%20%0AEmail%3A%20%0ADeadline%3A%20%0A%0AType%20of%20food%20operation%3A%20%0A%0AAny%20special%20risks%3A%20%0A%0AThanks!">Baseline Risk Assessment (Food Outlet)</a>
-          <a class="btn accent" href="mailto:hello@ohshaven.com?subject=Merch%20Enquiry%20-%20T-Shirts&body=Hi%20OHS%20Haven%2C%0A%0AI%27m%20interested%20in%20ordering%20OHS%20Haven%20T-Shirts.%0A%0AQuantity%3A%20%0ASizes%3A%20%0AColour%20preferences%3A%20%0ALogo%2FCustomisation%3A%20%0A%0AThanks!">Order OHS Haven T-Shirts</a>
-          <a class="btn disabled" id="slidesBtn" href="#" aria-disabled="true" onclick="return false;" title="Slides demo will unlock when linked">Google Slides Demo (soon)</a>
-        </div>
-      </div>
-
-      <!-- Demo video -->
-      <div class="card media">
-        <iframe src="https://www.youtube.com/embed/xcz8F7JpO_E" title="Melly Demo" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS (Side-by-side image + text) -->
-    <section class="section card" id="how-it-works">
-      <div class="hero" style="grid-template-columns: 1fr 1fr; align-items:center;">
-        <!-- Visual -->
-        <div class="media">
-          <img src="assets/teaser-2.svg" alt="Melly workflow preview" style="width:100%;display:block;border-radius:14px;border:1px solid var(--line)">
-        </div>
-        <!-- Text -->
-        <div>
-          <div class="kicker">How it works</div>
-          <h2 style="margin:.2em 0 8px;font-size:32px;line-height:1.2">From chaos to compliance in 3 moves.</h2>
-          <div class="feature" style="margin-bottom:10px;">
-            <h3>1) Tell Melly your context</h3>
-            <p>Industry, site type, headcount, languages, equipment, and known risks.</p>
-          </div>
-          <div class="feature" style="margin-bottom:10px;">
-            <h3>2) Generate your pack</h3>
-            <p>Policies, baseline RA, daily/weekly checklists, toolbox talks, and multilingual posters.</p>
-          </div>
-          <div class="feature" style="margin-bottom:12px;">
-            <h3>3) Export & brief</h3>
-            <p>PDF/Docx/CSV exports, versioned logs, and easy sharing to email/Slack/Drive.</p>
-          </div>
-          <div class="actions">
-            <a class="btn primary" href="mailto:hello@ohshaven.com?subject=Join%20Melly%20Early%20Access&body=Hi%20team%2C%20please%20add%20me%20to%20early%20access.%0ACompany%3A%20%0AContact%3A%20">Get Early Access</a>
-            <a class="btn secondary" href="mailto:hello@ohshaven.com">Talk to us</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section class="section">
-      <div class="kicker">What Melly does</div>
-      <div class="grid">
-        <div class="feature"><h3>Instant OHS Files</h3><p>Auto-generate policies, evacs, and baseline risks tailored to sector.</p></div>
-        <div class="feature"><h3>Multilingual Posters</h3><p>English, Zulu, Xhosa, Sotho, Afrikaans — simple, visual, print-ready.</p></div>
-        <div class="feature"><h3>One-Click Training</h3><p>Toolbox talks, lesson-learned clips, attendance registers — done.</p></div>
-        <div class="feature"><h3>Compliance Alerts</h3><p>Daily/weekly/monthly checks with reminders and exportable logs.</p></div>
-      </div>
-    </section>
-
-    <!-- Teasers -->
-    <section class="section">
-      <div class="kicker">Merch & Resources</div>
-      <div class="teasers">
-        <img src="assets/teaser-1.svg" alt="OHS Haven T-Shirt mockup (coming soon)">
-        <img src="assets/teaser-2.svg" alt="Merch teaser 2 (coming soon)">
-        <img src="assets/teaser-3.svg" alt="Merch teaser 3 (coming soon)">
-        <img src="assets/teaser-4.svg" alt="Merch teaser 4 (coming soon)">
-      </div>
-      <p class="small">Real products drop at launch. For now: just a taste.</p>
-    </section>
-
-    <!-- Audience -->
-    <section class="section card">
-      <div class="kicker">Who it’s for</div>
-      <div class="grid">
-        <div class="feature"><h3>Service Stations</h3><p>Spill response, evacuation, customer service training.</p></div>
-        <div class="feature"><h3>Retail & Food</h3><p>Back-of-house safety, hygiene, stacking & storage.</p></div>
-        <div class="feature"><h3>Construction</h3><p>HIRA, permits-to-work, working at heights & scaffolding.</p></div>
-        <div class="feature"><h3>Warehousing</h3><p>Forklifts, planograms, fire routes, and incident registers.</p></div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="section footer">
-      <div>© <span id="y"></span> OHS Haven. All rights reserved.</div>
-      <div class="small">Privacy & Terms coming at launch.</div>
-    </footer>
-  </div>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    // Enable the Slides button later by calling:
-    // enableSlidesDemo('YOUR_PUBLISHED_SLIDES_URL');
-    function enableSlidesDemo(url){
-      var b = document.getElementById('slidesBtn');
-      b.href = url; b.classList.remove('disabled'); b.classList.add('primary');
-      b.setAttribute('aria-disabled','false'); b.title='Open Google Slides Demo'; b.onclick=null;
-    }
-  </script>
-</body>
-</html>
-/* ---- Forms / inputs ---- */
-.input{
-  width:100%;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.06);
+/* ===== OHS Haven — Bright, 3D-ish UI ===== */
+:root{
+  --brand:#2f7aff;
+  --brand-2:#0e6bff;
+  --accent:#ff7a00;
+  --ok:#22d3ee;
+  --text:#eaf2ff;
+  --muted:#b7c3d9;
+  --line:rgba(255,255,255,.12);
+  --bg-1:#081225;
+  --bg-2:#0c1a34;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
   color:var(--text);
-  outline:none;
+  background:
+    radial-gradient(1200px 700px at -10% -20%, rgba(47,122,255,.35), transparent 60%),
+    radial-gradient(900px 500px at 120% 120%, rgba(255,122,0,.25), transparent 60%),
+    linear-gradient(135deg,var(--bg-1),var(--bg-2));
 }
-.input:focus{
-  border-color: rgba(14,107,255,.55);
-  background: rgba(255,255,255,.09);
+.container{max-width:1160px;margin:0 auto;padding:28px}
+.section{padding:32px 0}
+
+/* Nav */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.nav-left{display:flex;align-items:center;gap:14px}
+.nav img{height:56px;filter:drop-shadow(0 6px 18px rgba(47,122,255,.35))}
+.brand-name{font-weight:900;letter-spacing:.2px;font-size:22px;line-height:1}
+.brand-name span{color:var(--accent)}
+.small{font-size:12px;color:var(--muted)}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start;padding:18px 0}
+.hero h1{font-size:50px;line-height:1.05;margin:.2em 0}
+.hero p{color:var(--muted);font-size:17px;line-height:1.65}
+
+/* Cards / media */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--line);border-radius:22px;padding:18px;
+  box-shadow:0 12px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
 }
+.media{border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.media iframe, .media img{width:100%;aspect-ratio:16/9;border:0;display:block}
+
+/* CTAs — bright, 3D */
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.btn{
+  appearance:none;border:none;cursor:pointer;text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:13px 20px;border-radius:14px;font-weight:900;letter-spacing:.25px;
+  transition:transform .06s ease, box-shadow .15s ease, filter .2s ease, background .2s ease;
+  will-change:transform,filter;
+}
+.btn:active{transform:translateY(1px)}
+.btn.primary{
+  color:#fff;background:linear-gradient(180deg, var(--brand), var(--brand-2));
+  box-shadow:0 10px 26px rgba(47,122,255,.45), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.accent{
+  color:#1b0f05;background:linear-gradient(180deg, #ffa14a, var(--accent));
+  box-shadow:0 10px 26px rgba(255,122,0,.45), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn.accent:hover{filter:brightness(1.06)}
+.btn.secondary{
+  color:var(--text);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+  border:1px solid var(--line);
+  box-shadow:0 8px 22px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.btn.secondary:hover{background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08))}
+.btn.disabled{pointer-events:none;opacity:.6}
+
+/* Feature cards & grids */
+.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.feature{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:16px;padding:14px}
+.feature h3{margin:6px 0 8px;font-size:18px}
+.feature p{margin:0;color:var(--muted);font-size:14px}
+
+/* Teasers */
+.teasers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.teasers img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#0b1220;display:block}
+
+/* Form inputs */
+.input{
+  width:100%; padding:11px 12px; border-radius:12px; border:1px solid var(--line);
+  background:rgba(255,255,255,.07); color:var(--text); outline:none;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.input:focus{ border-color: rgba(47,122,255,.65); background:rgba(255,255,255,.10) }
 label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 form .feature{display:block}
 
-/* Minor spacing tune-ups */
-.section h2{margin:.2em 0 8px;font-size:32px;line-height:1.2}
+/* Footer */
+.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px}
+
+/* Mobile */
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:38px}
+  .nav img{height:48px}
+  .brand-name{font-size:18px}
+}
+
 
