@@ -134,4 +134,23 @@
   </script>
 </body>
 </html>
+/* ---- Forms / inputs ---- */
+.input{
+  width:100%;
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  outline:none;
+}
+.input:focus{
+  border-color: rgba(14,107,255,.55);
+  background: rgba(255,255,255,.09);
+}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+form .feature{display:block}
+
+/* Minor spacing tune-ups */
+.section h2{margin:.2em 0 8px;font-size:32px;line-height:1.2}
 
