@@ -126,5 +126,31 @@ form .feature{display:block}
 .nav{ position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
   background: linear-gradient(180deg, rgba(8,18,37,.72), rgba(8,18,37,.35)); border-bottom:1px solid var(--line) }
 
+<!-- Melly floating avatar -->
+<div class="melly-widget" id="mellyBtn" aria-label="Open Melly FAQ" title="Chat with Melly">
+  <span class="melly-pulse"></span>
+  <img src="assets/melly-avatar.jpg" alt="Melly avatar">
+</div>
+
+<!-- Melly drawer -->
+<div class="melly-drawer" id="mellyDrawer" role="dialog" aria-modal="true" aria-labelledby="mellyTitle">
+  <div class="melly-head">
+    <img src="assets/melly-avatar.jpg" alt="Melly avatar small">
+    <h4 id="mellyTitle">Hi, I’m Melly 👋</h4>
+    <span class="melly-close" id="mellyClose">Close</span>
+  </div>
+  <div class="melly-body">
+    <details class="melly-faq"><summary>What does Melly generate?</summary><p>Policies, baseline risk assessments, daily/weekly checklists, toolbox talks, and multilingual posters tailored to your site.</p></details>
+    <details class="melly-faq"><summary>How fast is it?</summary><p>Drafts in minutes. You can export the same day.</p></details>
+    <details class="melly-faq"><summary>Which formats?</summary><p>PDF, Docx, and CSV. Posters are print-ready A3/A4.</p></details>
+    <details class="melly-faq"><summary>Data privacy?</summary><p>Your inputs stay private. Outputs are versioned with an audit trail.</p></details>
+    <details class="melly-faq"><summary>Pricing?</summary><p>Beta pricing on request. We do site-based and consultant-friendly plans.</p></details>
+    <details class="melly-faq"><summary>Can you customize for my sector?</summary><p>Yes — service stations, food retail, construction, warehousing and more.</p></details>
+  </div>
+  <div class="melly-actions">
+    <a class="btn secondary" href="#early-access">Join the beta</a>
+    <a class="btn accent" href="mailto:tharmendesigan36@gmail.com?subject=Melly%20question&body=Hi%20Melly%2C%20I%20have%20a%20quick%20question%3A%20">Email Us</a>
+  </div>
+</div>
 
 
