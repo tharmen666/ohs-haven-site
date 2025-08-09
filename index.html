@@ -160,6 +160,51 @@
 <div id="melly-avatar">
   <img src="assets/melly-avatar.jpg" alt="Melly" />
 </div>
+<!-- Floating Melly (bigger) -->
+<div id="melly-btn" aria-label="Open Melly">
+  <img src="assets/melly-avatar.jpg" alt="Melly">
+</div>
+
+<!-- Melly Drawer -->
+<div id="melly-drawer" role="dialog" aria-modal="true" aria-labelledby="mellyTitle">
+  <div class="m-head">
+    <img src="assets/melly-avatar.jpg" alt="Melly">
+    <h4 id="mellyTitle">Hi, I’m Melly 👋</h4>
+    <span class="m-close" id="mellyClose">Close</span>
+  </div>
+  <div class="m-body">
+    <details class="m-faq"><summary>What does Melly generate?</summary><p>Policies, baseline RA, daily/weekly checklists, toolbox talks, and multilingual posters tailored to your site.</p></details>
+    <details class="m-faq"><summary>How fast?</summary><p>Drafts in minutes. Export the same day.</p></details>
+    <details class="m-faq"><summary>Formats?</summary><p>PDF, Docx, CSV. Posters are print-ready A3/A4.</p></details>
+    <details class="m-faq"><summary>Privacy?</summary><p>Inputs stay private. Outputs are versioned with an audit trail.</p></details>
+  </div>
+  <div class="m-actions">
+    <a class="btn secondary" href="#early-access">Join the beta</a>
+    <a class="btn accent" href="mailto:tharmendesigan36@gmail.com?subject=Melly%20question&body=Hi%20Melly%2C%20I%20have%20a%20quick%20question%3A%20">Email us</a>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const btn = document.getElementById('melly-btn');
+    const drawer = document.getElementById('melly-drawer');
+    const closeEl = document.getElementById('mellyClose');
+
+    function toggle(open){ drawer.classList[open ? 'add' : 'remove']('open'); }
+    btn.addEventListener('click', ()=> toggle(!drawer.classList.contains('open')));
+    closeEl.addEventListener('click', ()=> toggle(false));
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') toggle(false); });
+
+    // Smooth-scroll for in-drawer anchors
+    drawer.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', ev=>{
+        ev.preventDefault();
+        const el = document.querySelector(a.getAttribute('href'));
+        if(el){ el.scrollIntoView({behavior:'smooth'}); toggle(false); }
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
