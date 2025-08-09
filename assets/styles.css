@@ -174,5 +174,40 @@ form .feature{display:block}
 #melly-avatar img:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}/* === Floating Melly button (bigger) + Drawer === */
+#melly-btn{
+  position:fixed; bottom:18px; right:18px; /* change to left:18px; and remove right: if you want bottom-left */
+  z-index:1000; width:92px; height:92px; border-radius:50%;
+  background:linear-gradient(180deg,#2f7aff,#0e6bff);
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow:0 14px 34px rgba(14,107,255,.45); border:1px solid rgba(255,255,255,.25);
 }
+#melly-btn img{
+  width:86px; height:86px; border-radius:50%; object-fit:cover;
+  border:2px solid rgba(255,255,255,.7); box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+#melly-btn:hover{ transform:translateY(-1px); transition:transform .12s ease }
+
+#melly-drawer{
+  position:fixed; right:18px; bottom:120px; /* if you move the button to left, also change this to left:18px */
+  width:360px; max-width:92vw; z-index:1000; display:none;
+  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
+  border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 22px 70px rgba(0,0,0,.5); backdrop-filter:blur(10px);
+}
+#melly-drawer.open{ display:block; }
+
+.m-head{display:flex;align-items:center;gap:10px;padding:12px;border-bottom:1px solid var(--line)}
+.m-head img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.6)}
+.m-head h4{margin:0;font-size:16px}
+.m-close{margin-left:auto;color:var(--muted);font-size:12px;cursor:pointer}
+
+.m-body{padding:12px;max-height:55vh;overflow:auto}
+.m-faq{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px}
+.m-faq summary{cursor:pointer;font-weight:800}
+.m-faq p{margin:8px 0 0;color:var(--muted);font-size:14px}
+
+.m-actions{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.m-actions .btn{flex:1}
+
 
