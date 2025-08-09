@@ -220,6 +220,19 @@
 <div id="melly-popup">
     <img src="assets/melly-face.png" alt="Melly" />
 </div>
+<script>
+document.getElementById('melly-icon').addEventListener('click', function () {
+    const popup = document.getElementById('melly-popup');
+
+    if (popup.style.display === 'none' || popup.style.display === '') {
+        popup.style.display = 'block';
+    } else {
+        popup.style.display = 'none';
+    }
+});
+</script>
+</body>
+</html>
 
 </body>
 </html>
