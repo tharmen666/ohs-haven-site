@@ -5,6 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OHS Haven</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Pulse effect for Melly icon */
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(255, 223, 0, 1), 0 0 50px rgba(255, 223, 0, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
+      }
+    }
+    #mellyIcon {
+      animation: pulseGlow 1.5s infinite;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,12 +34,10 @@
   <!-- MELLY ICON -->
   <div id="mellyIcon" 
        style="position:fixed;bottom:20px;left:20px;width:60px;height:60px;
-              background-color:#00ffc3;border-radius:50%;display:flex;align-items:center;
-              justify-content:center;cursor:pointer;z-index:10000;box-shadow:0 0 10px rgba(0,255,195,0.8);">
-    <img src="assets/melly-icon.png" alt="Melly Icon" style="width:40px;height:40px;">
+              background-color:#ffdf00;border-radius:50%;display:flex;align-items:center;
+              justify-content:center;cursor:pointer;z-index:10000;overflow:hidden;">
+    <img src="assets/melly-avatar.jpg" alt="Melly Icon" style="width:100%;height:100%;object-fit:cover;">
   </div>
-
-  <!-- YOUR CONTENT HERE -->
 
   <!-- SCRIPTS -->
   <script>
@@ -46,7 +61,7 @@
           let mellyFace = document.getElementById("mellyFace");
           if (!mellyFace) {
             mellyFace = document.createElement("img");
-            mellyFace.src = "assets/melly-avatar.jpg"; // path to your uploaded image
+            mellyFace.src = "assets/melly-avatar.jpg"; // Same image for large fade-in
             mellyFace.id = "mellyFace";
             mellyFace.style.position = "fixed";
             mellyFace.style.bottom = "80px";
@@ -54,7 +69,7 @@
             mellyFace.style.width = "140px";
             mellyFace.style.height = "auto";
             mellyFace.style.borderRadius = "12px";
-            mellyFace.style.boxShadow = "0 0 25px rgba(0,255,200,0.9)";
+            mellyFace.style.boxShadow = "0 0 25px rgba(255, 223, 0, 0.9)";
             mellyFace.style.opacity = "0";
             mellyFace.style.transition = "opacity 0.6s ease-in-out";
             mellyFace.style.zIndex = "9999";
