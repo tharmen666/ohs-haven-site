@@ -1,53 +1,23 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OHS Haven — Melly Lite</title>
-  <meta name="description" content="OHS Haven — simple, automated safety training and checklists. Melly Lite helps you capture compliance and act on risks fast." />
-
-  <!-- Base stylesheet already in your repo -->
-  <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Brand + polish overrides (kept inline so you don't edit other files) -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OHS Haven — Safe Mode</title>
   <style>
-    :root{
-      --brand-orange:#ff6a00;
-      --brand-orange-2:#ff8a33;
-      --ink:#0b1020;
-      --ink-2:#141b2e;
-      --text:#eaf0ff;
-    }
-    *{box-sizing:border-box}
-    body{
-      background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(255,106,0,.18), transparent 60%),
-        linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%) !important;
-      color: var(--text);
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
-    }
-    /* Header */
-    .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(20,27,46,.9), rgba(20,27,46,.6));
-      backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid rgba(255,255,255,.06);
-      display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
-    .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700}
-    .logo-svg{height:28px;width:auto;display:block}
-    /* Nav */
-    .nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .nav-link{color:#cdd7ff;text-decoration:none;padding:8px 10px;border-radius:10px}
-    .nav-link:hover{color:#fff}
-    .nav-link.highlight{background:rgba(255,106,0,.16);border:1px solid rgba(255,106,0,.4);color:#fff;
-      box-shadow:0 0 0 3px rgba(255,106,0,.08) inset}
-    /* Buttons */
-    .btn{display:inline-block;padding:12px 18px;border-radius:12px;text-decoration:none;
-      background:var(--brand-orange);color:#fff;box-shadow:0 6px 16px rgba(255,106,0,.28);border:0;cursor:pointer}
-    .btn:hover{transform:translateY(-1px);filter:brightness(.98)}
-    .btn:active{transform:translateY(0)}
-    .btn-primary{background:linear-gradient(180deg,var(--brand-orange),var(--brand-orange-2));
-      box-shadow:0 10px 24px rgba(255,106,0,.32)}
-    .btn.btn-outline{background:transparent;color:#ffd6bf;border:1px solid rgba(255,106,0,.6)}
-    .btn.btn-outline:hover{background:rgba(255,106,0,.12)}
-    /* Hero */
-    .hero{padding:84px 16px 48px; text-align:center; position:relative}
-    .hero h1{font-size:clamp(32px,6vw,56px); line-height:1.02; letter-spacing:.2px; margin:0 0 8px}
+    body{font:16px/1.4 system-ui;margin:0;padding:24px}
+    a{display:block;margin:8px 0}
+    code{background:#eee;padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <h1>OHS Haven — Safe Mode 🛟</h1>
+  <p>If you can read this, your publish directory and routing are correct.</p>
+  <h2>Quick file checks</h2>
+  <ul>
+    <li><a href="assets/app.js" target="_blank">assets/app.js</a></li>
+    <li><a href="assets/checklists.js" target="_blank">assets/checklists.js</a></li>
+    <li><a href=".netlify/functions/checklist-submit" target="_blank">.netlify/functions/checklist-submit (should say 405)</a></li>
+  </ul>
+  <p>Current URL: <code><script>document.write(location.href)</script></code></p>
+</body>
+</html>
