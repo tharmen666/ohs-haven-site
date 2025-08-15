@@ -2,9 +2,14 @@
   publish = "."
   command = ""
 
+# Schedules (UTC). 06:00 UTC ≈ 08:00 SAST
 [[scheduled.functions]]
-  name = "daily-tip"
-  cron = "0 5 * * *" # 05:00 UTC ≈ 07:00 SAST
+  name = "checklist-reminder"
+  cron = "0 6 * * 1-5"   # Weekdays 08:00 SAST
+
+[[scheduled.functions]]
+  name = "weekly-summary"
+  cron = "0 6 * * 1"     # Mondays 08:00 SAST
 
 [functions]
   directory = "netlify/functions"
