@@ -1,134 +1,171 @@
-<!-- ===================== START: OHS Haven modals & app ===================== -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OHS Haven — Melly Lite</title>
+  <meta name="description" content="OHS Haven — simple, automated safety training and checklists. Melly Lite helps you capture compliance and act on risks fast." />
 
-<!-- Video modal -->
-<div id="video-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel">
-    <button type="button" data-close aria-label="Close"
-            style="position:absolute;top:8px;right:12px">✕</button>
-    <iframe allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  </div>
-</div>
+  <!-- Site stylesheet -->
+  <link rel="stylesheet" href="assets/styles.css" />
 
-<!-- Lead form modal (Netlify Forms – no backend needed) -->
-<div id="lead-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel" style="max-width:520px;aspect-ratio:auto">
-    <button type="button" data-close aria-label="Close"
-            style="position:absolute;top:8px;right:12px">✕</button>
+  <!-- Minimal safety net styles (ok to keep even if also in styles.css) -->
+  <style>
+    .dialog{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:9998}
+    .dialog[hidden]{display:none}
+    .dialog .panel{background:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4);position:relative}
+    .dialog .panel iframe{width:100%;height:100%;border:0}
+    #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;background:#111;color:#fff;border-radius:8px;opacity:0;transition:opacity .2s,transform .2s;font:14px/1.2 system-ui;z-index:9999}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:#0d6efd;color:#fff;text-decoration:none}
+    .btn:hover{filter:brightness(0.95)}
+    header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
+    nav a{margin:0 8px;text-decoration:none}
+    .hero{padding:60px 16px;text-align:center}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+    section{padding:48px 16px}
+    footer{padding:24px;text-align:center;background:#111;color:#fff;font-size:12px}
+    .hidden{display:none}
+    /* Checklist UI */
+    .cl-item{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;padding:10px;border:1px solid #eee;border-radius:10px;background:#fff}
+    .cl-item .ev{border:1px solid #ddd;border-radius:8px;padding:6px 8px;min-width:160px}
+    .sev{font:12px/1.2 system-ui;padding:4px 8px;border-radius:999px;background:#eee;text-transform:uppercase}
+    .sev.high{background:#ffe5e5}
+    .sev.med{background:#fff8e6}
+    .tab{padding:8px 12px;border-radius:999px;border:1px solid #ddd;background:#fafafa;cursor:pointer}
+    .tab.active{background:#111;color:#fff;border-color:#111}
+  </style>
 
-    <form name="lead" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-          action="/?thanks=1"
-          style="padding:20px;display:grid;gap:12px">
-      <input type="hidden" name="form-name" value="lead">
-      <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
+  <!-- Plausible (analytics) -->
+  <script defer data-domain="ohshaven.com" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
 
-      <h3>Get the OHS Training Kit</h3>
-      <input type="text"  name="name"    placeholder="Your name" required>
-      <input type="email" name="email"   placeholder="Email" required>
-      <input type="text"  name="company" placeholder="Company (optional)">
-      <button type="submit" class="btn">Send</button>
-      <small>We’ll email you the files and next steps.</small>
-    </form>
-  </div>
-</div>
+  <header>
+    <strong>OHS Haven — Melly Lite</strong>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#contact">Contact</a>
+      <a class="btn" data-open="lead-modal">Get the Kit</a>
+    </nav>
+  </header>
 
-<!-- App wiring -->
-<script src="assets/app.js"></script>
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <h1 style="margin:0 0 8px">Automate the boring safety stuff</h1>
+      <p style="margin:0 0 20px;opacity:.85">
+        Capture checklists, log NLIs, and get guided next steps. No spreadsheets. No drama.
+      </p>
 
-<!-- ====================== END: OHS Haven modals & app ====================== -->
+      <div class="cta-row">
+        <!-- Primary CTA: opens the lead form -->
+        <a class="btn" data-open="lead-modal" data-track="cta">Get the Training Kit</a>
 
-<!-- ===================== START: Checklist Runner modal ===================== -->
-<div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel" style="max-width:760px;aspect-ratio:auto; position:relative;">
-    <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
-    <section style="padding:16px 18px; display:grid; gap:12px;">
-      <h3 style="margin:0">Run OHS Checklist</h3>
+        <!-- Checklist Runner -->
+        <a class="btn" data-open="checklist-modal">Run Daily Checklist</a>
 
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
-        <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;">
-        <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;">
-      </div>
-<!-- Video modal -->
-<div id="video-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel">
-    <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
-    <iframe allow="autoplay; encrypted-media" allowfullscreen></iframe>
-  </div>
-</div>
+        <!-- Demo video (replace VIDEO_ID when ready) -->
+        <a class="btn" data-video="https://www.youtube.com/embed/VIDEO_ID?rel=0">Watch 40-sec Demo</a>
 
-<!-- Lead form modal -->
-<div id="lead-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel" style="max-width:520px;aspect-ratio:auto">
-    <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
-    <form name="lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?thanks=1"
-          style="padding:20px;display:grid;gap:12px">
-      <input type="hidden" name="form-name" value="lead">
-      <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
-      <h3>Get the OHS Training Kit</h3>
-      <input type="text" name="name" placeholder="Your name" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="text" name="company" placeholder="Company (optional)">
-      <button type="submit" class="btn">Send</button>
-      <small>We’ll email you the files and next steps.</small>
-    </form>
-  </div>
-</div>
-
-<!-- ✅ Checklist Runner modal (paste THIS block here) -->
-<div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-  <div class="panel" style="max-width:760px;aspect-ratio:auto; position:relative;">
-    <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
-    <section style="padding:16px 18px; display:grid; gap:12px;">
-      <h3 style="margin:0">Run OHS Checklist</h3>
-
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
-        <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;">
-        <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;">
-      </div>
-
-      <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
-
-      <div id="cl-progress" style="background:#eee; border-radius:999px; overflow:hidden; height:10px;">
-        <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
-      </div>
-      <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
-
-      <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
-
-      <div style="display:flex; justify-content:flex-end; gap:10px">
-        <button type="button" class="btn" data-close>Cancel</button>
-        <button type="button" id="cl-submit" class="btn">Save Checklist</button>
+        <!-- Quick contact -->
+        <a class="btn" data-whatsapp="+27 71 234 5678" data-text="Hi, I need OHS help.">WhatsApp Us</a>
+        <a class="btn" data-mail="hello@ohshaven.com">Email Us</a>
       </div>
     </section>
-  </div>
-</div>
 
-<!-- Scripts must come after the modals -->
-<script src="assets/app.js"></script>
-<script src="assets/checklists.js"></script>
-</body>
-</html>
-
-      <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
-
-      <div id="cl-progress" style="background:#eee; border-radius:999px; overflow:hidden; height:10px;">
-        <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
-      </div>
-      <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
-
-      <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
-
-      <div style="display:flex; justify-content:flex-end; gap:10px">
-        <button type="button" class="btn" data-close>Cancel</button>
-        <button type="button" id="cl-submit" class="btn">Save Checklist</button>
-      </div>
+    <!-- Simple content sections -->
+    <section id="features">
+      <h2>Features</h2>
+      <ul>
+        <li>Lead capture (Netlify Forms) — zero backend</li>
+        <li>Automated checklists (daily/weekly/monthly)</li>
+        <li>Alerts to Slack/Discord on non-compliance</li>
+        <li>Ready for DB (Supabase) and analytics</li>
+      </ul>
     </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>Click “Run Daily Checklist” and complete items.</li>
+        <li>Hit “Save” — we log the results (and alert if needed).</li>
+        <li>Use the Training Kit to upskill your team.</li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Prefer email or WhatsApp? Use the buttons above — we’ve got you.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 OHS Haven™ — All rights reserved. Developed by Desigan Tharmen.
+  </footer>
+
+  <!-- ===================== Modals ===================== -->
+
+  <!-- Video modal -->
+  <div id="video-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <iframe allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
   </div>
-</div>
-<!-- ====================== END: Checklist Runner modal ====================== -->
 
-<!-- Load app + checklist scripts -->
-<script src="assets/app.js"></script>
-<script src="assets/checklists.js"></script>
+  <!-- Lead form modal (Netlify Forms) -->
+  <div id="lead-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel" style="max-width:520px;aspect-ratio:auto">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <form name="lead" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+            action="/?thanks=1"
+            style="padding:20px;display:grid;gap:12px">
+        <input type="hidden" name="form-name" value="lead" />
+        <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
 
+        <h3>Get the OHS Training Kit</h3>
+        <input type="text"  name="name"    placeholder="Your name" required />
+        <input type="email" name="email"   placeholder="Email" required />
+        <input type="text"  name="company" placeholder="Company (optional)" />
+        <button type="submit" class="btn">Send</button>
+        <small>We’ll email you the files and next steps.</small>
+      </form>
+    </div>
+  </div>
+
+  <!-- Checklist Runner modal -->
+  <div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel" style="max-width:760px;aspect-ratio:auto; position:relative;">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <section style="padding:16px 18px; display:grid; gap:12px;">
+        <h3 style="margin:0">Run OHS Checklist</h3>
+
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+          <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;" />
+          <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;" />
+        </div>
+
+        <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
+
+        <div id="cl-progress" style="background:#eee; border-radius:999px; overflow:hidden; height:10px;">
+          <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
+        </div>
+        <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
+
+        <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px">
+          <button type="button" class="btn" data-close>Cancel</button>
+          <button type="button" id="cl-submit" class="btn">Save Checklist</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Scripts (order matters) -->
+  <script src="assets/app.js"></script>
+  <script src="assets/checklists.js"></script>
 </body>
 </html>
