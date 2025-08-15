@@ -1,106 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OHS Haven</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Pulse effect for Melly icon */
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
-      }
-      50% {
-        box-shadow: 0 0 25px rgba(255, 223, 0, 1), 0 0 50px rgba(255, 223, 0, 0.8);
-      }
-      100% {
-        box-shadow: 0 0 10px rgba(255, 223, 0, 0.8), 0 0 20px rgba(255, 223, 0, 0.6);
-      }
-    }
-    #mellyIcon {
-      animation: pulseGlow 1.5s infinite;
-    }
-  </style>
-</head>
-<body>
+<!-- ===================== START: OHS Haven modals & app ===================== -->
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <h1>Welcome to OHS Haven</h1>
-    <p>Your Safety Compliance Partner</p>
-  </section>
-
-  <!-- MELLY ICON -->
-  <div id="mellyIcon" 
-       style="position:fixed;bottom:20px;left:20px;width:60px;height:60px;
-              background-color:#ffdf00;border-radius:50%;display:flex;align-items:center;
-              justify-content:center;cursor:pointer;z-index:10000;overflow:hidden;">
-    <img src="assets/melly-avatar.jpg" alt="Melly Icon" style="width:100%;height:100%;object-fit:cover;">
-  </div>
-
-  <!-- SCRIPTS -->
-  <script>
-    // Enable the Slides button later by calling:
-    // enableSlidesDemo('YOUR_PUBLISHED_SLIDES_URL');
-    function enableSlidesDemo(url){
-      var b = document.getElementById('slidesBtn');
-      b.href = url; 
-      b.classList.remove('disabled'); 
-      b.classList.add('primary');
-      b.setAttribute('aria-disabled','false'); 
-      b.title='Open Google Slides Demo'; 
-      b.onclick=null;
-    }
-
-    // === MELLY AVATAR FADE-IN ===
-    document.addEventListener("DOMContentLoaded", function () {
-      const mellyIcon = document.getElementById("mellyIcon");
-      if (mellyIcon) {
-        mellyIcon.addEventListener("click", function () {
-          let mellyFace = document.getElementById("mellyFace");
-          if (!mellyFace) {
-            mellyFace = document.createElement("img");
-            mellyFace.src = "assets/melly-avatar.jpg"; // Same image for large fade-in
-            mellyFace.id = "mellyFace";
-            mellyFace.style.position = "fixed";
-            mellyFace.style.bottom = "80px";
-            mellyFace.style.left = "20px";
-            mellyFace.style.width = "140px";
-            mellyFace.style.height = "auto";
-            mellyFace.style.borderRadius = "12px";
-            mellyFace.style.boxShadow = "0 0 25px rgba(255, 223, 0, 0.9)";
-            mellyFace.style.opacity = "0";
-            mellyFace.style.transition = "opacity 0.6s ease-in-out";
-            mellyFace.style.zIndex = "9999";
-            document.body.appendChild(mellyFace);
-            setTimeout(() => {
-              mellyFace.style.opacity = "1";
-            }, 50);
-          } else {
-            mellyFace.style.opacity = mellyFace.style.opacity === "1" ? "0" : "1";
-          }
-        });
-      }
-    });
-  </script>
-
-  <!-- FOOTER -->
-  <footer style="text-align:center;padding:20px;background-color:#111;color:#fff;font-size:12px;">
-    <p>© 2025 OHS Haven™ — All rights reserved.<br>
-    Developed by Desigan Tharmen.<br>
-    Unauthorized reproduction or resale is prohibited without written consent.</p>
-  </footer>
-<!-- Reusable video modal -->
+<!-- Video modal -->
 <div id="video-modal" class="dialog" role="dialog" aria-modal="true" hidden>
   <div class="panel">
-    <button type="button" data-close-modal style="position:absolute;top:8px;right:12px">✕</button>
+    <button type="button" data-close aria-label="Close"
+            style="position:absolute;top:8px;right:12px">✕</button>
     <iframe allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- Lead form modal (Netlify Forms – no backend needed) -->
+<div id="lead-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+  <div class="panel" style="max-width:520px;aspect-ratio:auto">
+    <button type="button" data-close aria-label="Close"
+            style="position:absolute;top:8px;right:12px">✕</button>
+
+    <form name="lead" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+          action="/?thanks=1"
+          style="padding:20px;display:grid;gap:12px">
+      <input type="hidden" name="form-name" value="lead">
+      <p class="hidden"><label>Don’t fill this out: <input name="bot-field"></label></p>
+
+      <h3>Get the OHS Training Kit</h3>
+      <input type="text"  name="name"    placeholder="Your name" required>
+      <input type="email" name="email"   placeholder="Email" required>
+      <input type="text"  name="company" placeholder="Company (optional)">
+      <button type="submit" class="btn">Send</button>
+      <small>We’ll email you the files and next steps.</small>
+    </form>
   </div>
 </div>
 
 <!-- App wiring -->
 <script src="assets/app.js"></script>
+
+<!-- ====================== END: OHS Haven modals & app ====================== -->
+
 
 </body>
 </html>
