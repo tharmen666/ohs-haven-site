@@ -1,20 +1,202 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>OHS Haven — Safe Mode</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OHS Haven — Melly Lite</title>
+  <meta name="description" content="OHS Haven — simple, automated safety training and checklists. Melly Lite helps you capture compliance and act on risks fast." />
+  <meta property="og:title" content="OHS Haven — Melly Lite" />
+  <meta property="og:description" content="Automate the boring safety stuff. Capture checklists, log NLIs, and get guided next steps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ohshaven.com/" />
+  <meta property="og:image" content="https://ohshaven.com/assets/og-card.png" />
+
+  <!-- Base stylesheet in repo -->
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Brand polish (inline) -->
   <style>
-    body{font:16px/1.4 system-ui;margin:0;padding:24px}
-    a{display:block;margin:8px 0}
-    code{background:#eee;padding:2px 6px;border-radius:6px}
+    :root{ --brand-orange:#ff6a00; --brand-orange-2:#ff8a33; --ink:#0b1020; --ink-2:#141b2e; --text:#eaf0ff; }
+    *{box-sizing:border-box}
+    body{
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(255,106,0,.18), transparent 60%),
+        linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%) !important;
+      color: var(--text); margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    }
+    .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(20,27,46,.9), rgba(20,27,46,.6));
+      backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700}
+    .logo-svg{height:28px;width:auto;display:block}
+    .nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .nav-link{color:#cdd7ff;text-decoration:none;padding:8px 10px;border-radius:10px}
+    .nav-link:hover{color:#fff}
+    .nav-link.highlight{background:rgba(255,106,0,.16);border:1px solid rgba(255,106,0,.4);color:#fff; box-shadow:0 0 0 3px rgba(255,106,0,.08) inset}
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;text-decoration:none;
+      background:#ff6a00;color:#fff;box-shadow:0 6px 16px rgba(255,106,0,.28);border:0;cursor:pointer}
+    .btn:hover{transform:translateY(-1px);filter:brightness(.98)}
+    .btn:active{transform:translateY(0)}
+    .btn-primary{background:linear-gradient(180deg,#ff6a00,#ff8a33); box-shadow:0 10px 24px rgba(255,106,0,.32)}
+    .btn.btn-outline{background:transparent;color:#ffd6bf;border:1px solid rgba(255,106,0,.6)}
+    .btn.btn-outline:hover{background:rgba(255,106,0,.12)}
+    .hero{padding:84px 16px 48px; text-align:center; position:relative}
+    .hero h1{font-size:clamp(32px,6vw,56px); line-height:1.02; margin:0 0 8px}
+    .hero p{margin:0 0 20px; opacity:.85}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px}
+    .hero::after{content:""; position:absolute; inset:auto 0 -120px 0; height:180px;
+      background: radial-gradient(600px 140px at 50% 0, rgba(255,106,0,.18), transparent 70%); pointer-events:none}
+    main section{max-width:1000px;margin:0 auto;padding:48px 16px}
+    h2{color:#ffffff;margin:0 0 14px}
+    ul,ol{color:#dbe3ff}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg,rgba(255,106,0,.10),rgba(255,106,0,.06));
+      border:1px solid rgba(255,106,0,.30); border-radius:14px; padding:16px; box-shadow:0 10px 24px rgba(255,106,0,.10)}
+    .card h3{margin:0 0 6px; color:#fff}
+    .card p{margin:0; color:#dbe3ff}
+    footer{padding:24px;text-align:center;background:#0f1524;color:#fff;font-size:12px;border-top:1px solid rgba(255,255,255,.06)}
+    .dialog{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:9998}
+    .dialog[hidden]{display:none}
+    .dialog .panel{background:#0f1524;color:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative}
+    .dialog .panel iframe{width:100%;height:100%;border:0}
+    #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;background:#111;color:#fff;border-radius:8px;opacity:0;transition:opacity .2s,transform .2s;font:14px/1.2 system-ui;z-index:9999}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+    .cl-item{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;padding:10px;border:1px solid #2a3250;border-radius:10px;background:#0b1222}
+    .cl-item .ev{border:1px solid #394064;border-radius:8px;padding:6px 8px;min-width:160px;background:#0f1528;color:#fff}
+    .sev{font:12px/1.2 system-ui;padding:4px 8px;border-radius:999px;background:#2a3250;text-transform:uppercase}
+    .sev.high{background:#5e1b1b}
+    .sev.med{background:#5a3d12}
+    .tab{padding:8px 12px;border-radius:999px;border:1px solid #394064;background:#0f1528;color:#cdd7ff;cursor:pointer}
+    .tab.active{background:#ffffff;color:#0f1524;border-color:#ffffff}
+    .hidden{display:none}
   </style>
+
+  <!-- Analytics -->
+  <script defer data-domain="ohshaven.com" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
-  <h1>OHS Haven — Safe Mode 🛟</h1>
-  <p>If you can read this, your publish directory and routing are correct.</p>
-  <h2>Quick file checks</h2>
-  <ul>
-    <li><a href="assets/app.js" target="_blank">assets/app.js</a></li>
+
+  <header class="site-header">
+    <a href="/" class="brand" data-scroll="#home">
+      <img src="assets/logo.svg" alt="OHS Haven logo" class="logo-svg" />
+      <span>OHS Haven — Melly Lite</span>
+    </a>
+
+    <nav class="nav">
+      <a href="#features" class="nav-link highlight" data-scroll="#features">Features</a>
+      <a href="#how" class="nav-link" data-scroll="#how">How it works</a>
+      <a href="#contact" class="nav-link" data-scroll="#contact">Contact</a>
+      <a class="btn btn-primary" data-open="lead-modal">Get the Kit</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <h1>Automate the boring safety stuff</h1>
+      <p>Capture checklists, log NLIs, and get guided next steps. No spreadsheets. No drama.</p>
+
+      <div class="cta-row">
+        <a class="btn btn-outline" data-scroll="#features">See Features</a>
+        <a class="btn btn-primary" data-open="lead-modal" data-track="cta">Get the Training Kit</a>
+        <a class="btn" data-open="checklist-modal">Run Daily Checklist</a>
+        <a class="btn" data-video="https://www.youtube.com/embed/VIDEO_ID?rel=0">Watch 40-sec Demo</a>
+        <a class="btn" data-whatsapp="+27 71 234 5678" data-text="Hi, I need OHS help.">WhatsApp Us</a>
+        <a class="btn" data-mail="hello@ohshaven.com">Email Us</a>
+      </div>
+    </section>
+
+    <section id="features">
+      <h2>Features</h2>
+      <div class="features-grid">
+        <article class="card"><h3>Lead capture</h3><p>Netlify Forms — zero backend. Submissions land in your dashboard instantly.</p></article>
+        <article class="card"><h3>Automated checklists</h3><p>Daily / weekly / monthly with progress bar, evidence notes, and org/site context.</p></article>
+        <article class="card"><h3>Alerts</h3><p>Optional Discord/Slack ping on non-compliance so teams act fast.</p></article>
+        <article class="card"><h3>Analytics-ready</h3><p>Plausible events out of the box. Supabase optional for centralized data.</p></article>
+      </div>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>Click “Run Daily Checklist” and complete items for your Org/Site.</li>
+        <li>Hit “Save” — we log the results (and alert if needed).</li>
+        <li>Use the Training Kit to upskill your team and close gaps.</li>
+      </ol>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Prefer email or WhatsApp? Use the buttons above — we’ve got you.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 OHS Haven™ — All rights reserved. Developed by Desigan Tharmen.
+  </footer>
+
+  <!-- Modals -->
+  <div id="video-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <iframe allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div id="lead-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel" style="max-width:520px;aspect-ratio:auto">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <form name="lead" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+            action="/?thanks=1"
+            style="padding:20px;display:grid;gap:12px">
+        <input type="hidden" name="form-name" value="lead" />
+        <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+
+        <h3>Get the OHS Training Kit</h3>
+        <input type="text"  name="name"    placeholder="Your name" required />
+        <input type="email" name="email"   placeholder="Email" required />
+        <input type="text"  name="company" placeholder="Company (optional)" />
+        <button type="submit" class="btn btn-primary">Send</button>
+        <small>We’ll email you the files and next steps.</small>
+      </form>
+    </div>
+  </div>
+
+  <div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+    <div class="panel" style="max-width:760px;aspect-ratio:auto;">
+      <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+      <section style="padding:16px 18px; display:grid; gap:12px;">
+        <h3 style="margin:0">Run OHS Checklist</h3>
+
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+          <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;" />
+          <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;" />
+        </div>
+
+        <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
+
+        <div id="cl-progress" style="background:#2a3250; border-radius:999px; overflow:hidden; height:10px;">
+          <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
+        </div>
+        <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
+
+        <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px">
+          <button type="button" class="btn btn-outline" data-close>Cancel</button>
+          <button type="button" id="cl-submit" class="btn btn-primary">Save Checklist</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/app.js"></script>
+  <script src="assets/checklists.js"></script>
+</body>
+</html>
+
     <li><a href="assets/checklists.js" target="_blank">assets/checklists.js</a></li>
     <li><a href=".netlify/functions/checklist-submit" target="_blank">.netlify/functions/checklist-submit (should say 405)</a></li>
   </ul>
