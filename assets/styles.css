@@ -258,7 +258,14 @@ form .feature{display:block}
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-}
+}#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;background:#111;color:#fff;border-radius:8px;opacity:0;transition:opacity .2s,transform .2s;font:14px/1.2 system-ui;z-index:9999}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+button[disabled], .btn[aria-disabled="true"], [data-disabled]{opacity:.6;cursor:not-allowed}
+.dialog{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:9998}
+.dialog[hidden]{display:none}
+.dialog .panel{background:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.dialog .panel iframe{width:100%;height:100%;border:0}
+
 
 
 
