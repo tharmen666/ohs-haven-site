@@ -1,4 +1,3 @@
-// netlify/functions/checklist-submit.js
 export const handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
@@ -6,7 +5,7 @@ export const handler = async (event) => {
   try {
     const body = JSON.parse(event.body || '{}');
 
-    // Optional: Discord/Slack alert
+    // Optional: Alerts
     const DISCORD = process.env.DISCORD_WEBHOOK_URL;
     const SLACK = process.env.SLACK_WEBHOOK_URL;
     const webhook = DISCORD || SLACK;
@@ -22,7 +21,7 @@ export const handler = async (event) => {
       }).catch(() => {});
     }
 
-    // Optional: Supabase persistence (auto-on when env vars exist)
+    // Optional: DB (auto-on when env vars exist)
     const SUPABASE_URL = process.env.SUPABASE_URL;
     const SUPABASE_SERVICE_ROLE = process.env.SUPABASE_SERVICE_ROLE;
     if (SUPABASE_URL && SUPABASE_SERVICE_ROLE) {
