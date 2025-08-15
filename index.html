@@ -6,34 +6,76 @@
   <title>OHS Haven — Melly Lite</title>
   <meta name="description" content="OHS Haven — simple, automated safety training and checklists. Melly Lite helps you capture compliance and act on risks fast." />
 
-  <!-- Site stylesheet -->
+  <!-- Base stylesheet already in your repo -->
   <link rel="stylesheet" href="assets/styles.css" />
 
-  <!-- Minimal safety net styles (ok to keep even if also in styles.css) -->
+  <!-- Brand + polish overrides (safe to keep inline) -->
   <style>
+    :root{
+      --brand-orange:#ff6a00;
+      --brand-orange-2:#ff8a33;
+      --ink:#0b1020;
+      --ink-2:#141b2e;
+      --text:#eaf0ff;
+    }
+    body{
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(255,106,0,.18), transparent 60%),
+        linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%) !important;
+      color: var(--text);
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+    }
+    /* Header */
+    .site-header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg, rgba(20,27,46,.9), rgba(20,27,46,.6));
+      backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid rgba(255,255,255,.06);
+      display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none;font-weight:700}
+    .logo-svg{height:28px;width:auto;display:block}
+    /* Nav */
+    .nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .nav-link{color:#cdd7ff;text-decoration:none;padding:8px 10px;border-radius:10px}
+    .nav-link:hover{color:#fff}
+    .nav-link.highlight{background:rgba(255,106,0,.16);border:1px solid rgba(255,106,0,.4);color:#fff;
+      box-shadow:0 0 0 3px rgba(255,106,0,.08) inset}
+    /* Buttons */
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;text-decoration:none;
+      background:var(--brand-orange);color:#fff;box-shadow:0 6px 16px rgba(255,106,0,.28);border:0;cursor:pointer}
+    .btn:hover{transform:translateY(-1px);filter:brightness(.98)}
+    .btn:active{transform:translateY(0)}
+    .btn-primary{background:linear-gradient(180deg,var(--brand-orange),var(--brand-orange-2));
+      box-shadow:0 10px 24px rgba(255,106,0,.32)}
+    .btn.btn-outline{background:transparent;color:#ffd6bf;border:1px solid rgba(255,106,0,.6)}
+    .btn.btn-outline:hover{background:rgba(255,106,0,.12)}
+    /* Hero */
+    .hero{padding:84px 16px 48px; text-align:center; position:relative}
+    .hero h1{font-size:clamp(32px,6vw,56px); line-height:1.02; letter-spacing:.2px; margin:0 0 8px}
+    .hero p{margin:0 0 20px; opacity:.85}
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px}
+    .hero::after{content:""; position:absolute; inset:auto 0 -120px 0; height:180px;
+      background: radial-gradient(600px 140px at 50% 0, rgba(255,106,0,.18), transparent 70%); pointer-events:none}
+    /* Sections */
+    main section{max-width:1000px;margin:0 auto}
+    h2{color:#ffffff}
+    ul,ol{color:#dbe3ff}
+    /* Footer */
+    footer{padding:24px;text-align:center;background:#0f1524;color:#fff;font-size:12px;border-top:1px solid rgba(255,255,255,.06)}
+    /* Dialogs + toast (works with your existing JS) */
     .dialog{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:9998}
     .dialog[hidden]{display:none}
-    .dialog .panel{background:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4);position:relative}
+    .dialog .panel{background:#0f1524;color:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);position:relative}
     .dialog .panel iframe{width:100%;height:100%;border:0}
     #toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;background:#111;color:#fff;border-radius:8px;opacity:0;transition:opacity .2s,transform .2s;font:14px/1.2 system-ui;z-index:9999}
     #toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
-    .btn{display:inline-block;padding:12px 18px;border-radius:10px;background:#0d6efd;color:#fff;text-decoration:none}
-    .btn:hover{filter:brightness(0.95)}
-    header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
-    nav a{margin:0 8px;text-decoration:none}
-    .hero{padding:60px 16px;text-align:center}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:16px}
-    section{padding:48px 16px}
-    footer{padding:24px;text-align:center;background:#111;color:#fff;font-size:12px}
-    .hidden{display:none}
     /* Checklist UI */
-    .cl-item{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;padding:10px;border:1px solid #eee;border-radius:10px;background:#fff}
-    .cl-item .ev{border:1px solid #ddd;border-radius:8px;padding:6px 8px;min-width:160px}
-    .sev{font:12px/1.2 system-ui;padding:4px 8px;border-radius:999px;background:#eee;text-transform:uppercase}
-    .sev.high{background:#ffe5e5}
-    .sev.med{background:#fff8e6}
-    .tab{padding:8px 12px;border-radius:999px;border:1px solid #ddd;background:#fafafa;cursor:pointer}
-    .tab.active{background:#111;color:#fff;border-color:#111}
+    .cl-item{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:8px;padding:10px;border:1px solid #2a3250;border-radius:10px;background:#0b1222}
+    .cl-item .ev{border:1px solid #394064;border-radius:8px;padding:6px 8px;min-width:160px;background:#0f1528;color:#fff}
+    .sev{font:12px/1.2 system-ui;padding:4px 8px;border-radius:999px;background:#2a3250;text-transform:uppercase}
+    .sev.high{background:#5e1b1b}
+    .sev.med{background:#5a3d12}
+    .tab{padding:8px 12px;border-radius:999px;border:1px solid #394064;background:#0f1528;color:#cdd7ff;cursor:pointer}
+    .tab.active{background:#ffffff;color:#0f1524;border-color:#ffffff}
+    .hidden{display:none}
   </style>
 
   <!-- Plausible (analytics) -->
@@ -41,60 +83,71 @@
 </head>
 <body>
 
-  <header>
-    <strong>OHS Haven — Melly Lite</strong>
-    <nav>
-      <a href="#features">Features</a>
-      <a href="#how">How it works</a>
-      <a href="#contact">Contact</a>
-      <a class="btn" data-open="lead-modal">Get the Kit</a>
+  <!-- ====== Header with inline logo and highlighted Features ====== -->
+  <header class="site-header">
+    <a href="/" class="brand" data-scroll="#home">
+      <!-- Inline logo (no extra file needed) -->
+      <svg class="logo-svg" viewBox="0 0 180 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#ff6a00"/><stop offset="1" stop-color="#ff8a33"/>
+          </linearGradient>
+        </defs>
+        <g fill="none" stroke="none">
+          <circle cx="14" cy="14" r="12" fill="url(#g)"/>
+          <path d="M12 9h4v10h-4z" fill="#fff" opacity=".95"/>
+          <path d="M7 14h14v2H7z" fill="#fff" opacity=".95"/>
+        </g>
+      </svg>
+      <span>OHS Haven — Melly Lite</span>
+    </a>
+
+    <nav class="nav">
+      <a href="#features" class="nav-link highlight" data-scroll="#features">Features</a>
+      <a href="#how" class="nav-link" data-scroll="#how">How it works</a>
+      <a href="#contact" class="nav-link" data-scroll="#contact">Contact</a>
+      <a class="btn btn-primary" data-open="lead-modal">Get the Kit</a>
     </nav>
   </header>
 
   <main>
-    <!-- Hero -->
+    <!-- ====== Hero ====== -->
     <section class="hero" id="home">
-      <h1 style="margin:0 0 8px">Automate the boring safety stuff</h1>
-      <p style="margin:0 0 20px;opacity:.85">
-        Capture checklists, log NLIs, and get guided next steps. No spreadsheets. No drama.
-      </p>
+      <h1>Automate the boring safety stuff</h1>
+      <p>Capture checklists, log NLIs, and get guided next steps. No spreadsheets. No drama.</p>
 
       <div class="cta-row">
-        <!-- Primary CTA: opens the lead form -->
-        <a class="btn" data-open="lead-modal" data-track="cta">Get the Training Kit</a>
-
-        <!-- Checklist Runner -->
+        <a class="btn btn-outline" data-scroll="#features">See Features</a>
+        <a class="btn btn-primary" data-open="lead-modal" data-track="cta">Get the Training Kit</a>
         <a class="btn" data-open="checklist-modal">Run Daily Checklist</a>
-
-        <!-- Demo video (replace VIDEO_ID when ready) -->
         <a class="btn" data-video="https://www.youtube.com/embed/VIDEO_ID?rel=0">Watch 40-sec Demo</a>
-
-        <!-- Quick contact -->
         <a class="btn" data-whatsapp="+27 71 234 5678" data-text="Hi, I need OHS help.">WhatsApp Us</a>
         <a class="btn" data-mail="hello@ohshaven.com">Email Us</a>
       </div>
     </section>
 
-    <!-- Simple content sections -->
+    <!-- ====== Features ====== -->
     <section id="features">
       <h2>Features</h2>
       <ul>
-        <li>Lead capture (Netlify Forms) — zero backend</li>
-        <li>Automated checklists (daily/weekly/monthly)</li>
-        <li>Alerts to Slack/Discord on non-compliance</li>
-        <li>Ready for DB (Supabase) and analytics</li>
+        <li><strong>Lead capture (Netlify Forms)</strong> — zero backend, instant submissions.</li>
+        <li><strong>Automated checklists</strong> — daily/weekly/monthly with progress and evidence fields.</li>
+        <li><strong>Alerts</strong> — optional Slack/Discord ping on non-compliance.</li>
+        <li><strong>Ready for analytics</strong> — Plausible events + optional Supabase for centralised data.</li>
       </ul>
     </section>
 
+    <!-- ====== How it works ====== -->
     <section id="how">
       <h2>How it works</h2>
       <ol>
-        <li>Click “Run Daily Checklist” and complete items.</li>
+        <li>Click “Run Daily Checklist” and complete items for your Org/Site.</li>
         <li>Hit “Save” — we log the results (and alert if needed).</li>
-        <li>Use the Training Kit to upskill your team.</li>
+        <li>Use the Training Kit to upskill your team and close gaps.</li>
       </ol>
     </section>
 
+    <!-- ====== Contact ====== -->
     <section id="contact">
       <h2>Contact</h2>
       <p>Prefer email or WhatsApp? Use the buttons above — we’ve got you.</p>
@@ -129,7 +182,7 @@
         <input type="text"  name="name"    placeholder="Your name" required />
         <input type="email" name="email"   placeholder="Email" required />
         <input type="text"  name="company" placeholder="Company (optional)" />
-        <button type="submit" class="btn">Send</button>
+        <button type="submit" class="btn btn-primary">Send</button>
         <small>We’ll email you the files and next steps.</small>
       </form>
     </div>
@@ -137,35 +190,10 @@
 
   <!-- Checklist Runner modal -->
   <div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
-    <div class="panel" style="max-width:760px;aspect-ratio:auto; position:relative;">
+    <div class="panel" style="max-width:760px;aspect-ratio:auto;">
       <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
       <section style="padding:16px 18px; display:grid; gap:12px;">
         <h3 style="margin:0">Run OHS Checklist</h3>
 
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
-          <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;" />
-          <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;" />
-        </div>
-
-        <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
-
-        <div id="cl-progress" style="background:#eee; border-radius:999px; overflow:hidden; height:10px;">
-          <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
-        </div>
-        <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
-
-        <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
-
-        <div style="display:flex; justify-content:flex-end; gap:10px">
-          <button type="button" class="btn" data-close>Cancel</button>
-          <button type="button" id="cl-submit" class="btn">Save Checklist</button>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- Scripts (order matters) -->
-  <script src="assets/app.js"></script>
-  <script src="assets/checklists.js"></script>
-</body>
-</html>
+          <input id="cl-org"
