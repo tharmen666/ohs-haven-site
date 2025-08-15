@@ -36,6 +36,39 @@
 
 <!-- ====================== END: OHS Haven modals & app ====================== -->
 
+<!-- ===================== START: Checklist Runner modal ===================== -->
+<div id="checklist-modal" class="dialog" role="dialog" aria-modal="true" hidden>
+  <div class="panel" style="max-width:760px;aspect-ratio:auto; position:relative;">
+    <button type="button" data-close style="position:absolute;top:8px;right:12px">✕</button>
+    <section style="padding:16px 18px; display:grid; gap:12px;">
+      <h3 style="margin:0">Run OHS Checklist</h3>
+
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+        <input id="cl-org"  placeholder="Organisation" style="flex:1; min-width:180px;">
+        <input id="cl-site" placeholder="Site / Branch" style="flex:1; min-width:160px;">
+      </div>
+
+      <div id="cl-types" style="display:flex; gap:8px; flex-wrap:wrap"></div>
+
+      <div id="cl-progress" style="background:#eee; border-radius:999px; overflow:hidden; height:10px;">
+        <div class="bar" style="height:100%; width:0; background:#2ecc71;"></div>
+      </div>
+      <div class="label" style="font:12px/1.4 system-ui; opacity:.7">0% • 0/0</div>
+
+      <div id="cl-items" style="display:grid; gap:10px; max-height:46vh; overflow:auto;"></div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px">
+        <button type="button" class="btn" data-close>Cancel</button>
+        <button type="button" id="cl-submit" class="btn">Save Checklist</button>
+      </div>
+    </section>
+  </div>
+</div>
+<!-- ====================== END: Checklist Runner modal ====================== -->
+
+<!-- Load app + checklist scripts -->
+<script src="assets/app.js"></script>
+<script src="assets/checklists.js"></script>
 
 </body>
 </html>
