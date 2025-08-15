@@ -1,16 +1,24 @@
+# netlify.toml — drop-in
+
 [build]
+  # Serve files from the repo root
   publish = "."
+  # No build step (plain HTML/CSS/JS)
   command = ""
 
-# Schedules (UTC). 06:00 UTC ≈ 08:00 SAST
-[[scheduled.functions]]
-  name = "checklist-reminder"
-  cron = "0 6 * * 1-5"   # Weekdays 08:00 SAST
-
-[[scheduled.functions]]
-  name = "weekly-summary"
-  cron = "0 6 * * 1"     # Mondays 08:00 SAST
+[build.environment]
+  # Ensure modern runtime for serverless functions (native fetch, etc.)
+  NODE_VERSION = "20"
 
 [functions]
+  # Where your Netlify functions live
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# ---------------------------
+# Scheduled functions (UTC)
+# ---------------------------
+# Weekly compliance summary (runs Mondays 06:00 UTC ≈ 08:00 SAST)
+[[scheduled.functions]]
+  name = "weekly-summary"
+  cron = "0 6 * * 1"
