@@ -50,7 +50,21 @@
       border-radius: 8px;
       padding: 20px;
     }
-    .poster-grid img { width: 100%; border-radius: 8px; border: 2px solid #333; }
+    .poster-grid img {
+      width: 100%; 
+      border-radius: 8px; 
+      border: 2px solid #333;
+    }
+    .poster-grid .placeholder {
+      background: #333;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      border-radius: 8px;
+      border: 2px dashed #555;
+    }
     .cta-section {
       background: #0077cc;
       padding: 40px 20px;
@@ -111,9 +125,7 @@
       padding: 10px;
       font-size: 0.9rem;
     }
-    .chat-message {
-      margin: 8px 0;
-    }
+    .chat-message { margin: 8px 0; }
     .chat-input {
       display: flex;
       padding: 10px;
@@ -178,8 +190,8 @@
       <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster">
       <img src="assets/posters/customer-service.jpg" alt="Customer Service Poster">
       <img src="assets/posters/mirror-en.jpg" alt="Safety Mirror Poster English">
-      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu">
-      <img src="assets/posters/ergonomics.jpg" alt="Ergonomics for Remote Workers">
+      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu" onerror="this.outerHTML='<div class=\'placeholder\'>Zulu Poster Coming Soon</div>'">
+      <img src="assets/posters/ergonomics.jpg" alt="Ergonomics for Remote Workers" onerror="this.outerHTML='<div class=\'placeholder\'>Ergonomics Poster Coming Soon</div>'">
     </div>
   </section>
 
@@ -255,6 +267,13 @@
       input.value = "";
       chatBody.scrollTop = chatBody.scrollHeight;
     }
+
+    // Auto-open Melly after 5 seconds
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById("chatPopup").style.display = "block";
+      }, 5000);
+    };
   </script>
 </body>
 </html>
