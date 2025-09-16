@@ -17,35 +17,34 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 30px;
+      padding: 10px 20px;
       background: #0f1524;
-      border-bottom: 2px solid #ff6a00;
+      border-bottom: 3px solid #ff6a00;
     }
     .site-logo { height: 100px; }
-    .site-title { 
-      font-size: 2.8rem; 
-      color: #00ff66; 
-      font-weight: bold; 
-      margin: 0 20px; 
-    }
-    .site-avatar { 
-      height: 70px; 
-      border-radius: 50%; 
-    }
+    .site-title { font-size: 2.8rem; color: #00ff66; font-weight: bold; }
+    .site-avatar { height: 70px; border-radius: 50%; }
+
     .hero { padding: 60px 20px; }
     .hero h1 { font-size: 2.5rem; color: #ff6a00; margin: 0; }
     .hero p { font-size: 1.2rem; margin: 10px 0 20px; }
-    .hero-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+    .hero-buttons {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    }
     .btn {
-      background: #ff6a00;
+      background: #007bff;
       color: #fff;
       padding: 10px 18px;
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
     }
-    .btn:hover { background: #ff8a33; }
+    .btn:hover { background: #3399ff; }
+
     section { padding: 40px 20px; }
+    h2 { color: #00ff66; }
+
     .feature-grid, .poster-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -58,13 +57,39 @@
       border-radius: 8px;
       padding: 20px;
     }
-    .poster-grid img { width: 100%; border-radius: 8px; border: 2px solid #333; }
+    .poster-card {
+      background: #1a2238;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .poster-card img { width: 100%; border-radius: 8px; }
+    .poster-card .btn { margin-top: 10px; display: inline-block; }
+
     footer {
       background: #0f1524;
       padding: 20px;
-      border-top: 2px solid #ff6a00;
+      border-top: 3px solid #ff6a00;
     }
     footer p { margin: 5px 0; }
+
+    /* Melly Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1a2238;
+      border: 2px solid #ff6a00;
+      border-radius: 12px;
+      padding: 15px;
+      max-width: 250px;
+      color: #fff;
+      font-size: 0.9rem;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+    .chat-widget img {
+      height: 40px; border-radius: 50%; margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
@@ -80,12 +105,9 @@
     <h1>No Paperwork, Just Safety</h1>
     <p>Empowering workplaces with simple, automated OHS compliance and resources.</p>
     <div class="hero-buttons">
-      <a href="#features" class="btn">See Features</a>
-      <a href="#downloads" class="btn">Get the Training Kit</a>
-      <a href="#checklist" class="btn">Run Daily Checklist</a>
-      <a href="#demo" class="btn">Watch Demo</a>
-      <a href="https://wa.me/27711234567" class="btn">WhatsApp Us</a>
-      <a href="mailto:info@ohshaven.co.za" class="btn">Email Us</a>
+      <a href="assets/downloads/firstaid_quickguide.pdf" class="btn">Get Free Checklist</a>
+      <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Visit Store</a>
+      <a href="#quote" class="btn">Request Safety File Quote</a>
     </div>
   </section>
 
@@ -104,12 +126,18 @@
   <section id="downloads">
     <h2>Step-by-Step Training Posters</h2>
     <div class="poster-grid">
-      <img src="assets/posters/firstaid.png" alt="Emergency First Aid Poster">
-      <img src="assets/posters/spill.png" alt="Emergency Spill Response Poster">
-      <img src="assets/posters/evacuation.png" alt="Emergency Evacuation Poster">
-      <img src="assets/posters/customerservice.png" alt="Customer Service Poster">
-      <img src="assets/posters/mirror1.png" alt="Safety Mirror Poster English">
-      <img src="assets/posters/mirror2.png" alt="Safety Mirror Poster Zulu">
+      <div class="poster-card">
+        <img src="assets/posters/firstaid.jpg" alt="Emergency First Aid Poster">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
+      <div class="poster-card">
+        <img src="assets/posters/spill.jpg" alt="Emergency Spill Response Poster">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
+      <div class="poster-card">
+        <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
     </div>
   </section>
 
@@ -117,10 +145,30 @@
   <section id="merch">
     <h2>OHS Haven Merch</h2>
     <div class="poster-grid">
-      <img src="assets/posters/tshirt1.png" alt="OHS Haven T-Shirt">
-      <img src="assets/posters/tshirt2.png" alt="Work Smart Shirt">
-      <img src="assets/posters/tshirt3.png" alt="Helmet Shirt">
+      <div class="poster-card">
+        <img src="assets/posters/tshirt1.jpg" alt="OHS Haven T-Shirt">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
+      <div class="poster-card">
+        <img src="assets/posters/tshirt2.jpg" alt="Work Smart Shirt">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
+      <div class="poster-card">
+        <img src="assets/posters/tshirt3.jpg" alt="Helmet Shirt">
+        <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Buy Now</a>
+      </div>
     </div>
+  </section>
+
+  <!-- Quote Section -->
+  <section id="quote">
+    <h2>Request a Safety File Quote</h2>
+    <form name="quote" method="POST" data-netlify="true">
+      <input type="text" name="name" placeholder="Your Name" required><br><br>
+      <input type="email" name="email" placeholder="Your Email" required><br><br>
+      <textarea name="message" placeholder="Which safety file do you need?" required></textarea><br><br>
+      <button type="submit" class="btn">Request Quote</button>
+    </form>
   </section>
 
   <!-- Footer -->
@@ -128,5 +176,12 @@
     <p>📧 info@ohshaven.co.za | ☎ WhatsApp: +27 71 123 4567</p>
     <p>&copy; 2025 OHS Haven. All Rights Reserved.</p>
   </footer>
+
+  <!-- Melly Chat Widget -->
+  <div class="chat-widget">
+    <img src="assets/avatar.jpg" alt="Melly Avatar">
+    <p>👋 Hi, I’m Melly. Need safety posters, OHS files, or training?</p>
+    <a href="https://yourgumroadstorelink.com" target="_blank" class="btn">Visit Store</a>
+  </div>
 </body>
 </html>
