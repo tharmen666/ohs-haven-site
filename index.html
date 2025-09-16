@@ -18,16 +18,36 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 20px;
-      background: #0f1524;
-      border-bottom: 2px solid #ff6a00;
+      background: linear-gradient(90deg, #003366, #ff6a00);
+      border-bottom: 3px solid #ff6a00;
     }
     .site-logo { height: 80px; }
-    .site-title { font-size: 2.8rem; color: #00ff66; font-weight: bold; }
+    .site-title {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+      background: linear-gradient(90deg, #0077cc, #ff6a00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .site-avatar { height: 65px; border-radius: 50%; cursor: pointer; }
-    .hero { padding: 60px 20px; }
-    .hero h1 { font-size: 2.8rem; color: #ff6a00; margin: 0; }
-    .hero p { font-size: 1.3rem; margin: 10px 0 20px; }
-    .hero-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+    .hero {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #0a1a2f 70%, rgba(255,106,0,0.2));
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      color: #ff6a00;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      margin: 10px 0 20px;
+      color: #cfd9df;
+    }
+
     .btn {
       background: #ff6a00;
       color: #fff;
@@ -35,116 +55,74 @@
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
     }
-    .btn:hover { background: #ff8a33; }
-    section { padding: 40px 20px; }
-    .feature-grid, .poster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+    .btn:hover {
+      background: #ff8a33;
+      transform: translateY(-2px);
+      transition: 0.2s;
     }
-    .feature-card {
-      background: #1a2238;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 20px;
-    }
-    .poster-grid img {
-      width: 100%; 
-      border-radius: 8px; 
-      border: 2px solid #333;
-    }
-    .poster-grid .placeholder {
-      background: #333;
-      color: #bbb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 200px;
-      border-radius: 8px;
-      border: 2px dashed #555;
-    }
-    .cta-section {
-      background: #0077cc;
-      padding: 40px 20px;
-      border-radius: 10px;
-      margin: 40px auto;
-      max-width: 800px;
-    }
-    .cta-section h2 { font-size: 2rem; color: #fff; margin-bottom: 15px; }
-    .cta-section input {
-      padding: 12px;
-      width: 70%;
-      border-radius: 5px;
-      border: none;
-      margin-bottom: 15px;
-    }
-    .cta-section button {
-      background: #ff6a00;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .cta-section button:hover { background: #ff8a33; }
-    footer {
-      background: #0f1524;
-      padding: 20px;
-      border-top: 2px solid #ff6a00;
-    }
-    footer p { margin: 5px 0; }
 
-    /* Melly Chatbot */
-    .chat-popup {
-      display: none;
+    /* Chat Widget */
+    .chat-widget {
       position: fixed;
-      bottom: 90px;
+      bottom: 20px;
       right: 20px;
-      width: 300px;
+      width: 320px;
       background: #1a2238;
       border: 2px solid #ff6a00;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      z-index: 1000;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      font-size: 0.9rem;
       text-align: left;
+      z-index: 1000;
     }
     .chat-header {
+      display: flex;
+      align-items: center;
       background: #ff6a00;
       color: #fff;
-      padding: 10px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      padding: 8px;
       font-weight: bold;
+      border-radius: 8px 8px 0 0;
+    }
+    .chat-header img {
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      margin-right: 10px;
     }
     .chat-body {
-      max-height: 300px;
+      padding: 10px;
+      background: #0f1524;
+      color: #fff;
+      max-height: 250px;
       overflow-y: auto;
-      padding: 10px;
-      font-size: 0.9rem;
     }
-    .chat-message { margin: 8px 0; }
-    .chat-input {
+    .chat-body p {
+      margin: 8px 0;
+    }
+    .chat-footer {
       display: flex;
-      padding: 10px;
+      padding: 8px;
+      background: #1a2238;
       border-top: 1px solid #333;
     }
-    .chat-input input {
+    .chat-footer input {
       flex: 1;
-      padding: 8px;
+      padding: 6px;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
+      margin-right: 5px;
     }
-    .chat-input button {
-      margin-left: 8px;
+    .chat-footer button {
       background: #ff6a00;
-      color: #fff;
       border: none;
-      padding: 8px 12px;
-      border-radius: 5px;
+      padding: 6px 12px;
+      border-radius: 4px;
       cursor: pointer;
+      color: #fff;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -153,7 +131,7 @@
   <header class="site-header">
     <img src="assets/logo.png" alt="OHS Haven Logo" class="site-logo">
     <h1 class="site-title">OHS Haven</h1>
-    <img src="assets/avatar.jpg" alt="Melly AI Assistant" class="site-avatar" onclick="toggleChat()">
+    <img src="assets/avatar.jpg" alt="Melly AI Assistant" class="site-avatar">
   </header>
 
   <!-- Hero Section -->
@@ -170,7 +148,7 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- Features -->
   <section id="features">
     <h2>Features</h2>
     <div class="feature-grid">
@@ -190,8 +168,7 @@
       <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster">
       <img src="assets/posters/customer-service.jpg" alt="Customer Service Poster">
       <img src="assets/posters/mirror-en.jpg" alt="Safety Mirror Poster English">
-      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu" onerror="this.outerHTML='<div class=\'placeholder\'>Zulu Poster Coming Soon</div>'">
-      <img src="assets/posters/ergonomics.jpg" alt="Ergonomics for Remote Workers" onerror="this.outerHTML='<div class=\'placeholder\'>Ergonomics Poster Coming Soon</div>'">
+      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu">
     </div>
   </section>
 
@@ -201,18 +178,6 @@
     <div class="poster-grid">
       <img src="assets/posters/t-shirt.png" alt="OHS Haven T-Shirt">
     </div>
-    <p><a href="https://ohshaven.gumroad.com" class="btn">Shop Now</a></p>
-  </section>
-
-  <!-- Call to Action -->
-  <section class="cta-section">
-    <h2>Stay Updated with OHS Safety Kits</h2>
-    <form>
-      <input type="email" placeholder="Enter your email" required>
-      <br>
-      <button type="submit">Subscribe</button>
-    </form>
-    <p>✅ Free Quick-Guide on First Aid with every signup</p>
   </section>
 
   <!-- Footer -->
@@ -221,59 +186,20 @@
     <p>&copy; 2025 OHS Haven. All Rights Reserved.</p>
   </footer>
 
-  <!-- Melly Chatbot -->
-  <div class="chat-popup" id="chatPopup">
-    <div class="chat-header">Melly – Your Safety Assistant</div>
-    <div class="chat-body" id="chatBody">
-      <div class="chat-message"><strong>Melly:</strong> Hi 👋, I’m Melly! How can I help you today?</div>
-      <div class="chat-message">👉 Try asking: "Show me posters", "How do I get the kit?", "Contact support"</div>
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-header">
+      <img src="assets/avatar.jpg" alt="Melly">
+      <span>Melly – Your Safety Assistant</span>
     </div>
-    <div class="chat-input">
-      <input type="text" id="userMessage" placeholder="Type your question...">
-      <button onclick="sendMessage()">Send</button>
+    <div class="chat-body">
+      <p><strong>Melly:</strong> Hi 👋, I’m Melly! How can I help you today?</p>
+      <p>👉 Try asking: "Show me posters", "How do I get the kit?", "Contact support"</p>
+    </div>
+    <div class="chat-footer">
+      <input type="text" placeholder="Type your question...">
+      <button>Send</button>
     </div>
   </div>
-
-  <script>
-    function toggleChat() {
-      const chat = document.getElementById("chatPopup");
-      chat.style.display = chat.style.display === "block" ? "none" : "block";
-    }
-
-    function sendMessage() {
-      const input = document.getElementById("userMessage");
-      const message = input.value.trim();
-      if (!message) return;
-
-      const chatBody = document.getElementById("chatBody");
-      chatBody.innerHTML += `<div class="chat-message"><strong>You:</strong> ${message}</div>`;
-
-      let reply = "I’m not sure about that yet. Try asking about posters, training kit, or contact.";
-
-      if (message.toLowerCase().includes("poster")) {
-        reply = "You can view and buy posters here 👉 <a href='#downloads'>Training Posters</a>";
-      }
-      if (message.toLowerCase().includes("kit")) {
-        reply = "The full training kit is available here 👉 <a href='#downloads'>Get the Kit</a>";
-      }
-      if (message.toLowerCase().includes("contact")) {
-        reply = "📧 info@ohshaven.co.za | WhatsApp: +27 71 123 4567";
-      }
-      if (message.toLowerCase().includes("shop")) {
-        reply = "Visit our store 👉 <a href='https://ohshaven.gumroad.com'>Shop Now</a>";
-      }
-
-      chatBody.innerHTML += `<div class="chat-message"><strong>Melly:</strong> ${reply}</div>`;
-      input.value = "";
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    // Auto-open Melly after 5 seconds
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById("chatPopup").style.display = "block";
-      }, 5000);
-    };
-  </script>
 </body>
 </html>
