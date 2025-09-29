@@ -1,0 +1,90 @@
+// netlify/functions/submission-created.js
+// Formats "ergonomics" form submissions and emails HR via Resend (optional)
+// Also posts to Slack if SLACK_WEBHOOK_URL is set.
+// Env vars to set in Netlify → Site settings → Environment variables:
+//   RESEND_API_KEY = <your Resend key>   (optional but recommended)
+//   HR_EMAILS      = safety@yourcompany.co.za,hr@yourcompany.co.za
+//   SLACK_WEBHOOK_URL = https://hooks.slack.com/services/...   (optional)
+
+export default async (event, context) => {
+  try {
+    const payload = JSON.parse(event.body);
+    const sub = payload.payload;
+    if (!sub || sub.form_name !== 'ergonomics') {
+      return new Response('ignored', { status: 200 });
+    }
+
+    const data = sub.data || {};
+    const full = (k) => data[k] || '';
+    const name = full('full_name');
+    const email = full('email');
+    const dept = full('department');
+    const mode = full('work_mode');
+    const hours = full('hours');
+    const score = full('score_pct');
+    const assess = safeJson(full('assessment_json'));
+    const answers = safeJson(full('quiz_json'));
+    const stretches = safeJson(full('stretch_history_json'));
+    const ua = full('ua');
+
+    const subject = `Ergo record: ${name} • ${score}%`;
+    const html = `
+      <h2>Ergonomics Self-Assessment</h2>
+      <p><strong>Name:</strong> ${esc(name)}<br>
+         <strong>Email:</strong> ${esc(email)}<br>
+         <strong>Department:</strong> ${esc(dept)}<br>
+         <strong>Mode:</strong> ${esc(mode)} • <strong>Screen time:</strong> ${esc(hours)}h/day<br>
+         <strong>Score:</strong> ${esc(score)}%</p>
+
+      <h3>Assessment</h3>
+      <pre style="background:#0b1220;color:#e9f1ff;padding:12px;border-radius:8px">${esc(JSON.stringify(assess, null, 2))}</pre>
+
+      <h3>Quiz Answers</h3>
+      <pre style="background:#0b1220;color:#e9f1ff;padding:12px;border-radius:8px">${esc(JSON.stringify(answers, null, 2))}</pre>
+
+      <h3>Stretch Prompts (this session)</h3>
+      <pre style="background:#0b1220;color:#e9f1ff;padding:12px;border-radius:8px">${esc(JSON.stringify(stretches, null, 2))}</pre>
+
+      <p style="color:#8ea4bf">UA: ${esc(ua)}</p>
+    `;
+
+    // Email (Resend)
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const HR_EMAILS = (process.env.HR_EMAILS || '').split(',').map(s=>s.trim()).filter(Boolean);
+    if (RESEND_API_KEY && HR_EMAILS.length) {
+      await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: 'OHS Haven <no-reply@ohshaven.com>',
+          to: HR_EMAILS,
+          subject,
+          html
+        })
+      });
+    }
+
+    // Slack (optional)
+    const SLACK = process.env.SLACK_WEBHOOK_URL;
+    if (SLACK) {
+      await fetch(SLACK, {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({
+          text: `:clipboard: *Ergo record* — ${name} (${email}) • ${score}%\nDept: ${dept} • Mode: ${mode} • Hours: ${hours}`
+        })
+      });
+    }
+
+    return new Response('ok', { status: 200 });
+  } catch (e) {
+    console.error(e);
+    return new Response('error', { status: 500 });
+  }
+}
+
+function safeJson(s){ try { return JSON.parse(s || 'null'); } catch { return s; } }
+function esc(s=''){ return String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
