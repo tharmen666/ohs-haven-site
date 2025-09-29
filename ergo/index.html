@@ -1,1 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OHS Haven</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0a1a2f;
+      color: #fff;
+      text-align: center;
+    }
 
+    /* Header Section */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: linear-gradient(90deg, #0a1a2f, #ff6a00);
+      border-bottom: 4px solid #ff6a00;
+    }
+    .site-logo { height: 85px; }
+    .site-title {
+      font-size: 4.5rem; /* Bigger */
+      font-weight: 900;
+      font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
+      background: linear-gradient(90deg, #0077ff, #ff6a00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+      margin: 0 auto;
+      flex: 1;
+    }
+    .site-avatar {
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #0a1a2f 70%, rgba(255,106,0,0.2));
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      color: #ff6a00;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 1.4rem;
+      margin: 10px 0 20px;
+      color: #cfd9df;
+    }
+
+    .btn {
+      background: #ff6a00;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 6px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+    }
+    .btn:hover {
+      background: #ff8a33;
+      transform: translateY(-2px);
+      transition: 0.2s;
+    }
+
+    /* Features Grid */
+    .feature-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+    .feature-card {
+      background: #1a2238;
+      padding: 20px;
+      border-radius: 8px;
+      width: 200px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    /* Posters Section */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      justify-items: center;
+    }
+    .poster-grid img {
+      max-width: 250px; /* Limit A4 poster size */
+      width: 100%;
+      border-radius: 6px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+    .poster-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      background: #1a2238;
+      border-top: 3px solid #ff6a00;
+      color: #cfd9df;
+    }
+
+    /* Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      background: #1a2238;
+      border: 2px solid #ff6a00;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      font-size: 0.9rem;
+      text-align: left;
+      z-index: 1000;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      background: #ff6a00;
+      color: #fff;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 8px 8px 0 0;
+    }
+    .chat-header img {
+      height: 38px;
+      width: 38px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .chat-body {
+      padding: 12px;
+      background: #0f1524;
+      color: #fff;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    .chat-body p { margin: 8px 0; }
+    .chat-footer {
+      display: flex;
+      padding: 8px;
+      background: #1a2238;
+      border-top: 1px solid #333;
+    }
+    .chat-footer input {
+      flex: 1;
+      padding: 6px;
+      border: none;
+      border-radius: 4px;
+      margin-right: 5px;
+    }
+    .chat-footer button {
+      background: #ff6a00;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <img src="assets/logo.png" alt="OHS Haven Logo" class="site-logo">
+    <h1 class="site-title">OHS Haven</h1>
+    <img src="assets/avatar.jpg" alt="Melly AI Assistant" class="site-avatar">
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>No Paperwork, Just Safety</h1>
+    <p>Empowering workplaces with simple, automated OHS compliance and resources.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn">See Features</a>
+      <a href="#downloads" class="btn">Get the Training Kit</a>
+      <a href="#checklist" class="btn">Run Daily Checklist</a>
+      <a href="#demo" class="btn">Watch Demo</a>
+      <a href="https://wa.me/27711234567" class="btn">WhatsApp Us</a>
+      <a href="mailto:info@ohshaven.co.za" class="btn">Email Us</a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">Lead capture</div>
+      <div class="feature-card">Automated checklists</div>
+      <div class="feature-card">Alerts & escalation</div>
+      <div class="feature-card">Analytics</div>
+    </div>
+  </section>
+
+  <!-- Posters Section -->
+  <section id="downloads">
+    <h2>Step-by-Step Training Posters</h2>
+    <div class="poster-grid">
+      <img src="assets/posters/first-aid.jpg" alt="Emergency First Aid Poster">
+      <img src="assets/posters/spill-response.jpg" alt="Emergency Spill Response Poster">
+      <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster">
+      <img src="assets/posters/customer-service.jpg" alt="Customer Service Poster">
+      <img src="assets/posters/mirror-en.jpg" alt="Safety Mirror Poster English">
+      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu">
+    </div>
+  </section>
+
+  <!-- Merch Section -->
+  <section id="merch">
+    <h2>OHS Haven Merch</h2>
+    <div class="poster-grid">
+      <img src="assets/posters/t-shirt.png" alt="OHS Haven T-Shirt">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>📧 info@ohshaven.co.za | ☎ WhatsApp: +27 71 123 4567</p>
+    <p>&copy; 2025 OHS Haven. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-header">
+      <img src="assets/avatar.jpg" alt="Melly">
+      <span>Melly – Your Safety Assistant</span>
+    </div>
+    <div class="chat-body">
+      <p><strong>Melly:</strong> Hi 👋, I’m Melly! How can I help you today?</p>
+      <p>👉 Try asking: "Show me posters", "How do I get the kit?", "Contact support"</p>
+    </div>
+    <div class="chat-footer">
+      <input type="text" placeholder="Type your question...">
+      <button>Send</button>
+    </div>
+  </div>
+</body>
+</html>
