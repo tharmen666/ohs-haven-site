@@ -1,258 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OHS Haven</title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OHS Haven — No Paperwork, Just Safety</title>
+  <link rel="icon" href="assets/favicon.svg">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0a1a2f;
-      color: #fff;
-      text-align: center;
+    :root{
+      --ink:#0a1a2f; --ink-2:#0f1524; --brand:#ff6a00; --mint:#09e86f; --card:#1a2238; --line:#2b3453;
     }
-
-    /* Header Section */
-    .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 30px;
-      background: linear-gradient(90deg, #0a1a2f, #ff6a00);
-      border-bottom: 4px solid #ff6a00;
-    }
-    .site-logo { height: 85px; }
-    .site-title {
-      font-size: 4.5rem; /* Bigger */
-      font-weight: 900;
-      font-family: Impact, Haettenschweiler, 'Arial Black', sans-serif;
-      background: linear-gradient(90deg, #0077ff, #ff6a00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
-      margin: 0 auto;
-      flex: 1;
-    }
-    .site-avatar {
-      height: 70px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #0a1a2f 70%, rgba(255,106,0,0.2));
-    }
-    .hero h1 {
-      font-size: 3.2rem;
-      color: #ff6a00;
-      margin: 0;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-    }
-    .hero p {
-      font-size: 1.4rem;
-      margin: 10px 0 20px;
-      color: #cfd9df;
-    }
-
-    .btn {
-      background: #ff6a00;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 6px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
-    }
-    .btn:hover {
-      background: #ff8a33;
-      transform: translateY(-2px);
-      transition: 0.2s;
-    }
-
-    /* Features Grid */
-    .feature-grid {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-    .feature-card {
-      background: #1a2238;
-      padding: 20px;
-      border-radius: 8px;
-      width: 200px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-    }
-
-    /* Posters Section */
-    .poster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      justify-items: center;
-    }
-    .poster-grid img {
-      max-width: 250px; /* Limit A4 poster size */
-      width: 100%;
-      border-radius: 6px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
-    }
-    .poster-grid img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    footer {
-      margin-top: 30px;
-      padding: 15px;
-      background: #1a2238;
-      border-top: 3px solid #ff6a00;
-      color: #cfd9df;
-    }
-
-    /* Chat Widget */
-    .chat-widget {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 320px;
-      background: #1a2238;
-      border: 2px solid #ff6a00;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      font-size: 0.9rem;
-      text-align: left;
-      z-index: 1000;
-    }
-    .chat-header {
-      display: flex;
-      align-items: center;
-      background: #ff6a00;
-      color: #fff;
-      padding: 10px;
-      font-weight: bold;
-      border-radius: 8px 8px 0 0;
-    }
-    .chat-header img {
-      height: 38px;
-      width: 38px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    .chat-body {
-      padding: 12px;
-      background: #0f1524;
-      color: #fff;
-      max-height: 250px;
-      overflow-y: auto;
-    }
-    .chat-body p { margin: 8px 0; }
-    .chat-footer {
-      display: flex;
-      padding: 8px;
-      background: #1a2238;
-      border-top: 1px solid #333;
-    }
-    .chat-footer input {
-      flex: 1;
-      padding: 6px;
-      border: none;
-      border-radius: 4px;
-      margin-right: 5px;
-    }
-    .chat-footer button {
-      background: #ff6a00;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #fff;
-      font-weight: bold;
-    }
+    *{box-sizing:border-box} body{margin:0;background:#0b1b31;color:#fff;font-family:Inter,system-ui,Segoe UI,Arial}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:auto;padding:0 18px}
+    /* header */
+    header{background:linear-gradient(135deg,#121b2c 0%, #233449 35%, #d86612 35.1%, #e06f16 100%);border-bottom:3px solid var(--brand)}
+    .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .h-left{display:flex;gap:14px;align-items:center}
+    .logo{height:58px;width:auto;border-radius:6px;background:#fff1;padding:4px}
+    .title{font-size:42px;font-weight:900;letter-spacing:.5px;background:linear-gradient(90deg,#2dd4bf,#60a5fa,#34d399);
+      -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 #0007)}
+    .avatar{height:60px;width:60px;border-radius:50%;border:2px solid #0006}
+    /* hero */
+    .hero{padding:44px 0 10px}
+    h1{font-size:44px;margin:0 0 8px;color:var(--brand)}
+    .sub{opacity:.9;max-width:700px}
+    .btns{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}
+    .btn{background:var(--brand);padding:12px 18px;border-radius:8px;font-weight:700}
+    .btn:hover{filter:brightness(1.08)}
+    .btn.alt{background:#18233a;border:1px solid #2a3554}
+    /* sections */
+    section{padding:38px 0;border-top:1px solid #15223a}
+    h2{font-size:26px;margin:0 0 16px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+    .card{background:#121b24;border:1px solid #22304b;border-radius:10px;padding:18px}
+    /* forms */
+    form{display:grid;gap:12px}
+    input,select,textarea{background:#0f1627;border:1px solid #2a3554;border-radius:8px;color:#fff;padding:12px}
+    label{font-size:14px;opacity:.9}
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .note{font-size:13px;opacity:.75}
+    .ok{background:#14b86a}
+    /* posters */
+    .posters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .posters img{width:100%;border:2px solid #2b3453;border-radius:8px;display:block}
+    /* footer */
+    footer{background:#0f1524;border-top:2px solid var(--brand);padding:26px 0;margin-top:30px;font-size:14px}
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header">
-    <img src="assets/logo.png" alt="OHS Haven Logo" class="site-logo">
-    <h1 class="site-title">OHS Haven</h1>
-    <img src="assets/avatar.jpg" alt="Melly AI Assistant" class="site-avatar">
-  </header>
 
-  <!-- Hero Section -->
+<header>
+  <div class="wrap bar">
+    <div class="h-left">
+      <img src="assets/logo.png" alt="OHS Haven" class="logo">
+    </div>
+    <div class="title">OHS Haven</div>
+    <img src="assets/avatar.jpg" alt="Melly" class="avatar">
+  </div>
+</header>
+
+<main class="wrap">
+
   <section class="hero">
     <h1>No Paperwork, Just Safety</h1>
-    <p>Empowering workplaces with simple, automated OHS compliance and resources.</p>
-    <div class="hero-buttons">
-      <a href="#features" class="btn">See Features</a>
-      <a href="#downloads" class="btn">Get the Training Kit</a>
-      <a href="#checklist" class="btn">Run Daily Checklist</a>
-      <a href="#demo" class="btn">Watch Demo</a>
-      <a href="https://wa.me/27711234567" class="btn">WhatsApp Us</a>
-      <a href="mailto:info@ohshaven.co.za" class="btn">Email Us</a>
+    <p class="sub">Capture checklists, log near-losses and get guided next steps. No spreadsheets. No drama. Melly assists 24/7.</p>
+    <div class="btns">
+      <a class="btn" href="#features">See Features</a>
+      <a class="btn" href="#checklist">Run Daily Checklist</a>
+      <a class="btn" href="/ergo/">Ergonomics (New)</a>
+      <a class="btn alt" href="#downloads">Downloads</a>
+      <a class="btn alt" href="#contact">Contact</a>
+      <a class="btn" href="#merch">Shop / Merch</a>
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- FEATURES -->
   <section id="features">
     <h2>Features</h2>
-    <div class="feature-grid">
-      <div class="feature-card">Lead capture</div>
-      <div class="feature-card">Automated checklists</div>
-      <div class="feature-card">Alerts & escalation</div>
-      <div class="feature-card">Analytics</div>
+    <div class="cards">
+      <div class="card">Lead capture → auto email + WhatsApp follow-up</div>
+      <div class="card">Automated checklists (Daily / Weekly / Monthly)</div>
+      <div class="card">Alerts & escalation on near-loss themes</div>
+      <div class="card">Poster downloads & training kits</div>
     </div>
   </section>
 
-  <!-- Posters Section -->
+  <!-- CHECKLIST (fully working, saved by Netlify Forms) -->
+  <section id="checklist">
+    <h2>Daily Checklist</h2>
+    <form name="daily-checklist" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="daily-checklist">
+      <div class="row">
+        <label>Site / Location
+          <input name="site" placeholder="e.g., Astron Station – Rivonia" required>
+        </label>
+        <label>Shift
+          <select name="shift" required>
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+            <option value="Night">Night</option>
+          </select>
+        </label>
+        <label>Supervisor
+          <input name="supervisor" placeholder="Name & surname" required>
+        </label>
+      </div>
+      <div class="row">
+        <label><input type="checkbox" name="exits_clear"> Fire exits clear & signed</label>
+        <label><input type="checkbox" name="spill_kit"> Spill kit stocked & accessible</label>
+        <label><input type="checkbox" name="labels_ok"> Fuel/chem containers labelled</label>
+      </div>
+      <label>Notes / NLIs
+        <textarea name="notes" rows="3" placeholder="Near-losses, hazards, actions…"></textarea>
+      </label>
+      <button class="btn ok" type="submit">Submit checklist</button>
+      <div class="note">Submissions appear in Netlify → Forms → <b>daily-checklist</b></div>
+    </form>
+  </section>
+
+  <!-- POSTERS (downloads) -->
   <section id="downloads">
     <h2>Step-by-Step Training Posters</h2>
-    <div class="poster-grid">
-      <img src="assets/posters/first-aid.jpg" alt="Emergency First Aid Poster">
-      <img src="assets/posters/spill-response.jpg" alt="Emergency Spill Response Poster">
-      <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster">
-      <img src="assets/posters/customer-service.jpg" alt="Customer Service Poster">
-      <img src="assets/posters/mirror-en.jpg" alt="Safety Mirror Poster English">
-      <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu">
+    <div class="posters">
+      <a href="assets/posters/first-aid.jpg" download><img src="assets/posters/first-aid.jpg" alt="First Aid"></a>
+      <a href="assets/posters/spill-response.jpg" download><img src="assets/posters/spill-response.jpg" alt="Spill Response"></a>
+      <a href="assets/posters/evacuation.jpg" download><img src="assets/posters/evacuation.jpg" alt="Evacuation"></a>
+      <a href="assets/posters/customer-service.jpg" download><img src="assets/posters/customer-service.jpg" alt="Customer Service"></a>
+      <a href="assets/posters/mirror-en.jpg" download><img src="assets/posters/mirror-en.jpg" alt="Mirror—English"></a>
+      <a href="assets/posters/mirror-zu.jpg" download><img src="assets/posters/mirror-zu.jpg" alt="Mirror—Zulu"></a>
     </div>
   </section>
 
-  <!-- Merch Section -->
+  <!-- MERCH -->
   <section id="merch">
     <h2>OHS Haven Merch</h2>
-    <div class="poster-grid">
-      <img src="assets/posters/t-shirt.png" alt="OHS Haven T-Shirt">
+    <div class="cards">
+      <div class="card">
+        T-Shirt “If you see it, you own it”<br>
+        <a class="btn" href="https://gum.co/placeholder-tshirt" target="_blank">Buy</a>
+      </div>
+      <div class="card">
+        Work Smart Shirt<br>
+        <a class="btn" href="https://gum.co/placeholder-worksmart" target="_blank">Buy</a>
+      </div>
+      <div class="card">
+        Helmet Shirt<br>
+        <a class="btn" href="https://gum.co/placeholder-helmet" target="_blank">Buy</a>
+      </div>
     </div>
+    <p class="note">Replace Gumroad links later with your live products.</p>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>📧 info@ohshaven.co.za | ☎ WhatsApp: +27 71 123 4567</p>
-    <p>&copy; 2025 OHS Haven. All Rights Reserved.</p>
-  </footer>
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <form name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+      <div class="row">
+        <label>Name<input name="name" required></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>WhatsApp<input name="whatsapp" placeholder="+27 …"></label>
+      </div>
+      <label>Message<textarea name="message" rows="3" placeholder="How can we help?"></textarea></label>
+      <button class="btn ok" type="submit">Send</button>
+      <div class="note">Submissions appear in Netlify → Forms → <b>contact</b></div>
+    </form>
+  </section>
 
-  <!-- Chat Widget -->
-  <div class="chat-widget">
-    <div class="chat-header">
-      <img src="assets/avatar.jpg" alt="Melly">
-      <span>Melly – Your Safety Assistant</span>
-    </div>
-    <div class="chat-body">
-      <p><strong>Melly:</strong> Hi 👋, I’m Melly! How can I help you today?</p>
-      <p>👉 Try asking: "Show me posters", "How do I get the kit?", "Contact support"</p>
-    </div>
-    <div class="chat-footer">
-      <input type="text" placeholder="Type your question...">
-      <button>Send</button>
-    </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven
   </div>
+</footer>
+
+<!-- Melly mini-widget -->
+<script>
+  // simple greeting on load
+  window.addEventListener('load', () => {
+    console.log('Melly ready: try asking "Show me posters" or "How do I get the kit?"');
+  });
+</script>
 </body>
 </html>
