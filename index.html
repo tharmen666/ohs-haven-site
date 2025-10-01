@@ -1,37 +1,15 @@
-<!-- ===== OHS Haven Header (drop-in) ===== -->
+<!-- ====== HEADER (compact logo + big centered title + avatar) ====== -->
 <header class="site-header">
-  <div class="wrap bar">
-    <!-- Left: Logo -->
-    <a href="/" class="brand">
-      <img src="assets/logo.png" alt="OHS Haven" class="logo">
-    </a>
+  <div class="site-header__side">
+    <img src="assets/logo.png?v=2" alt="OHS Haven logo" class="site-logo" />
+  </div>
 
-    <!-- Center: Site Title -->
-    <h1 class="title">OHS Haven</h1>
+  <div class="site-header__center">
+    <h1 class="site-title">OHS Haven</h1>
+  </div>
 
-    <!-- Right: Melly avatar with fallbacks -->
-    <picture class="avatar-wrap" aria-label="Melly – your safety assistant">
-      <source srcset="assets/avatar.jpg?v=20251001" type="image/jpeg">
-      <img
-        id="melly-avatar"
-        class="avatar"
-        src="assets/avatar.jpg?v=20251001"
-        alt="Melly"
-        loading="eager"
-        decoding="async"
-        onerror="(function(img){
-          const tries=[
-            'assets/avatar.jpeg?v=20251001',
-            'assets/melly-avatar.jpg?v=20251001',
-            'assets/melly-avatar.jpeg?v=20251001',
-            'assets/avatar.jpg'
-          ];
-          img._i = (img._i||0);
-          if (img._i < tries.length) { img.src = tries[img._i++]; }
-          else { img.style.display='none'; }
-        })(this);"
-      >
-    </picture>
+  <div class="site-header__side">
+    <img src="assets/avatar.jpg?v=2" alt="Melly avatar" class="site-avatar" />
   </div>
 </header>
-<!-- ===== end header ===== -->
+<!-- ====== /HEADER ====== -->
