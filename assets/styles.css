@@ -1,271 +1,56 @@
-/* ===== OHS Haven — Bright, 3D-ish UI ===== */
+/* ===== OHS Haven Header styles ===== */
 :root{
-  --brand:#2f7aff;
-  --brand-2:#0e6bff;
-  --accent:#ff7a00;
-  --ok:#22d3ee;
-  --text:#eaf2ff;
-  --muted:#b7c3d9;
-  --line:rgba(255,255,255,.12);
-  --bg-1:#081225;
-  --bg-2:#0c1a34;
+  --ohs-bg:#0f1e2e;
+  --ohs-accent:#ff6a00;
+  --ohs-green:#19e36f;
+  --ohs-ink:#d8e7ff;
 }
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:Inter,system-ui,Segoe UI,Helvetica,Arial,sans-serif;
-  color:var(--text);
+
+.site-header{
   background:
-    radial-gradient(1200px 700px at -10% -20%, rgba(47,122,255,.35), transparent 60%),
-    radial-gradient(900px 500px at 120% 120%, rgba(255,122,0,.25), transparent 60%),
-    linear-gradient(135deg,var(--bg-1),var(--bg-2));
-}
-.container{max-width:1160px;margin:0 auto;padding:28px}
-.section{padding:32px 0}
-
-/* Nav */
-.nav{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
-.nav-left{display:flex;align-items:center;gap:14px}
-.nav img{height:56px;filter:drop-shadow(0 6px 18px rgba(47,122,255,.35))}
-.brand-name{font-weight:900;letter-spacing:.2px;font-size:22px;line-height:1}
-.brand-name span{color:var(--accent)}
-.small{font-size:12px;color:var(--muted)}
-
-/* Hero */
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start;padding:18px 0}
-.hero h1{font-size:50px;line-height:1.05;margin:.2em 0}
-.hero p{color:var(--muted);font-size:17px;line-height:1.65}
-
-/* Cards / media */
-.card{
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-  border:1px solid var(--line);border-radius:22px;padding:18px;
-  box-shadow:0 12px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
-  backdrop-filter: blur(6px);
-}
-.media{border-radius:18px;overflow:hidden;border:1px solid var(--line)}
-.media iframe, .media img{width:100%;aspect-ratio:16/9;border:0;display:block}
-
-/* CTAs — bright, 3D */
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
-.btn{
-  appearance:none;border:none;cursor:pointer;text-decoration:none;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  padding:13px 20px;border-radius:14px;font-weight:900;letter-spacing:.25px;
-  transition:transform .06s ease, box-shadow .15s ease, filter .2s ease, background .2s ease;
-  will-change:transform,filter;
-}
-.btn:active{transform:translateY(1px)}
-.btn.primary{
-  color:#fff;background:linear-gradient(180deg, var(--brand), var(--brand-2));
-  box-shadow:0 10px 26px rgba(47,122,255,.45), inset 0 1px 0 rgba(255,255,255,.18);
-}
-.btn.primary:hover{filter:brightness(1.06)}
-.btn.accent{
-  color:#1b0f05;background:linear-gradient(180deg, #ffa14a, var(--accent));
-  box-shadow:0 10px 26px rgba(255,122,0,.45), inset 0 1px 0 rgba(255,255,255,.18);
-}
-.btn.accent:hover{filter:brightness(1.06)}
-.btn.secondary{
-  color:var(--text);
-  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-  border:1px solid var(--line);
-  box-shadow:0 8px 22px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
-}
-.btn.secondary:hover{background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08))}
-.btn.disabled{pointer-events:none;opacity:.6}
-
-/* Feature cards & grids */
-.kicker{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:6px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.feature{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:16px;padding:14px}
-.feature h3{margin:6px 0 8px;font-size:18px}
-.feature p{margin:0;color:var(--muted);font-size:14px}
-
-/* Teasers */
-.teasers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.teasers img{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);background:#0b1220;display:block}
-
-/* Form inputs */
-.input{
-  width:100%; padding:11px 12px; border-radius:12px; border:1px solid var(--line);
-  background:rgba(255,255,255,.07); color:var(--text); outline:none;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
-}
-.input:focus{ border-color: rgba(47,122,255,.65); background:rgba(255,255,255,.10) }
-label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-form .feature{display:block}
-
-/* Footer */
-.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px}
-
-/* Mobile */
-@media (max-width:880px){
-  .hero{grid-template-columns:1fr}
-  .hero h1{font-size:38px}
-  .nav img{height:48px}
-  .brand-name{font-size:18px}
-}/* --- Shine upgrades --- */
-.headline-shine{
-  background: linear-gradient(90deg,#eaf2ff, #9ec5ff 30%, #7aa7ff 60%, #eaf2ff);
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: sweep 6s linear infinite;
-}
-@keyframes sweep{
-  0%{background-position:-200% 0}
-  100%{background-position:200% 0}
+    linear-gradient(90deg, rgba(25,227,111,.12), rgba(255,106,0,.10)) ,
+    var(--ohs-bg);
+  border-bottom:2px solid var(--ohs-accent);
 }
 
-/* Glow focus + hover */
-.btn:focus{ outline: none; box-shadow:0 0 0 3px rgba(47,122,255,.35), 0 10px 26px rgba(47,122,255,.45) }
-.btn.accent:focus{ box-shadow:0 0 0 3px rgba(255,122,0,.35), 0 10px 26px rgba(255,122,0,.45) }
-.btn.primary:hover, .btn.accent:hover{ transform: translateY(-1px) }
-
-/* Sticky, frosted nav */
-.nav{ position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
-  background: linear-gradient(180deg, rgba(8,18,37,.72), rgba(8,18,37,.35)); border-bottom:1px solid var(--line) }
-
-<!-- Melly floating avatar -->
-<div class="melly-widget" id="mellyBtn" aria-label="Open Melly FAQ" title="Chat with Melly">
-  <span class="melly-pulse"></span>
-  <img src="assets/melly-avatar.jpg" alt="Melly avatar">
-</div>
-
-<!-- Melly drawer -->
-<div class="melly-drawer" id="mellyDrawer" role="dialog" aria-modal="true" aria-labelledby="mellyTitle">
-  <div class="melly-head">
-    <img src="assets/melly-avatar.jpg" alt="Melly avatar small">
-    <h4 id="mellyTitle">Hi, I’m Melly 👋</h4>
-    <span class="melly-close" id="mellyClose">Close</span>
-  </div>
-  <div class="melly-body">
-    <details class="melly-faq"><summary>What does Melly generate?</summary><p>Policies, baseline risk assessments, daily/weekly checklists, toolbox talks, and multilingual posters tailored to your site.</p></details>
-    <details class="melly-faq"><summary>How fast is it?</summary><p>Drafts in minutes. You can export the same day.</p></details>
-    <details class="melly-faq"><summary>Which formats?</summary><p>PDF, Docx, and CSV. Posters are print-ready A3/A4.</p></details>
-    <details class="melly-faq"><summary>Data privacy?</summary><p>Your inputs stay private. Outputs are versioned with an audit trail.</p></details>
-    <details class="melly-faq"><summary>Pricing?</summary><p>Beta pricing on request. We do site-based and consultant-friendly plans.</p></details>
-    <details class="melly-faq"><summary>Can you customize for my sector?</summary><p>Yes — service stations, food retail, construction, warehousing and more.</p></details>
-  </div>
-  <div class="melly-actions">
-    <a class="btn secondary" href="#early-access">Join the beta</a>
-    <a class="btn accent" href="mailto:tharmendesigan36@gmail.com?subject=Melly%20question&body=Hi%20Melly%2C%20I%20have%20a%20quick%20question%3A%20">Email Us</a>
-  </div>
-</div>
-
-/* Floating Melly Avatar */
-#melly-avatar {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  cursor: pointer;
+.site-header .wrap.bar{
+  max-width:1120px;
+  margin-inline:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-#melly-avatar img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 3px solid #ff6600;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.brand{ display:inline-flex; align-items:center; text-decoration:none; }
+.logo{ height:56px; width:auto; display:block; }
+
+.title{
+  flex:1 1 auto;
+  margin:0 12px;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:.6px;
+  /* “logo vibe” */
+  font-size:clamp(1.6rem, 3.5vw + .5rem, 2.6rem);
+  color:var(--ohs-green);
+  text-shadow:0 1px 0 #0008, 0 0 18px rgba(25,227,111,.25);
+  line-height:1.1;
 }
 
-#melly-avatar img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-}/* === Floating Melly button (bigger) + Drawer === */
-#melly-btn{
-  position:fixed; bottom:18px; right:18px; /* change to left:18px; and remove right: if you want bottom-left */
-  z-index:1000; width:92px; height:92px; border-radius:50%;
-  background:linear-gradient(180deg,#2f7aff,#0e6bff);
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
-  box-shadow:0 14px 34px rgba(14,107,255,.45); border:1px solid rgba(255,255,255,.25);
-}
-#melly-btn img{
-  width:86px; height:86px; border-radius:50%; object-fit:cover;
-  border:2px solid rgba(255,255,255,.7); box-shadow:0 6px 18px rgba(0,0,0,.35);
-}
-#melly-btn:hover{ transform:translateY(-1px); transition:transform .12s ease }
-
-#melly-drawer{
-  position:fixed; right:18px; bottom:120px; /* if you move the button to left, also change this to left:18px */
-  width:360px; max-width:92vw; z-index:1000; display:none;
-  background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-  border:1px solid var(--line); border-radius:16px;
-  box-shadow:0 22px 70px rgba(0,0,0,.5); backdrop-filter:blur(10px);
-}
-#melly-drawer.open{ display:block; }
-
-.m-head{display:flex;align-items:center;gap:10px;padding:12px;border-bottom:1px solid var(--line)}
-.m-head img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.6)}
-.m-head h4{margin:0;font-size:16px}
-.m-close{margin-left:auto;color:var(--muted);font-size:12px;cursor:pointer}
-
-.m-body{padding:12px;max-height:55vh;overflow:auto}
-.m-faq{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px}
-.m-faq summary{cursor:pointer;font-weight:800}
-.m-faq p{margin:8px 0 0;color:var(--muted);font-size:14px}
-
-.m-actions{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
-.m-actions .btn{flex:1}
-/* Melly Button Styling */
-#melly-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background-color: #ff6600; /* Bright orange to stand out */
-  border: none;
-  border-radius: 50%;
-  width: 70px;
-  height: 70px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+.avatar-wrap{ display:inline-block; }
+.avatar{
+  height:56px; width:56px; border-radius:50%;
+  object-fit:cover;
+  border:2px solid #0006;
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
 }
 
-#melly-btn img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+/* Small screens */
+@media (max-width:640px){
+  .logo,.avatar{ height:44px; width:44px; }
+  .title{ font-size:clamp(1.35rem, 5.2vw, 1.6rem); letter-spacing:.4px; }
 }
 
-#melly-btn:hover {
-  transform: scale(1.1);
-  background-color: #ff8533; /* Slightly lighter orange */
-}/* Melly popup styling */
-#melly-popup {
-    display: none; /* Hidden by default */
-    position: fixed;
-    bottom: 100px; /* Above the icon */
-    left: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 15px;
-    padding: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.5s ease-in-out forwards;
-    z-index: 9999;
-}
-
-#melly-popup img {
-    width: 150px;
-    border-radius: 12px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}#toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);padding:10px 14px;background:#111;color:#fff;border-radius:8px;opacity:0;transition:opacity .2s,transform .2s;font:14px/1.2 system-ui;z-index:9999}
-#toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
-button[disabled], .btn[aria-disabled="true"], [data-disabled]{opacity:.6;cursor:not-allowed}
-.dialog{position:fixed;inset:0;background:rgba(0,0,0,.6);display:grid;place-items:center;z-index:9998}
-.dialog[hidden]{display:none}
-.dialog .panel{background:#fff;max-width:960px;width:90%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.4)}
-.dialog .panel iframe{width:100%;height:100%;border:0}
-
-
-
-
+/* ===== end header styles ===== */
