@@ -1,186 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OHS Haven — No Paperwork, Just Safety</title>
-  <link rel="icon" href="assets/favicon.svg">
-  <style>
-    :root{
-      --ink:#0a1a2f; --ink-2:#0f1524; --brand:#ff6a00; --mint:#09e86f; --card:#1a2238; --line:#2b3453;
-    }
-    *{box-sizing:border-box} body{margin:0;background:#0b1b31;color:#fff;font-family:Inter,system-ui,Segoe UI,Arial}
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1100px;margin:auto;padding:0 18px}
-    /* header */
-    header{background:linear-gradient(135deg,#121b2c 0%, #233449 35%, #d86612 35.1%, #e06f16 100%);border-bottom:3px solid var(--brand)}
-    .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .h-left{display:flex;gap:14px;align-items:center}
-    .logo{height:58px;width:auto;border-radius:6px;background:#fff1;padding:4px}
-    .title{font-size:42px;font-weight:900;letter-spacing:.5px;background:linear-gradient(90deg,#2dd4bf,#60a5fa,#34d399);
-      -webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 #0007)}
-    .avatar{height:60px;width:60px;border-radius:50%;border:2px solid #0006}
-    /* hero */
-    .hero{padding:44px 0 10px}
-    h1{font-size:44px;margin:0 0 8px;color:var(--brand)}
-    .sub{opacity:.9;max-width:700px}
-    .btns{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0}
-    .btn{background:var(--brand);padding:12px 18px;border-radius:8px;font-weight:700}
-    .btn:hover{filter:brightness(1.08)}
-    .btn.alt{background:#18233a;border:1px solid #2a3554}
-    /* sections */
-    section{padding:38px 0;border-top:1px solid #15223a}
-    h2{font-size:26px;margin:0 0 16px}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-    .card{background:#121b24;border:1px solid #22304b;border-radius:10px;padding:18px}
-    /* forms */
-    form{display:grid;gap:12px}
-    input,select,textarea{background:#0f1627;border:1px solid #2a3554;border-radius:8px;color:#fff;padding:12px}
-    label{font-size:14px;opacity:.9}
-    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .note{font-size:13px;opacity:.75}
-    .ok{background:#14b86a}
-    /* posters */
-    .posters{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-    .posters img{width:100%;border:2px solid #2b3453;border-radius:8px;display:block}
-    /* footer */
-    footer{background:#0f1524;border-top:2px solid var(--brand);padding:26px 0;margin-top:30px;font-size:14px}
-  </style>
-</head>
-<body>
-
-<header>
+<!-- ===== OHS Haven Header (drop-in) ===== -->
+<header class="site-header">
   <div class="wrap bar">
-    <div class="h-left">
+    <!-- Left: Logo -->
+    <a href="/" class="brand">
       <img src="assets/logo.png" alt="OHS Haven" class="logo">
-    </div>
-    <div class="title">OHS Haven</div>
-    <img src="assets/avatar.jpg" alt="Melly" class="avatar">
+    </a>
+
+    <!-- Center: Site Title -->
+    <h1 class="title">OHS Haven</h1>
+
+    <!-- Right: Melly avatar with fallbacks -->
+    <picture class="avatar-wrap" aria-label="Melly – your safety assistant">
+      <source srcset="assets/avatar.jpg?v=20251001" type="image/jpeg">
+      <img
+        id="melly-avatar"
+        class="avatar"
+        src="assets/avatar.jpg?v=20251001"
+        alt="Melly"
+        loading="eager"
+        decoding="async"
+        onerror="(function(img){
+          const tries=[
+            'assets/avatar.jpeg?v=20251001',
+            'assets/melly-avatar.jpg?v=20251001',
+            'assets/melly-avatar.jpeg?v=20251001',
+            'assets/avatar.jpg'
+          ];
+          img._i = (img._i||0);
+          if (img._i < tries.length) { img.src = tries[img._i++]; }
+          else { img.style.display='none'; }
+        })(this);"
+      >
+    </picture>
   </div>
 </header>
-
-<main class="wrap">
-
-  <section class="hero">
-    <h1>No Paperwork, Just Safety</h1>
-    <p class="sub">Capture checklists, log near-losses and get guided next steps. No spreadsheets. No drama. Melly assists 24/7.</p>
-    <div class="btns">
-      <a class="btn" href="#features">See Features</a>
-      <a class="btn" href="#checklist">Run Daily Checklist</a>
-      <a class="btn" href="/ergo/">Ergonomics (New)</a>
-      <a class="btn alt" href="#downloads">Downloads</a>
-      <a class="btn alt" href="#contact">Contact</a>
-      <a class="btn" href="#merch">Shop / Merch</a>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section id="features">
-    <h2>Features</h2>
-    <div class="cards">
-      <div class="card">Lead capture → auto email + WhatsApp follow-up</div>
-      <div class="card">Automated checklists (Daily / Weekly / Monthly)</div>
-      <div class="card">Alerts & escalation on near-loss themes</div>
-      <div class="card">Poster downloads & training kits</div>
-    </div>
-  </section>
-
-  <!-- CHECKLIST (fully working, saved by Netlify Forms) -->
-  <section id="checklist">
-    <h2>Daily Checklist</h2>
-    <form name="daily-checklist" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="daily-checklist">
-      <div class="row">
-        <label>Site / Location
-          <input name="site" placeholder="e.g., Astron Station – Rivonia" required>
-        </label>
-        <label>Shift
-          <select name="shift" required>
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
-            <option value="Night">Night</option>
-          </select>
-        </label>
-        <label>Supervisor
-          <input name="supervisor" placeholder="Name & surname" required>
-        </label>
-      </div>
-      <div class="row">
-        <label><input type="checkbox" name="exits_clear"> Fire exits clear & signed</label>
-        <label><input type="checkbox" name="spill_kit"> Spill kit stocked & accessible</label>
-        <label><input type="checkbox" name="labels_ok"> Fuel/chem containers labelled</label>
-      </div>
-      <label>Notes / NLIs
-        <textarea name="notes" rows="3" placeholder="Near-losses, hazards, actions…"></textarea>
-      </label>
-      <button class="btn ok" type="submit">Submit checklist</button>
-      <div class="note">Submissions appear in Netlify → Forms → <b>daily-checklist</b></div>
-    </form>
-  </section>
-
-  <!-- POSTERS (downloads) -->
-  <section id="downloads">
-    <h2>Step-by-Step Training Posters</h2>
-    <div class="posters">
-      <a href="assets/posters/first-aid.jpg" download><img src="assets/posters/first-aid.jpg" alt="First Aid"></a>
-      <a href="assets/posters/spill-response.jpg" download><img src="assets/posters/spill-response.jpg" alt="Spill Response"></a>
-      <a href="assets/posters/evacuation.jpg" download><img src="assets/posters/evacuation.jpg" alt="Evacuation"></a>
-      <a href="assets/posters/customer-service.jpg" download><img src="assets/posters/customer-service.jpg" alt="Customer Service"></a>
-      <a href="assets/posters/mirror-en.jpg" download><img src="assets/posters/mirror-en.jpg" alt="Mirror—English"></a>
-      <a href="assets/posters/mirror-zu.jpg" download><img src="assets/posters/mirror-zu.jpg" alt="Mirror—Zulu"></a>
-    </div>
-  </section>
-
-  <!-- MERCH -->
-  <section id="merch">
-    <h2>OHS Haven Merch</h2>
-    <div class="cards">
-      <div class="card">
-        T-Shirt “If you see it, you own it”<br>
-        <a class="btn" href="https://gum.co/placeholder-tshirt" target="_blank">Buy</a>
-      </div>
-      <div class="card">
-        Work Smart Shirt<br>
-        <a class="btn" href="https://gum.co/placeholder-worksmart" target="_blank">Buy</a>
-      </div>
-      <div class="card">
-        Helmet Shirt<br>
-        <a class="btn" href="https://gum.co/placeholder-helmet" target="_blank">Buy</a>
-      </div>
-    </div>
-    <p class="note">Replace Gumroad links later with your live products.</p>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <form name="contact" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="contact">
-      <div class="row">
-        <label>Name<input name="name" required></label>
-        <label>Email<input name="email" type="email" required></label>
-        <label>WhatsApp<input name="whatsapp" placeholder="+27 …"></label>
-      </div>
-      <label>Message<textarea name="message" rows="3" placeholder="How can we help?"></textarea></label>
-      <button class="btn ok" type="submit">Send</button>
-      <div class="note">Submissions appear in Netlify → Forms → <b>contact</b></div>
-    </form>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven
-  </div>
-</footer>
-
-<!-- Melly mini-widget -->
-<script>
-  // simple greeting on load
-  window.addEventListener('load', () => {
-    console.log('Melly ready: try asking "Show me posters" or "How do I get the kit?"');
-  });
-</script>
-</body>
-</html>
+<!-- ===== end header ===== -->
