@@ -1,15 +1,121 @@
-<!-- ====== HEADER (locked sizes) ====== -->
-<header class="ohs-header">
-  <div class="ohs-h-side">
-    <img src="assets/logo.png?v=3" alt="OHS Haven" class="ohs-logo" />
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OHS Haven — No Paperwork, Just Safety</title>
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="assets/styles.css?v=reset1" />
+</head>
+<body>
 
-  <div class="ohs-h-center">
-    <h1 class="ohs-title">OHS Haven</h1>
-  </div>
+  <!-- ===== HEADER (locked sizes, no stretching) ===== -->
+  <header class="ohs-header">
+    <div class="ohs-h-side">
+      <img src="assets/logo.png?v=reset1" alt="OHS Haven" class="ohs-logo" />
+    </div>
+    <div class="ohs-h-center">
+      <h1 class="ohs-title">OHS Haven</h1>
+    </div>
+    <div class="ohs-h-side">
+      <img src="assets/avatar.jpg?v=reset1" alt="Melly" class="ohs-avatar" />
+    </div>
+  </header>
 
-  <div class="ohs-h-side">
-    <img src="assets/avatar.jpg?v=3" alt="Melly" class="ohs-avatar" />
-  </div>
-</header>
-<!-- ====== /HEADER ====== -->
+  <main class="wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h2 class="hero-line">No Paperwork, Just Safety</h2>
+      <p class="sub">Capture checklists, log near-losses, get guided next steps. Melly assists 24/7.</p>
+      <div class="btns">
+        <a class="btn" href="#features">See Features</a>
+        <a class="btn" href="#checklist">Run Daily Checklist</a>
+        <a class="btn alt" href="/ergo/">Ergonomics (Beta)</a>
+        <a class="btn alt" href="#downloads">Downloads</a>
+        <a class="btn" href="#contact">Contact</a>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="section">
+      <h3>Features</h3>
+      <div class="cards">
+        <div class="card">Lead capture → auto email</div>
+        <div class="card">Automated checklists (Daily/Weekly/Monthly)</div>
+        <div class="card">Alerts & escalation on near-loss themes</div>
+        <div class="card">Poster downloads & training kits</div>
+      </div>
+    </section>
+
+    <!-- CHECKLIST (Netlify Forms) -->
+    <section id="checklist" class="section">
+      <h3>Daily Checklist</h3>
+      <form name="daily-checklist" method="POST" data-netlify="true" class="form">
+        <input type="hidden" name="form-name" value="daily-checklist" />
+        <div class="row">
+          <label>Site / Location
+            <input name="site" placeholder="e.g., Station — Rivonia" required />
+          </label>
+          <label>Shift
+            <select name="shift" required>
+              <option>AM</option><option>PM</option><option>Night</option>
+            </select>
+          </label>
+          <label>Supervisor
+            <input name="supervisor" placeholder="Name & surname" required />
+          </label>
+        </div>
+        <div class="row">
+          <label class="check"><input type="checkbox" name="exits_clear" /> Fire exits clear & signed</label>
+          <label class="check"><input type="checkbox" name="spill_kit" /> Spill kit stocked & accessible</label>
+          <label class="check"><input type="checkbox" name="labels_ok" /> Fuel/chem containers labelled</label>
+        </div>
+        <label>Notes / NLIs
+          <textarea name="notes" rows="3" placeholder="Near-losses, hazards, actions…"></textarea>
+        </label>
+        <button class="btn ok" type="submit">Submit checklist</button>
+        <div class="note">Submissions appear in Netlify → Forms → <b>daily-checklist</b></div>
+      </form>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section id="downloads" class="section">
+      <h3>Step-by-Step Training Posters</h3>
+      <div class="posters">
+        <a href="assets/posters/first-aid.jpg" download><img src="assets/posters/first-aid.jpg" alt="First Aid" /></a>
+        <a href="assets/posters/spill-response.jpg" download><img src="assets/posters/spill-response.jpg" alt="Spill Response" /></a>
+        <a href="assets/posters/evacuation.jpg" download><img src="assets/posters/evacuation.jpg" alt="Evacuation" /></a>
+        <a href="assets/posters/customer-service.jpg" download><img src="assets/posters/customer-service.jpg" alt="Customer Service" /></a>
+        <a href="assets/posters/mirror-en.jpg" download><img src="assets/posters/mirror-en.jpg" alt="Mirror—English" /></a>
+        <a href="assets/posters/mirror-zu.jpg" download><img src="assets/posters/mirror-zu.jpg" alt="Mirror—Zulu" /></a>
+      </div>
+      <p class="note">Want these behind paywall? We’ll flip these to Gumroad product links later.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h3>Contact</h3>
+      <form name="contact" method="POST" data-netlify="true" class="form">
+        <input type="hidden" name="form-name" value="contact" />
+        <div class="row">
+          <label>Name<input name="name" required /></label>
+          <label>Email<input type="email" name="email" required /></label>
+          <label>WhatsApp<input name="whatsapp" placeholder="+27 ..." /></label>
+        </div>
+        <label>Message<textarea name="message" rows="3" placeholder="How can we help?"></textarea></label>
+        <button class="btn ok" type="submit">Send</button>
+        <div class="note">Submissions appear in Netlify → Forms → <b>contact</b></div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven
+    </div>
+  </footer>
+
+</body>
+</html>
