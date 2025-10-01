@@ -1,121 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OHS Haven — No Paperwork, Just Safety</title>
-  <link rel="icon" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="assets/styles.css?v=reset1" />
-</head>
-<body>
+  <meta name="description" content="Automated OHS checklists, posters, training kits, and an AI safety assistant. No spreadsheets. No drama." />
 
-  <!-- ===== HEADER (locked sizes, no stretching) ===== -->
-  <header class="ohs-header">
-    <div class="ohs-h-side">
-      <img src="assets/logo.png?v=reset1" alt="OHS Haven" class="ohs-logo" />
-    </div>
-    <div class="ohs-h-center">
-      <h1 class="ohs-title">OHS Haven</h1>
-    </div>
-    <div class="ohs-h-side">
-      <img src="assets/avatar.jpg?v=reset1" alt="Melly" class="ohs-avatar" />
+  <!-- Base styles (kept lean and familiar to your current palette) -->
+  <style>
+    :root{
+      --bg:#0a1a2f; --panel:#111c33; --ink:#e8f1ff; --muted:#b9c7e6;
+      --brand:#ff6a00; --line:#ff6a00; --chip:#243044; --good:#27c093;
+      --title:#8ee4ff; --accent:#12d36a;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+    a{color:var(--title);text-decoration:none}
+    a.btn{display:inline-block;background:var(--brand);color:#fff;padding:.75rem 1rem;border-radius:.6rem;font-weight:700}
+    a.btn:hover{filter:brightness(1.1)}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+
+    /* Header */
+    .site-header{background:linear-gradient(120deg,#0b1629 0%,#1b2741 55%,#ff6a00 100%);
+      border-bottom:2px solid var(--line);padding:10px 0}
+    .head-bar{display:flex;align-items:center;gap:10px}
+    .site-logo{height:54px;width:auto}
+    .spacer{flex:1}
+    .site-title{font-size:2.6rem;margin:0 auto;color:var(--title);font-weight:900;letter-spacing:.5px;text-shadow:0 2px 0 #072,0 0 28px rgba(18,211,106,.25)}
+    .site-avatar{height:48px;width:48px;border-radius:50%;object-fit:cover;border:2px solid #fff22e;box-shadow:0 0 0 2px #0003}
+
+    /* Hero */
+    .hero{padding:26px 0 8px}
+    .hero h1{font-size:2.4rem;margin:8px 0 6px;color:#ff7f28}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .cta-row{display:flex;flex-wrap:wrap;gap:12px}
+
+    /* Features */
+    h2{font-size:1.6rem;margin:28px 0 10px}
+    .grid{display:grid;gap:14px}
+    .grid.features{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+    .card{background:var(--panel);border:1px solid #243044;border-radius:10px;padding:16px}
+
+    /* Posters */
+    .posters{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .poster{background:#0c1931;border:1px solid #23304a;border-radius:10px;padding:10px}
+    .poster img{width:100%;height:auto;border-radius:8px;display:block}
+
+    /* Contact */
+    form.contact{display:grid;gap:12px;background:var(--panel);border:1px solid #243044;border-radius:10px;padding:16px}
+    .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    input,textarea{background:#081223;color:#fff;border:1px solid #243044;border-radius:8px;padding:10px}
+    textarea{min-height:110px;resize:vertical}
+    .send{background:var(--good);border:0;border-radius:10px;padding:14px 10px;color:#062018;font-weight:900;letter-spacing:.3px;cursor:pointer}
+    .send:hover{filter:brightness(1.06)}
+
+    /* Footer */
+    footer{border-top:2px solid var(--line);padding:12px 0;color:var(--muted);font-size:.95rem}
+
+    /* ---------- Melly widget ---------- */
+    #melly-fab{
+      position:fixed;right:20px;bottom:24px;width:56px;height:56px;border-radius:50%;
+      background:var(--brand);border:0;color:#fff;cursor:pointer;z-index:60;
+      background-image:url('assets/avatar.jpg');background-size:cover;background-position:center;
+      box-shadow:0 8px 26px rgba(0,0,0,.35)
+    }
+    #melly-box{
+      position:fixed;right:20px;bottom:92px;width:330px;max-height:70vh;background:#0e1a30;color:#fff;
+      border:1px solid #243044;border-radius:12px;overflow:hidden;display:none;z-index:60;box-shadow:0 12px 30px rgba(0,0,0,.45)
+    }
+    .melly-head{background:#132442;border-bottom:1px solid #243044;padding:10px 12px;font-weight:800}
+    .melly-body{padding:8px 10px 12px;max-height:48vh;overflow:auto}
+    .melly-bubble{background:#0b172a;border:1px solid #243044;border-radius:10px;padding:9px 10px;margin:7px 0}
+    .melly-input{display:flex;gap:8px;border-top:1px solid #243044;background:#0b172a;padding:8px}
+    .melly-input input{flex:1;background:#081223;border:1px solid #243044;border-radius:8px;color:#fff;padding:10px}
+    .melly-input button{background:#ff6a00;border:0;border-radius:8px;color:#fff;font-weight:800;padding:10px 12px;cursor:pointer}
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+    .chip{background:var(--chip);color:#dbe8ff;border:1px solid #2f3a56;border-radius:20px;padding:6px 10px;font-size:.82rem;cursor:pointer}
+    /* Melly inline lead form */
+    .melly-form{background:#0b172a;border:1px solid #243044;border-radius:8px;margin:8px 0;padding:10px 12px}
+    .melly-form label{display:block;font-size:.85rem;margin:6px 0 2px;color:#b9c7e6}
+    .melly-form input{width:100%;background:#081223;color:#fff;border:1px solid #243044;border-radius:6px;padding:8px 10px}
+    .melly-form .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .melly-form .actions{display:flex;gap:8px;margin-top:10px}
+    .melly-btn{background:#ff6a00;color:#fff;border:0;border-radius:6px;padding:9px 12px;font-weight:700;cursor:pointer}
+    .melly-btn.secondary{background:#243044}
+    @media (max-width:680px){
+      .site-title{font-size:2rem}
+      #melly-box{right:12px;left:12px;width:auto}
+      .row3{grid-template-columns:1fr}
+      .melly-form .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="wrap head-bar">
+      <img src="assets/logo.png" alt="OHS Haven logo" class="site-logo" />
+      <div class="spacer"></div>
+      <h1 class="site-title">OHS Haven</h1>
+      <div class="spacer"></div>
+      <img src="assets/avatar.jpg" alt="Melly AI" class="site-avatar" />
     </div>
   </header>
 
-  <main class="wrap">
+  <!-- ===== Hero ===== -->
+  <section class="wrap hero">
+    <h1>No Paperwork, Just Safety</h1>
+    <p>Capture checklists, log near-losses, and get guided next steps. No spreadsheets. No drama. Melly assists 24/7.</p>
+    <div class="cta-row">
+      <a class="btn" href="#features">See Features</a>
+      <a class="btn" href="#daily">Run Daily Checklist</a>
+      <a class="btn" href="#ergo">Ergonomics (Beta)</a>
+      <a class="btn" href="#downloads">Downloads</a>
+      <a class="btn" href="#contact">Contact</a>
+      <a class="btn" href="https://ohshaven.gumroad.com" target="_blank" rel="noopener">Shop / Merch</a>
+    </div>
+  </section>
 
-    <!-- HERO -->
-    <section class="hero">
-      <h2 class="hero-line">No Paperwork, Just Safety</h2>
-      <p class="sub">Capture checklists, log near-losses, get guided next steps. Melly assists 24/7.</p>
-      <div class="btns">
-        <a class="btn" href="#features">See Features</a>
-        <a class="btn" href="#checklist">Run Daily Checklist</a>
-        <a class="btn alt" href="/ergo/">Ergonomics (Beta)</a>
-        <a class="btn alt" href="#downloads">Downloads</a>
-        <a class="btn" href="#contact">Contact</a>
+  <!-- ===== Features ===== -->
+  <section class="wrap" id="features">
+    <h2>Features</h2>
+    <div class="grid features">
+      <div class="card">Lead capture → auto email + WhatsApp follow-up</div>
+      <div class="card">Automated checklists (Daily / Weekly / Monthly)</div>
+      <div class="card">Alerts & escalation on near-loss themes</div>
+      <div class="card">Poster downloads & training kits</div>
+    </div>
+  </section>
+
+  <!-- ===== Daily (anchor only to match your current flow) ===== -->
+  <section class="wrap" id="daily">
+    <h2>Daily Checklist</h2>
+    <div class="card">Open the checklist in the header above or add your flow here later. Melly can also capture a “Lead / Demo” and we’ll auto-set it up for you.</div>
+  </section>
+
+  <!-- ===== Ergonomics placeholder ===== -->
+  <section class="wrap" id="ergo">
+    <h2>Ergonomics (Beta)</h2>
+    <div class="card">Agent-based micro-assessments, stretch-break nudges, and posture tips. (Full module coming right up.)</div>
+  </section>
+
+  <!-- ===== Posters ===== -->
+  <section class="wrap" id="posters">
+    <h2>Step-by-Step Training Posters</h2>
+    <div class="grid posters">
+      <div class="poster"><img src="assets/posters/first-aid.jpg" alt="Emergency First Aid Poster"></div>
+      <div class="poster"><img src="assets/posters/customer-service.jpg" alt="Customer Service Poster"></div>
+      <div class="poster"><img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster"></div>
+      <div class="poster"><img src="assets/posters/spill-response.jpg" alt="Emergency Spill Response Poster"></div>
+      <div class="poster"><img src="assets/posters/mirror-zu.jpg" alt="Mirror poster (Zulu)"></div>
+      <div class="poster"><img src="assets/posters/mirror-en.jpg" alt="Mirror poster (English)"></div>
+      <div class="poster"><img src="assets/posters/t-shirt.png" alt="OHS Haven T-shirt"></div>
+    </div>
+    <p style="margin-top:10px;color:var(--muted)">Want these behind paywall? We’ll flip these to Gumroad product links later.</p>
+  </section>
+
+  <!-- ===== Downloads ===== -->
+  <section class="wrap" id="downloads">
+    <h2>Downloads</h2>
+    <div class="card">Training kit, checklists, and templates. We’ll surface free items here and push paid items to the Shop.</div>
+  </section>
+
+  <!-- ===== Contact / Netlify form ===== -->
+  <section class="wrap" id="contact">
+    <h2>Contact</h2>
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact">
+      <input type="hidden" name="form-name" value="contact" />
+      <input type="text" name="bot-field" hidden>
+      <div class="row3">
+        <input type="text" name="name" placeholder="Name" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="tel" name="whatsapp" placeholder="+27 ..." />
       </div>
-    </section>
+      <textarea name="message" placeholder="How can we help?"></textarea>
+      <button class="send" type="submit">Send</button>
+      <small style="color:var(--muted)">Submissions appear in Netlify → Forms → <b>contact</b></small>
+    </form>
+  </section>
 
-    <!-- FEATURES -->
-    <section id="features" class="section">
-      <h3>Features</h3>
-      <div class="cards">
-        <div class="card">Lead capture → auto email</div>
-        <div class="card">Automated checklists (Daily/Weekly/Monthly)</div>
-        <div class="card">Alerts & escalation on near-loss themes</div>
-        <div class="card">Poster downloads & training kits</div>
-      </div>
-    </section>
-
-    <!-- CHECKLIST (Netlify Forms) -->
-    <section id="checklist" class="section">
-      <h3>Daily Checklist</h3>
-      <form name="daily-checklist" method="POST" data-netlify="true" class="form">
-        <input type="hidden" name="form-name" value="daily-checklist" />
-        <div class="row">
-          <label>Site / Location
-            <input name="site" placeholder="e.g., Station — Rivonia" required />
-          </label>
-          <label>Shift
-            <select name="shift" required>
-              <option>AM</option><option>PM</option><option>Night</option>
-            </select>
-          </label>
-          <label>Supervisor
-            <input name="supervisor" placeholder="Name & surname" required />
-          </label>
-        </div>
-        <div class="row">
-          <label class="check"><input type="checkbox" name="exits_clear" /> Fire exits clear & signed</label>
-          <label class="check"><input type="checkbox" name="spill_kit" /> Spill kit stocked & accessible</label>
-          <label class="check"><input type="checkbox" name="labels_ok" /> Fuel/chem containers labelled</label>
-        </div>
-        <label>Notes / NLIs
-          <textarea name="notes" rows="3" placeholder="Near-losses, hazards, actions…"></textarea>
-        </label>
-        <button class="btn ok" type="submit">Submit checklist</button>
-        <div class="note">Submissions appear in Netlify → Forms → <b>daily-checklist</b></div>
-      </form>
-    </section>
-
-    <!-- DOWNLOADS -->
-    <section id="downloads" class="section">
-      <h3>Step-by-Step Training Posters</h3>
-      <div class="posters">
-        <a href="assets/posters/first-aid.jpg" download><img src="assets/posters/first-aid.jpg" alt="First Aid" /></a>
-        <a href="assets/posters/spill-response.jpg" download><img src="assets/posters/spill-response.jpg" alt="Spill Response" /></a>
-        <a href="assets/posters/evacuation.jpg" download><img src="assets/posters/evacuation.jpg" alt="Evacuation" /></a>
-        <a href="assets/posters/customer-service.jpg" download><img src="assets/posters/customer-service.jpg" alt="Customer Service" /></a>
-        <a href="assets/posters/mirror-en.jpg" download><img src="assets/posters/mirror-en.jpg" alt="Mirror—English" /></a>
-        <a href="assets/posters/mirror-zu.jpg" download><img src="assets/posters/mirror-zu.jpg" alt="Mirror—Zulu" /></a>
-      </div>
-      <p class="note">Want these behind paywall? We’ll flip these to Gumroad product links later.</p>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section">
-      <h3>Contact</h3>
-      <form name="contact" method="POST" data-netlify="true" class="form">
-        <input type="hidden" name="form-name" value="contact" />
-        <div class="row">
-          <label>Name<input name="name" required /></label>
-          <label>Email<input type="email" name="email" required /></label>
-          <label>WhatsApp<input name="whatsapp" placeholder="+27 ..." /></label>
-        </div>
-        <label>Message<textarea name="message" rows="3" placeholder="How can we help?"></textarea></label>
-        <button class="btn ok" type="submit">Send</button>
-        <div class="note">Submissions appear in Netlify → Forms → <b>contact</b></div>
-      </form>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
+  <footer>
     <div class="wrap">
       📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven
     </div>
   </footer>
 
+  <!-- ===== Melly: floating chat ===== -->
+  <button id="melly-fab" title="Chat to Melly"></button>
+  <div id="melly-box" aria-live="polite">
+    <div class="melly-head">Melly — Your Safety Assistant</div>
+    <div class="melly-body" id="melly-msgs">
+      <div class="melly-bubble"><strong>Melly:</strong> Hi 👋 I’m Melly! How can I help you today?</div>
+      <div class="melly-bubble"><strong>Melly:</strong> Try asking: “Show me posters”, “How do I get the kit?”, “Contact support”, “demo”, “start breaks”.</div>
+      <div class="chips">
+        <span class="chip melly-chip" data-q="Show me posters">Posters</span>
+        <span class="chip melly-chip" data-q="How do I get the kit?">Get the kit</span>
+        <span class="chip melly-chip" data-q="I want a demo">Demo</span>
+        <span class="chip melly-chip" data-q="Open ergonomics">Ergonomics</span>
+        <span class="chip melly-chip" data-q="Contact support">Support</span>
+        <span class="chip melly-chip" data-q="Start breaks 60">Start breaks</span>
+      </div>
+    </div>
+    <div class="melly-input">
+      <input id="melly-input" type="text" placeholder="Type your question..." />
+      <button id="melly-send">Send</button>
+    </div>
+  </div>
+
+  <!-- Hidden Netlify form for chat-leads -->
+  <form name="chat-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name">
+    <input type="email" name="email">
+    <input type="tel" name="whatsapp">
+    <input type="text" name="topic" value="Demo / Lead">
+    <input type="text" name="source" value="melly-chat">
+    <input type="text" name="utm" value="">
+    <input type="text" name="bot-field">
+  </form>
+
+  <!-- ===== Melly automation script (lead capture, WhatsApp follow-up, stretch breaks, remember me) ===== -->
+  <script>
+    (function(){
+      const WHATSAPP = '+27711234567';        // your WA follow-up number
+      const SUPPORT  = 'info@ohshaven.co.za'; // escalation email
+
+      const fab  = document.getElementById('melly-fab');
+      const box  = document.getElementById('melly-box');
+      const msgs = document.getElementById('melly-msgs');
+      const inp  = document.getElementById('melly-input');
+      const send = document.getElementById('melly-send');
+
+      /* helpers */
+      function toggle(){ box.style.display = (box.style.display==='block') ? 'none' : 'block'; }
+      function say(text, who='Melly'){
+        const b = document.createElement('div');
+        b.className = 'melly-bubble';
+        b.innerHTML = `<strong>${who}:</strong> ${text}`;
+        msgs.appendChild(b); msgs.scrollTop = msgs.scrollHeight;
+      }
+      function html(el){ msgs.appendChild(el); msgs.scrollTop = msgs.scrollHeight; }
+      function go(idOrUrl){ if(idOrUrl.startsWith('#')) location.hash=idOrUrl; else location.href=idOrUrl; }
+      function enc(d){ return Object.keys(d).map(k=>encodeURIComponent(k)+'='+encodeURIComponent(d[k]??'')).join('&'); }
+      function wa(text){ window.open(`https://wa.me/${WHATSAPP.replace(/\D/g,'')}?text=${encodeURIComponent(text)}`,'_blank'); }
+      function remember(details){ localStorage.setItem('mellyUser', JSON.stringify(details)); prefill(details); }
+      function loadUser(){ try{return JSON.parse(localStorage.getItem('mellyUser')||'{}')}catch(e){return{}} }
+      function prefill(u){
+        const name = document.querySelector('input[name="name"]');
+        const email= document.querySelector('input[name="email"]');
+        const tel  = document.querySelector('input[name="whatsapp"], input[type="tel"]');
+        if(u.name && name) name.value = u.name;
+        if(u.email && email) email.value = u.email;
+        if(u.whatsapp && tel) tel.value = u.whatsapp;
+      }
+
+      /* inline lead form inside chat */
+      function askLead(topic='Demo / Lead'){
+        const u = loadUser();
+        const wrap = document.createElement('div');
+        wrap.className = 'melly-form';
+        wrap.innerHTML = `
+          <div class="row">
+            <div>
+              <label>Name</label>
+              <input id="mly_name" type="text" placeholder="Full name" value="${u.name||''}">
+            </div>
+            <div>
+              <label>WhatsApp</label>
+              <input id="mly_whatsapp" type="tel" placeholder="+27 ..." value="${u.whatsapp||''}">
+            </div>
+          </div>
+          <label>Email</label>
+          <input id="mly_email" type="email" placeholder="you@company.com" value="${u.email||''}">
+          <div class="actions">
+            <button class="melly-btn" id="mly_send">Send</button>
+            <button class="melly-btn secondary" id="mly_cancel">Cancel</button>
+          </div>`;
+        const bubble = document.createElement('div');
+        bubble.className = 'melly-bubble';
+        bubble.innerHTML = `<strong>Melly:</strong> Great — drop your details and I’ll set it up.`;
+        bubble.appendChild(wrap);
+        html(bubble);
+
+        wrap.querySelector('#mly_cancel').onclick = ()=>{ bubble.remove(); };
+        wrap.querySelector('#mly_send').onclick = async ()=>{
+          const name = wrap.querySelector('#mly_name').value.trim();
+          const email= wrap.querySelector('#mly_email').value.trim();
+          const whatsapp = wrap.querySelector('#mly_whatsapp').value.trim();
+          if(!name || !email){ say('Please add name & email to proceed.'); return; }
+
+          remember({name,email,whatsapp});
+
+          // Post to Netlify Forms (chat-lead)
+          const payload = {
+            'form-name':'chat-lead',
+            name, email, whatsapp,
+            topic, source:'melly-chat', utm: location.search
+          };
+          try{
+            await fetch('/', {
+              method:'POST',
+              headers:{'Content-Type':'application/x-www-form-urlencoded'},
+              body: enc(payload)
+            });
+            say('Thanks! I’ve logged this and sent it to the team. I’ll follow up on WhatsApp now.');
+          }catch(e){
+            say('I couldn’t reach the server, but I’ll try WhatsApp anyway.');
+          }
+          wa(`Hi, it's ${name}. I'm interested in "${topic}". Email: ${email} | WhatsApp: ${whatsapp}`);
+        };
+      }
+
+      /* stretch breaks */
+      let breakTimer=null, breakEvery=60; // minutes
+      function startBreaks(min=60){
+        stopBreaks(); breakEvery = Math.max(15, Number(min)||60);
+        const ms = breakEvery*60*1000;
+        breakTimer = setInterval(()=> say(`⏰ Stretch break time! Stand, rotate shoulders, look 20m away.`), ms);
+        say(`Stretch breaks enabled — every ${breakEvery} minutes. Say "stop breaks" to disable.`);
+      }
+      function stopBreaks(){ if(breakTimer){ clearInterval(breakTimer); breakTimer=null; say('Stretch breaks stopped.'); } }
+
+      /* chat routing */
+      function reply(){
+        const q = (inp.value||'').trim(); if(!q) return;
+        say(q,'You'); inp.value='';
+        const t = q.toLowerCase();
+
+        if(t.includes('poster'))           { say('Here are the posters 👇'); go('#posters'); }
+        else if(t.includes('kit'))         { say('Opening downloads…'); go('#downloads'); }
+        else if(t.includes('support')||t.includes('contact')){
+          say('Opening mail…'); location.href = `mailto:${SUPPORT}?subject=Help%20from%20site`;
+        }
+        else if(t.includes('ergo'))        { say('Taking you to Ergonomics.'); go('#ergo'); }
+        else if(t.includes('shop')||t.includes('merch')){
+          say('Opening the shop…'); location.href='https://ohshaven.gumroad.com';
+        }
+        else if(t.includes('lead')||t.includes('demo')) { askLead('Demo / Lead'); }
+        else if(t.includes('quote'))       { askLead('Quote / Safety Files'); }
+        else if(t.includes('remember'))    { askLead('Remember my details'); }
+        else if(t.startsWith('start break')){
+          const m = t.match(/(\d+)/); startBreaks(m?m[1]:60);
+        }
+        else if(t.includes('stop break'))  { stopBreaks(); }
+        else { say('Try: "lead", "demo", "quote", "posters", "how do I get the kit?", "open ergonomics", "shop", "start breaks".'); }
+      }
+
+      fab.addEventListener('click', toggle);
+      document.querySelectorAll('.melly-chip').forEach(c =>
+        c.addEventListener('click', () => { inp.value = c.dataset.q; reply(); })
+      );
+      send.addEventListener('click', reply);
+      inp.addEventListener('keydown', e => { if(e.key==='Enter') reply(); });
+
+      // Prefill page contact form if details saved
+      prefill(loadUser());
+
+      // Auto-open once per session
+      setTimeout(()=>{ if(!sessionStorage.getItem('mellyShown')){ toggle(); sessionStorage.setItem('mellyShown','1'); }}, 800);
+    })();
+  </script>
 </body>
 </html>
