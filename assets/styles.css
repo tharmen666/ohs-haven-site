@@ -1,56 +1,67 @@
-/* ===== OHS Haven Header styles ===== */
-:root{
-  --ohs-bg:#0f1e2e;
-  --ohs-accent:#ff6a00;
-  --ohs-green:#19e36f;
-  --ohs-ink:#d8e7ff;
-}
-
+/* ===== Header layout ===== */
 .site-header{
-  background:
-    linear-gradient(90deg, rgba(25,227,111,.12), rgba(255,106,0,.10)) ,
-    var(--ohs-bg);
-  border-bottom:2px solid var(--ohs-accent);
-}
-
-.site-header .wrap.bar{
-  max-width:1120px;
-  margin-inline:auto;
-  padding:14px 20px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:16px;
+  padding:10px 16px;
+  background: linear-gradient(90deg, #0d1b2a 0%, #152a3b 60%, #1a3246 100%);
+  border-bottom:2px solid #ff6a00;
 }
 
-.brand{ display:inline-flex; align-items:center; text-decoration:none; }
-.logo{ height:56px; width:auto; display:block; }
+/* Fix the sides to a compact width so images never grow */
+.site-header__side{
+  width:64px;               /* guarantees small, tidy images */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 64px;
+}
 
-.title{
+/* Center area expands so the title can sit dead center */
+.site-header__center{
   flex:1 1 auto;
-  margin:0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  font-weight:900;
-  letter-spacing:.6px;
-  /* “logo vibe” */
-  font-size:clamp(1.6rem, 3.5vw + .5rem, 2.6rem);
-  color:var(--ohs-green);
-  text-shadow:0 1px 0 #0008, 0 0 18px rgba(25,227,111,.25);
-  line-height:1.1;
+  min-width:0;              /* prevents overflow on narrow screens */
 }
 
-.avatar-wrap{ display:inline-block; }
-.avatar{
-  height:56px; width:56px; border-radius:50%;
+/* Compact images */
+.site-logo{
+  height:44px;
+  width:auto;
+  display:block;
+}
+
+.site-avatar{
+  height:44px;
+  width:44px;
+  border-radius:50%;
   object-fit:cover;
-  border:2px solid #0006;
-  box-shadow:0 2px 10px rgba(0,0,0,.25);
+  border:2px solid #ff6a00;
+  box-shadow:0 0 0 2px rgba(10,26,47,.4);
 }
 
-/* Small screens */
-@media (max-width:640px){
-  .logo,.avatar{ height:44px; width:44px; }
-  .title{ font-size:clamp(1.35rem, 5.2vw, 1.6rem); letter-spacing:.4px; }
+/* Big, punchy title in the middle */
+.site-title{
+  margin:0;
+  line-height:1;
+  font-weight:900;
+  font-size:clamp(22px, 4.2vw, 42px);
+  letter-spacing:.5px;
+  background:linear-gradient(180deg,#00e28e 0%, #59f0ff 45%, #fff 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 2px 12px rgba(0, 255, 180, .08);
 }
 
-/* ===== end header styles ===== */
+/* Mobile tweaks */
+@media (max-width:480px){
+  .site-header{ padding:8px 10px; gap:12px; }
+  .site-header__side{ width:52px; flex-basis:52px; }
+  .site-logo{ height:38px; }
+  .site-avatar{ height:38px; width:38px; }
+}
