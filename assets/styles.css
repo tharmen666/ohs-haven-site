@@ -1,137 +1,98 @@
-/* ===== Header layout ===== */
-.site-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:10px 16px;
-  background: linear-gradient(90deg, #0d1b2a 0%, #152a3b 60%, #1a3246 100%);
-  border-bottom:2px solid #ff6a00;
-}
+/* ==== Reset (tiny, safe) ==== */
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+img { display: block; }           /* No global width:100% — avoids header blowups */
+a { text-decoration: none; color: inherit; }
 
-/* Fix the sides to a compact width so images never grow */
-.site-header__side{
-  width:64px;               /* guarantees small, tidy images */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex:0 0 64px;
+/* ==== Theme ==== */
+:root{
+  --bg:#0b1b31;
+  --panel:#121b24;
+  --line:#22304b;
+  --ink:#e8f0ff;
+  --muted:#a9bad1;
+  --brand:#ff6a00;
+  --mint:#19e36f;
 }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 Inter, system-ui, Segoe UI, Arial, sans-serif; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 18px; }
 
-/* Center area expands so the title can sit dead center */
-.site-header__center{
-  flex:1 1 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  min-width:0;              /* prevents overflow on narrow screens */
-}
-
-/* Compact images */
-.site-logo{
-  height:44px;
-  width:auto;
-  display:block;
-}
-
-.site-avatar{
-  height:44px;
-  width:44px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid #ff6a00;
-  box-shadow:0 0 0 2px rgba(10,26,47,.4);
-}
-
-/* Big, punchy title in the middle */
-.site-title{
-  margin:0;
-  line-height:1;
-  font-weight:900;
-  font-size:clamp(22px, 4.2vw, 42px);
-  letter-spacing:.5px;
-  background:linear-gradient(180deg,#00e28e 0%, #59f0ff 45%, #fff 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 2px 12px rgba(0, 255, 180, .08);
-}
-
-/* Mobile tweaks */
-@media (max-width:480px){
-  .site-header{ padding:8px 10px; gap:12px; }
-  .site-header__side{ width:52px; flex-basis:52px; }
-  .site-logo{ height:38px; }
-  .site-avatar{ height:38px; width:38px; }
-}/* ====== Compact header (hard overrides) ====== */
+/* ==== Header (locked sizes, ignores global img rules) ==== */
 .ohs-header{
-  height:64px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  padding:8px 14px;
-  background:linear-gradient(90deg,#0d1b2a 0%, #152a3b 60%, #1a3246 100%);
-  border-bottom:2px solid #ff6a00;
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg,#0d1b2a 0%, #152a3b 60%, #1a3246 100%);
+  border-bottom: 2px solid var(--brand);
 }
+.ohs-h-side{ display:flex; align-items:center; justify-content:center; }
+.ohs-h-center{ display:flex; align-items:center; justify-content:center; min-width:0; }
 
-/* Keep the side columns narrow */
-.ohs-h-side{
-  flex:0 0 56px;
-  width:56px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.ohs-header img {              /* hard override: no stretching */
+  height: 44px !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain;
 }
-
-/* The middle expands so the title is truly centered */
-.ohs-h-center{
-  flex:1 1 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-width:0;
-  text-align:center;
-}
-
-/* >>> Strong overrides so global img rules can’t blow these up <<< */
-.ohs-header img{
-  height:40px !important;
-  width:auto !important;
-  max-width:none !important;
-  object-fit:contain;
-  display:block;
-}
-
-/* Specific avatar tweaks */
 .ohs-avatar{
-  height:40px !important;
-  width:40px !important;
-  border-radius:50%;
-  border:2px solid #ff6a00;
-  box-shadow:0 0 0 2px rgba(10,26,47,.35);
+  height: 44px !important;
+  width: 44px !important;
+  border-radius: 50%;
+  border: 2px solid var(--brand);
+  box-shadow: 0 0 0 2px rgba(10,26,47,.35);
 }
 
-/* Title style */
 .ohs-title{
-  margin:0;
-  line-height:1;
-  font-weight:900;
-  font-size:clamp(22px,4.2vw,42px);
-  letter-spacing:.4px;
-  background:linear-gradient(180deg,#00e28e 0%, #59f0ff 45%, #ffffff 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 2px 12px rgba(0,255,180,.08);
+  margin: 0;
+  line-height: 1.05;
+  font-weight: 900;
+  font-size: clamp(24px, 4.2vw, 44px);
+  letter-spacing: .5px;
+  background: linear-gradient(180deg,#00e28e 0%, #59f0ff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 12px rgba(0,255,180,.08);
 }
 
-/* Mobile */
-@media (max-width:480px){
-  .ohs-header{ height:58px; padding:6px 10px; gap:10px; }
-  .ohs-h-side{ flex-basis:48px; width:48px; }
-  .ohs-header img{ height:34px !important; }
-  .ohs-avatar{ height:34px !important; width:34px !important; }
-}
+/* ==== Sections ==== */
+.section { padding: 32px 0; border-top: 1px solid #15223a; }
+.hero { padding: 36px 0 8px; }
+.hero-line { margin: 0 0 8px; color: var(--brand); font-size: clamp(24px, 4vw, 40px); }
+.sub { opacity: .9; max-width: 740px; }
 
+.btns { display:flex; flex-wrap:wrap; gap:12px; margin: 18px 0 6px; }
+.btn { background: var(--brand); color: #fff; padding: 10px 16px; border-radius: 8px; font-weight: 800; }
+.btn:hover { filter: brightness(1.08); }
+.btn.alt { background: #18233a; border: 1px solid #2a3554; }
+
+.cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; }
+.card  { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+
+/* ==== Forms ==== */
+.form { display: grid; gap: 12px; }
+.row  { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 12px; }
+label { font-size: 14px; opacity: .9; display: block; }
+input, select, textarea {
+  background: #0f1627; color: #fff; border: 1px solid #2a3554; border-radius: 8px; padding: 10px 12px;
+}
+.check { display:flex; align-items:center; gap:8px; font-size: 14px; opacity: .95; }
+.ok { background: #14b86a; color: #001b0c; }
+
+.note { font-size: 13px; color: var(--muted); }
+
+/* ==== Posters grid ==== */
+.posters { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; margin-top: 10px; }
+.posters img { width: 100%; height: auto; border: 2px solid var(--line); border-radius: 8px; }
+
+/* ==== Footer ==== */
+.site-footer { background: #0f1524; border-top: 2px solid var(--brand); padding: 24px 0; font-size: 14px; margin-top: 28px; }
+
+/* ==== Mobile tweaks ==== */
+@media (max-width: 520px){
+  .ohs-header { grid-template-columns: 52px 1fr 52px; }
+  .ohs-header img { height: 38px !important; }
+  .ohs-avatar { height: 38px !important; width: 38px !important; }
+}
