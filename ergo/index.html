@@ -1,9 +1,103 @@
-<!doctype html><meta charset="utf-8">
-<title>Ergo is alive ✅</title>
-<body style="margin:0;background:#0a1a2f;color:#fff;font:16px system-ui">
-  <div style="max-width:800px;margin:40px auto;padding:0 16px">
-    <h1>Ergonomics Agent — Test</h1>
-    <p>If you see this, /ergo routing works. Next we’ll paste the full app.</p>
-    <p><a href="/">← Back home</a></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ergonomics – OHS Haven</title>
+  <link rel="icon" href="../assets/favicon.svg" />
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <style>
+    :root{--brand:#ff6a00;--ink:#e9f1fb;--muted:#9ab3cc;--bg:#0b1b2d;--panel:#0f233b}
+    body{background:var(--bg);color:var(--ink)}
+    .wrap{max-width:900px;margin:24px auto;padding:18px}
+    .card{background:var(--panel);border:1px solid #1b3152;border-radius:14px;padding:18px;margin-bottom:14px}
+    label{display:block;margin:8px 0 4px}
+    input,textarea,select{
+      width:100%;background:#0c1f35;border:1px solid #1b3152;border-radius:10px;color:var(--ink);padding:10px
+    }
+    .btn{background:var(--brand);color:#fff;border:none;border-radius:12px;padding:.9rem 1.2rem;font-weight:700;cursor:pointer}
+    a.back{color:#9fe9ff}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p><a class="back" href="/">← Back to OHS Haven</a></p>
+    <h1 style="margin:.2rem 0 1rem;color:var(--brand)">Ergonomics Assistant (Beta)</h1>
+    <p style="color:var(--muted)">Quick self-assessment, micro-breaks and a tiny quiz. Submissions log in Netlify Forms so HR has a record.</p>
+
+    <div class="card">
+      <h2>Workstation Self-Assessment</h2>
+      <form name="ergonomics" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="ergonomics" />
+        <label>Full name
+          <input name="name" required />
+        </label>
+        <label>Department / Team
+          <input name="department" />
+        </label>
+        <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+          <label>Posture (1–5)
+            <input type="number" name="posture" min="1" max="5" />
+          </label>
+          <label>Breaks taken today
+            <input type="number" name="breaks" min="0" />
+          </label>
+          <label>Screen distance OK?
+            <select name="screen_distance">
+              <option value="">Choose…</option>
+              <option>Yes</option><option>No</option>
+            </select>
+          </label>
+        </div>
+        <label>Comments
+          <textarea name="comments" rows="4" placeholder="Anything uncomfortable? Chair height, wrist pain, glare…"></textarea>
+        </label>
+        <button class="btn" type="submit">Submit</button>
+      </form>
+      <p style="color:var(--muted);margin:.5rem 0 0">HR can export these from Netlify → Forms → <strong>ergonomics</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h2>60-Second Quiz</h2>
+      <form name="ergo-quiz" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="ergo-quiz" />
+        <label>When should you take a micro-break?
+          <select name="break_freq" required>
+            <option value="">Choose…</option>
+            <option>Every 20–30 minutes</option>
+            <option>Only when tired</option>
+            <option>At lunch time only</option>
+          </select>
+        </label>
+        <label>Best chair setup?
+          <select name="chair" required>
+            <option value="">Choose…</option>
+            <option>Feet flat, hips & knees ~90°</option>
+            <option>Cross-legged on the chair</option>
+            <option>Standing all day</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">Submit Quiz</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Instant Micro-Break</h2>
+      <button class="btn" id="ergoStretch">Give me a stretch tip</button>
+      <p id="ergoTip" style="margin:.6rem 0 0;color:#bfefff"></p>
+    </div>
   </div>
+
+  <script>
+    document.getElementById('ergoStretch').addEventListener('click', async ()=>{
+      try{
+        const r = await fetch('/.netlify/functions/stretch');
+        const j = await r.json();
+        document.getElementById('ergoTip').textContent = j.message || 'Stand, roll shoulders, look 20 seconds into the distance.';
+      }catch(e){
+        document.getElementById('ergoTip').textContent = 'Stand, roll shoulders, look 20 seconds into the distance.';
+      }
+    });
+  </script>
 </body>
+</html>
