@@ -5,254 +5,167 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OHS Haven — No Paperwork, Just Safety</title>
   <link rel="icon" href="assets/favicon.svg" />
+  <link rel="preload" as="image" href="assets/logo.png" />
+  <link rel="preload" as="image" href="assets/avatar.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Minimal page-specific styles to avoid touching your main CSS -->
   <style>
+    /* --- quick shine without touching your main stylesheet heavily --- */
     :root{
-      --bg:#0b1b2d;
-      --panel:#111f36;
-      --brand:#ff6a00;
-      --brand-2:#00d084;
-      --ink:#e9f1fb;
-      --muted:#9ab3cc;
-      --ring:rgba(0,0,0,.25);
+      --ink:#0B1C2E; --card:#111F32; --brand:#FF6A00; --brand-2:#49E1E1;
+      --text:#EAF3FF; --muted:#9FB4C9; --ring:rgba(73,225,225,.25);
+      --max:1120px;
     }
-    body{background:var(--bg);color:var(--ink);}
-    a.btn, button.btn{
-      background:var(--brand);color:#fff;border-radius:10px;
-      padding:.9rem 1.1rem;font-weight:700;display:inline-block;
-      box-shadow:0 6px 16px rgba(255,106,0,.25);border:none;cursor:pointer
+    body{margin:0;background:linear-gradient(180deg,#0B1C2E 0%,#071524 100%);color:var(--text);font:400 16px/1.55 system-ui,Segoe UI,Roboto,Inter,sans-serif;}
+    .wrap{max-width:var(--max);margin:auto;padding:24px;}
+    header{position:sticky;top:0;z-index:10;background:rgba(7,21,36,.85);backdrop-filter:saturate(150%) blur(10px);border-bottom:2px solid var(--brand); }
+    .bar{display:flex;align-items:center;gap:16px;padding:14px 20px;}
+    .logo{height:48px;border-radius:10px;background:#0b1c2e;display:block}
+    .title{margin-left:auto;margin-right:auto;font-weight:900;letter-spacing:.3px;
+      font-size:44px;line-height:1;color:var(--brand-2);text-shadow:0 2px 0 #05212a;}
+    .avatar{height:44px;width:44px;border-radius:50%;object-fit:cover;border:2px solid var(--brand-2);box-shadow:0 0 0 3px var(--ring);}
+    .hero{padding:40px 20px 8px; text-align:center;}
+    .hero h1{font-size:48px;line-height:1.1;margin:0 0 12px;color:var(--brand);}
+    .hero p{color:var(--muted);margin:0 auto 22px;max-width:760px}
+    .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+    .btn{background:var(--brand);color:white;border:none;border-radius:12px;
+      padding:12px 18px;font-weight:700;letter-spacing:.2px;cursor:pointer}
+    .btn.alt{background:#12253a;border:1px solid #243d5a}
+    .grid{display:grid;gap:16px;margin:28px 0;grid-template-columns:repeat(4,minmax(0,1fr))}
+    @media(max-width:980px){ .title{font-size:34px} .hero h1{font-size:36px}
+      .grid{grid-template-columns:repeat(2,minmax(0,1fr));}
     }
-    a.btn:hover, button.btn:hover{filter:brightness(1.08)}
-    header.sitebar{
-      position:sticky;top:0;z-index:50;background:linear-gradient(90deg,#0c1f35,#1f3b59);
-      border-bottom:3px solid var(--brand);
-    }
-    .bar{
-      max-width:1150px;margin:auto;display:flex;align-items:center;gap:14px;padding:12px 18px
-    }
-    .bar h1{
-      margin:0 auto 0 8px;font-size:48px;line-height:1;
-      letter-spacing:.5px;
-      background:linear-gradient(180deg,#9fe9ff 0%, #5fd6ff 35%, #a9ffff 100%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      text-shadow:0 2px 0 rgba(0,0,0,.25)
-    }
-    .logo{width:64px;height:64px;border-radius:10px;object-fit:cover;background:#123}
-    .avatar-chip{width:56px;height:56px;border-radius:50%;overflow:hidden;border:2px solid #263b57;box-shadow:0 0 0 3px rgba(255,106,0,.35)}
-    .avatar-chip img{width:100%;height:100%;object-fit:cover}
-
-    .hero{max-width:1100px;margin:26px auto 0;padding:24px}
-    .hero h2{font-size:52px;color:var(--brand);margin:.2rem 0 1rem}
-    .hero p{color:var(--muted);max-width:860px}
-
-    .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 4px}
-    .panel{background:var(--panel);border:1px solid #1b3152;border-radius:14px;padding:18px}
-
-    .feature-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-    .feature-grid .card{background:#0f233b;border:1px solid #1b3152;border-radius:14px;padding:16px}
-
-    /* Posters */
-    .posters{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:10px}
-    .posters .poster{background:#0f233b;border:1px solid #1b3152;border-radius:14px;padding:10px}
-    .posters img{width:100%;height:auto;border-radius:10px;display:block}
-
-    /* Footer */
-    footer{border-top:3px solid var(--brand);margin-top:34px;background:#0c1f35}
-    footer .wrap{max-width:1100px;margin:auto;padding:16px 20px;color:#cfe4ff}
-
-    /* Melly chat widget (lite) */
-    .melly-bubble{
-      position:fixed;right:20px;bottom:20px;z-index:60;width:360px;max-width:90vw;
-      border-radius:14px;overflow:hidden;box-shadow:0 10px 30px var(--ring);
-      background:#0f233b;border:1px solid #1b3152;display:none;flex-direction:column
-    }
-    .melly-head{background:var(--brand);color:#fff;padding:10px 12px;font-weight:700}
-    .melly-body{padding:12px;display:flex;gap:10px}
-    .melly-body .pic{width:48px;height:48px;border-radius:50%;overflow:hidden;flex:0 0 48px;border:2px solid #263b57}
-    .melly-body .txt{color:#eaf4ff;font-size:.95rem}
-    .melly-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 12px 12px}
-    .melly-actions button{background:#163258;border:1px solid #29507e;color:#dff3ff;border-radius:999px;padding:8px 12px;cursor:pointer}
-    .melly-toggle{
-      position:fixed;right:22px;bottom:22px;z-index:61;width:66px;height:66px;border-radius:50%;
-      border:3px solid #243c5f;background:#0f233b;box-shadow:0 10px 20px var(--ring);cursor:pointer
-    }
-    .melly-toggle img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-    .stretch-tip{color:#bfefff;margin-top:8px}
-    @media (max-width:640px){ .bar h1{font-size:38px} .hero h2{font-size:40px} }
+    .card{background:var(--card);border:1px solid #1f3753;border-radius:14px;padding:18px;min-height:84px}
+    .pill{display:inline-block;background:#0f2338;border:1px solid #274667;color:#bcd1e8;padding:4px 10px;border-radius:999px;font-size:12.5px}
+    .poster{width:100%;height:420px;object-fit:cover;border-radius:12px;border:2px solid #213a59;box-shadow:0 8px 28px rgba(0,0,0,.35)}
+    .poster:hover{transform:translateY(-2px);transition:.2s}
+    .fieldset{background:#0f2236;border:1px solid #193451;border-radius:16px;padding:16px}
+    label{display:block;color:#bcd1e8;margin:10px 0 6px}
+    input,select,textarea{width:100%;background:#0c1c2d;border:1px solid #244362;
+      color:var(--text);border-radius:10px;padding:12px 12px;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--brand-2);box-shadow:0 0 0 3px var(--ring)}
+    .toast{position:fixed;right:18px;bottom:18px;background:#0e2235;border:1px solid #24405e;border-radius:12px;padding:10px 12px;display:none}
+    footer{border-top:2px solid var(--brand);margin-top:40px}
   </style>
 </head>
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header class="sitebar">
-    <div class="bar">
-      <img class="logo" src="assets/logo.png"
-           onerror="this.onerror=null;this.src='assets/logo.svg';"
-           alt="OHS Haven logo">
-      <h1>OHS Haven</h1>
-
-      <div class="avatar-chip" title="Chat with Melly" id="mellyToggle">
-        <img src="assets/avatar.jpg"
-             onerror="this.onerror=null;this.src='assets/avatar.jpeg';"
-             alt="Melly Avatar">
-      </div>
+  <header>
+    <div class="bar wrap">
+      <img src="assets/logo.png" alt="OHS Haven" class="logo" />
+      <div class="title">OHS Haven</div>
+      <img src="assets/avatar.jpg" alt="Melly" class="avatar" id="mellyFab" />
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <h2>No Paperwork, Just Safety</h2>
-    <p>
-      Capture checklists, log near-losses and get guided next steps. No spreadsheets. No drama.
-      <strong>Melly</strong> assists 24/7, answers quick questions, and nudges stretch breaks for ergonomics.
-    </p>
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <h1>No Paperwork, Just Safety</h1>
+      <p>Capture checklists, log near-losses, and get guided next steps. No spreadsheets. Melly assists 24/7.</p>
+      <div class="row">
+        <a href="#features" class="btn alt">See Features</a>
+        <a href="#daily" class="btn">Run Daily Checklist</a>
+        <a href="/ergo/" class="btn alt">Ergonomics (Beta)</a>
+        <a href="#downloads" class="btn alt">Downloads</a>
+        <a href="#contact" class="btn alt">Contact</a>
+      </div>
+    </section>
 
-    <div class="cta-row">
-      <a href="#features" class="btn">See Features</a>
-      <a href="#daily" class="btn">Run Daily Checklist</a>
-      <a href="/ergo/" class="btn">Ergonomics (New)</a>
-      <a href="#downloads" class="btn">Downloads</a>
-      <a href="#contact" class="btn">Contact</a>
+    <!-- FEATURES -->
+    <h2 id="features">Features</h2>
+    <div class="grid">
+      <div class="card"><span class="pill">Lead capture</span><br/>auto email + WhatsApp follow-up</div>
+      <div class="card"><span class="pill">Automated checklists</span><br/>Daily / Weekly / Monthly</div>
+      <div class="card"><span class="pill">Alerts & escalation</span><br/>on near-loss themes</div>
+      <div class="card"><span class="pill">Posters & kits</span><br/>downloads / merch</div>
     </div>
 
-    <div class="panel" style="margin-top:14px">
-      <button class="btn" id="stretchBtn">Stretch Reminder</button>
-      <span class="stretch-tip" id="stretchTip"></span>
-    </div>
-  </section>
-
-  <!-- ===== FEATURES ===== -->
-  <section id="features" class="panel" style="max-width:1100px;margin:0 auto;">
-    <h3>Features</h3>
-    <div class="feature-grid">
-      <div class="card">Lead capture → auto email + WhatsApp follow-up</div>
-      <div class="card">Automated checklists (Daily / Weekly / Monthly)</div>
-      <div class="card">Alerts & escalation on near-loss themes</div>
-      <div class="card">Poster downloads & training kits</div>
-    </div>
-  </section>
-
-  <!-- ===== POSTERS ===== -->
-  <section id="downloads" class="panel" style="max-width:1100px;margin:16px auto 0;">
-    <h3>Step-by-Step Training Posters</h3>
-    <div class="posters">
-      <div class="poster">
-        <img src="assets/posters/first-aid.jpg" alt="Emergency First Aid Poster"
-             onerror="this.onerror=null;this.src='assets/posters/FIRST-AID.JPG';">
+    <!-- DAILY CHECKLIST (Netlify Forms) -->
+    <h2 id="daily">Daily Checklist</h2>
+    <form class="fieldset" name="daily-checklist" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="daily-checklist" />
+      <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+        <div>
+          <label>Site / Location</label>
+          <input name="site" placeholder="e.g., Astron Rivonia" required />
+        </div>
+        <div>
+          <label>Shift</label>
+          <select name="shift">
+            <option>AM</option><option>PM</option><option>Night</option>
+          </select>
+        </div>
+        <div>
+          <label>Supervisor</label>
+          <input name="supervisor" placeholder="Name & surname" />
+        </div>
+        <div>
+          <label>Fuel area tidy?</label>
+          <select name="fuel_area"><option>Yes</option><option>No</option></select>
+        </div>
+        <div>
+          <label>Forecourt spill kit?</label>
+          <select name="spill_kit"><option>Yes</option><option>No</option></select>
+        </div>
+        <div>
+          <label>Fire points clear?</label>
+          <select name="fire_points"><option>Yes</option><option>No</option></select>
+        </div>
+        <div>
+          <label>Near-loss observed?</label>
+          <select name="near_loss"><option>No</option><option>Yes</option></select>
+        </div>
+        <div>
+          <label>Notes</label>
+          <input name="notes" placeholder="Anything to escalate?" />
+        </div>
       </div>
-      <div class="poster">
-        <img src="assets/posters/customer-service.jpg" alt="Customer Service Poster"
-             onerror="this.onerror=null;this.src='assets/posters/CUSTOMER-SERVICE.JPG';">
+      <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+        <button class="btn" type="submit">Send</button>
+        <span class="pill">Auto-email + WhatsApp follow-up</span>
       </div>
-      <div class="poster">
-        <img src="assets/posters/evacuation.jpg" alt="Emergency Evacuation Poster"
-             onerror="this.onerror=null;this.src='assets/posters/EVACUATION.JPG';">
-      </div>
-      <div class="poster">
-        <img src="assets/posters/spill-response.jpg" alt="Emergency Spill Response Poster"
-             onerror="this.onerror=null;this.src='assets/posters/SPILL-RESPONSE.JPG';">
-      </div>
-      <div class="poster">
-        <img src="assets/posters/mirror-zu.jpg" alt="Safety Mirror Poster Zulu"
-             onerror="this.onerror=null;this.src='assets/posters/MIRROR-ZU.JPG';">
-      </div>
-      <div class="poster">
-        <img src="assets/posters/mirror-en.jpg" alt="Safety Mirror Poster English"
-             onerror="this.onerror=null;this.src='assets/posters/MIRROR-EN.JPG';">
-      </div>
-    </div>
-    <p style="color:var(--muted);margin-top:10px">
-      Want these behind paywall? We'll flip these to Gumroad product links later.
-    </p>
-  </section>
-
-  <!-- ===== CONTACT (Netlify Form) ===== -->
-  <section id="contact" class="panel" style="max-width:1100px;margin:16px auto 0;">
-    <h3>Contact</h3>
-    <form name="contact" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="contact">
-      <div style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
-        <input name="name" placeholder="Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <input name="whatsapp" placeholder="+27 ..." />
-      </div>
-      <textarea name="message" placeholder="How can we help?" rows="4" style="width:100%;margin-top:10px"></textarea>
-      <button class="btn" type="submit" style="width:100%;margin-top:10px">Send</button>
     </form>
-    <p style="color:var(--muted);margin:.4rem 0 0">Submissions appear in Netlify → Forms → <strong>contact</strong></p>
-  </section>
 
-  <footer>
-    <div class="wrap">
-      📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven
+    <!-- POSTERS (showing as cards) -->
+    <h2 id="downloads">Step-by-Step Training Posters</h2>
+    <div class="grid">
+      <img class="poster" src="assets/posters/FIRST-AID.jpg" alt="First Aid" />
+      <img class="poster" src="assets/posters/CUSTOMER-SERVICE.jpg" alt="Customer Service" />
+      <img class="poster" src="assets/posters/EVACUATION.jpg" alt="Evacuation" />
+      <img class="poster" src="assets/posters/SPILL-RESPONSE.jpg" alt="Spill Response" />
     </div>
+
+    <!-- CONTACT -->
+    <h2 id="contact">Contact</h2>
+    <form class="fieldset" name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact" />
+      <div class="grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+        <div><label>Name</label><input name="name" required /></div>
+        <div><label>Email</label><input name="email" type="email" required /></div>
+        <div><label>WhatsApp</label><input name="whatsapp" placeholder="+27 ..." /></div>
+      </div>
+      <label>Message</label>
+      <textarea name="message" rows="4" placeholder="How can we help?"></textarea>
+      <div style="margin-top:12px"><button class="btn" type="submit">Send</button></div>
+    </form>
+  </main>
+
+  <footer class="wrap">
+    <p>📧 info@ohshaven.co.za · WhatsApp: +27 71 123 4567 · © 2025 OHS Haven</p>
   </footer>
 
-  <!-- ===== MELLY CHAT WIDGET ===== -->
-  <button class="melly-toggle" id="mellyFab" aria-label="Open Melly">
-    <img src="assets/avatar.jpg" onerror="this.onerror=null;this.src='assets/avatar.jpeg';" alt="">
-  </button>
+  <!-- Melly welcome toast -->
+  <div class="toast" id="mellyToast">👋 Hi, I’m Melly. Type your question bottom-right — try “Show me posters”.</div>
 
-  <aside class="melly-bubble" id="mellyBox" role="dialog" aria-label="Melly – Your Safety Assistant">
-    <div class="melly-head">Melly — Your Safety Assistant</div>
-    <div class="melly-body">
-      <div class="pic"><img src="assets/avatar.jpg" onerror="this.onerror=null;this.src='assets/avatar.jpeg';" alt=""></div>
-      <div class="txt" id="mellyTxt">
-        Hi 👋 I’m Melly. I can help with posters, the training kit, running the checklist, or basic OHS questions.
-      </div>
-    </div>
-    <div class="melly-actions">
-      <button data-q="posters">Show me posters</button>
-      <button data-q="kit">How do I get the kit?</button>
-      <button data-q="checklist">Run the daily checklist</button>
-      <button data-q="contact">Contact support</button>
-      <button data-q="ergo">Ergonomics help</button>
-    </div>
-  </aside>
-
-  <!-- ===== JS ===== -->
   <script>
-    // --- Melly UI ---
-    const fab = document.getElementById('mellyFab');
-    const tog = document.getElementById('mellyToggle');
-    const box = document.getElementById('mellyBox');
-    const txt = document.getElementById('mellyTxt');
-
-    function toggleMelly(){ box.style.display = (box.style.display === 'flex') ? 'none' : 'flex'; }
-    fab.addEventListener('click', toggleMelly);
-    if (tog) tog.addEventListener('click', toggleMelly);
-
-    box.querySelectorAll('.melly-actions button').forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const q = b.dataset.q;
-        if(q==='posters'){ location.hash='#downloads'; toggleMelly(); }
-        if(q==='kit'){ txt.textContent="The Training Kit link will go live after we flip Gumroad. For now, drop your email in Contact and we’ll send it."; }
-        if(q==='checklist'){ location.hash='#daily'; toggleMelly(); }
-        if(q==='contact'){ location.hash='#contact'; toggleMelly(); }
-        if(q==='ergo'){ location.href='/ergo/'; }
-      });
-    });
-
-    // --- Stretch reminder via Netlify Function ---
-    const stretchBtn = document.getElementById('stretchBtn');
-    const stretchTip = document.getElementById('stretchTip');
-    if(stretchBtn){
-      stretchBtn.addEventListener('click', async ()=>{
-        try{
-          const r = await fetch('/.netlify/functions/stretch');
-          const j = await r.json();
-          stretchTip.textContent = j.message || 'Time to take a quick break!';
-        }catch(e){
-          stretchTip.textContent = 'Time to take a quick break!';
-        }
-      });
-    }
+    // show welcome once per day
+    (()=>{
+      const key='melly-welcome-'+(new Date).toISOString().slice(0,10);
+      if(localStorage.getItem(key)) return;
+      localStorage.clear(); localStorage.setItem(key,'1');
+      const t=document.getElementById('mellyToast'); t.style.display='block';
+      setTimeout(()=>t.style.display='none', 6000);
+    })();
   </script>
-
-  <!-- Keep your existing app/checklist logic -->
-  <script src="assets/app.js"></script>
-  <script src="assets/checklists.js"></script>
 </body>
 </html>
