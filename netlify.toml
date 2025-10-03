@@ -1,20 +1,3 @@
-[build]
-  publish = "."
-  functions = "netlify/functions"
-
-[[redirects]]
-  from = "/ergo"
-  to = "/ergo/index.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/ergo/*"
-  to = "/ergo/index.html"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
