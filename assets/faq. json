@@ -1,1 +1,65 @@
+{
+  "faqs": [
+    {
+      "id": "daily-check",
+      "q": "How do I run the daily checklist?",
+      "a": "Go to Daily Checklist → enter Site, choose Shift (AM/PM/Night), answer the quick checks, then Send. A record is emailed and can be followed up on WhatsApp.",
+      "keywords": ["daily", "checklist", "run", "site", "shift", "send"]
+    },
+    {
+      "id": "spill-response",
+      "q": "What are the steps for spill response?",
+      "a": "STOP, WARN, ISOLATE, CONTAIN, CLEAN, DISPOSE, REPORT. Use your spill kit (absorbents/PPE), prevent ignition, stop source if safe, capture waste and label for disposal.",
+      "keywords": ["spill", "response", "spill kit", "contain", "clean", "dispose"]
+    },
+    {
+      "id": "evacuation",
+      "q": "How do we evacuate?",
+      "a": "On alarm: stop work, switch off ignition sources, assist customers, exit via nearest safe route, assemble at the muster point, headcount, report missing persons to the warden.",
+      "keywords": ["evacuation", "alarm", "muster", "assembly", "route", "warden"]
+    },
+    {
+      "id": "first-aid",
+      "q": "First aid essentials?",
+      "a": "Keep the box stocked and in-date. Prioritise ABC (Airway, Breathing, Circulation). Call emergency services if life-threatening. Record in the incident book.",
+      "keywords": ["first aid", "abc", "box", "in-date", "emergency"]
+    },
+    {
+      "id": "near-miss",
+      "q": "What is a near miss and how do I report?",
+      "a": "A near miss (near loss) is an unplanned event that did not result in injury/damage but had potential to. Log it in the checklist ‘Near-loss observed?’ with notes, or use Contact to report.",
+      "keywords": ["near miss", "near-loss", "report", "log"]
+    },
+    {
+      "id": "ppe-basics",
+      "q": "What PPE do we need on forecourt?",
+      "a": "Closed shoes, high-visibility vest, gloves for chemicals, eye protection for decanting, hearing protection if noise >85 dB. Replace damaged PPE immediately.",
+      "keywords": ["ppe", "forecourt", "gloves", "vest", "eye", "hearing"]
+    },
+    {
+      "id": "ergonomics-setup",
+      "q": "How should my desk be set up?",
+      "a": "Screen at eye height, arm’s length away; elbows ~90°, wrists straight; feet flat or on a footrest. Follow 20-8-2 rule: 20 min seated, 8 min standing, 2 min moving.",
+      "keywords": ["ergonomics", "desk", "screen", "posture", "20-8-2"]
+    },
+    {
+      "id": "stretch-breaks",
+      "q": "How often should I stretch?",
+      "a": "Every 30–45 minutes take a micro-break. Use the Stretch button for ideas: shoulder rolls, chin tucks, side bends. Keep movements gentle and pain-free.",
+      "keywords": ["stretch", "breaks", "micro-break", "ergonomics"]
+    },
+    {
+      "id": "school-posters",
+      "q": "Do you have school safety posters?",
+      "a": "Yes — primary and high school variants are in the posters section. If you need a custom language, ask and we’ll prepare it.",
+      "keywords": ["school", "posters", "primary", "high", "language"]
+    },
+    {
+      "id": "contact",
+      "q": "How do I contact OHS Haven?",
+      "a": "Email info@ohshaven.com or WhatsApp +27 71 123 4567. For urgent matters include site and nature of issue in the message.",
+      "keywords": ["contact", "email", "whatsapp", "urgent"]
+    }
+  ]
+}
 
