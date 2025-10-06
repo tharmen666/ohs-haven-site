@@ -117,3 +117,11 @@
   <script src="assets/melly-faq.js" defer></script>
 </body>
 </html>
+<!-- TEMP: simplest possible Netlify form to prove end-to-end -->
+<form name="contact" method="POST" data-netlify="true" style="padding:16px;background:#10243e;border:1px solid #223b5e;border-radius:10px;margin-top:14px">
+  <input type="hidden" name="form-name" value="contact">
+  <p><label>Your Name <input type="text" name="name" required></label></p>
+  <p><label>Your Email <input type="email" name="email" required></label></p>
+  <p><label>Message <textarea name="message" required></textarea></label></p>
+  <p><button type="submit">Send test</button></p>
+</form>
