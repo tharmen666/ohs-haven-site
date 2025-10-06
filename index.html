@@ -51,8 +51,9 @@
     <!-- ===== DAILY CHECKLIST (Netlify Form) ===== -->
     <section id="daily">
       <h2>Daily Checklist</h2>
-      <form class="fieldset" name="daily-checklist" method="POST" data-netlify="true">
+      <form name="daily-checklist" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?thanks=1" class="fieldset">
         <input type="hidden" name="form-name" value="daily-checklist" />
+        <p style="display:none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
         <div class="grid cols-4">
           <div><label>Site / Location</label><input name="site" placeholder="e.g., Astron Rivonia" required /></div>
           <div><label>Shift</label><select name="shift"><option>AM</option><option>PM</option><option>Night</option></select></div>
@@ -89,12 +90,13 @@
     <!-- ===== CONTACT ===== -->
     <section id="contact">
       <h2>Contact</h2>
-      <form class="fieldset" name="contact" method="POST" data-netlify="true">
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/?thanks=1" class="fieldset">
         <input type="hidden" name="form-name" value="contact" />
+        <p style="display:none;"><label>Don’t fill this out if you’re human: <input name="bot-field" /></label></p>
         <div class="grid cols-3">
           <div><label>Name</label><input name="name" required /></div>
           <div><label>Email</label><input name="email" type="email" required /></div>
-          <div><label>WhatsApp</label><input name="whatsapp" placeholder="+27 ..." /></div>
+          <div><label>WhatsApp</label><input name="whatsapp" placeholder="+27 71 123 4567" /></div>
         </div>
         <label>Message</label>
         <textarea name="message" rows="4" placeholder="How can we help?"></textarea>
@@ -113,15 +115,34 @@
   </button>
   <aside class="melly-box" id="mellyBox" role="dialog" aria-label="Melly — Your Safety Assistant"></aside>
 
-  <!-- ===== Scripts ===== -->
+  <!-- Hidden forms (build-time detection) -->
+  <form name="daily-checklist" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="site" />
+    <input type="text" name="shift" />
+    <input type="text" name="supervisor" />
+    <input type="text" name="fuel_area" />
+    <input type="text" name="spill_kit" />
+    <input type="text" name="fire_points" />
+    <input type="text" name="near_loss" />
+    <input type="text" name="notes" />
+  </form>
+  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="text" name="whatsapp" />
+    <textarea name="message"></textarea>
+  </form>
+
+  <!-- Thanks toast -->
+  <script>
+    (function(){
+      if (location.search.includes('thanks=1')) {
+        alert("Thanks — we’ve received your submission and emailed a copy.");
+      }
+    })();
+  </script>
+
+  <!-- Scripts -->
   <script src="assets/melly-faq.js" defer></script>
 </body>
 </html>
-<!-- TEMP: simplest possible Netlify form to prove end-to-end -->
-<form name="contact" method="POST" data-netlify="true" style="padding:16px;background:#10243e;border:1px solid #223b5e;border-radius:10px;margin-top:14px">
-  <input type="hidden" name="form-name" value="contact">
-  <p><label>Your Name <input type="text" name="name" required></label></p>
-  <p><label>Your Email <input type="email" name="email" required></label></p>
-  <p><label>Message <textarea name="message" required></textarea></label></p>
-  <p><button type="submit">Send test</button></p>
-</form>
