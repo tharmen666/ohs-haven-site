@@ -1,3 +1,33 @@
+# netlify.toml — OHS Haven
+[build]
+  command = ""          # static site, no build
+  publish = "."         # serve from repo root
+  functions = "netlify/functions"
+
 [functions]
-  directory = "netlify/functions"
   node_bundler = "esbuild"
+  external_node_modules = []
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  # comment out if you don’t want auto audits
+
+# Ensure forms work on static HTML
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = true
+
+# Clean redirect rules (optional if you already have _redirects)
+[[redirects]]
+  from = "/ergo/*"
+  to = "/site/ergo/:splat"
+  status = 200
+
+# Security headers (basic)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
