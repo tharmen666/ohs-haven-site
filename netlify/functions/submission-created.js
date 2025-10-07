@@ -1,63 +1,127 @@
 // netlify/functions/submission-created.js
-// Fires automatically on every Netlify Forms submission.
-// Sends you an email (via Netlify Emails add-on) and optionally a Slack ping.
-
-export async function handler(event) {
+export default async (req, context) => {
   try {
-    const payload = JSON.parse(event.body);
-    const form = payload?.payload?.form_name || 'unknown';
-    const data = payload?.payload?.data || {};
-    const when = new Date().toLocaleString();
-
-    // Build a readable summary
-    const pairs = Object.entries(data).map(([k,v]) => `• ${k}: ${v}`).join('\n');
-    const subject = `✅ ${form} submitted`;
-    const text =
-`Form: ${form}
-When: ${when}
-
-${pairs}
-
-— OHS Haven (Netlify Forms event)`;
-
-    // --- 1) Email via Netlify Emails add-on (recommended)
-    // Set NOTIFY_TO in Netlify env vars (comma separated for multiple recipients)
-    const recipientsCSV = process.env.NOTIFY_TO || '';
-    if (recipientsCSV) {
-      const recipients = recipientsCSV.split(',').map(s => s.trim()).filter(Boolean);
-      try {
-        const { send } = await import('@netlify/emails');
-        // Send to each recipient (simplest & reliable)
-        for (const to of recipients) {
-          await send({
-            from: 'no-reply@ohshaven.com',
-            to,
-            subject,
-            text
-          });
-        }
-        console.log('[MELLY] Email sent to:', recipients.join(', '));
-      } catch (e) {
-        console.log('[MELLY] Netlify Emails not enabled or package missing. Skipping email.', e?.message || e);
-      }
-    } else {
-      console.log('[MELLY] NOTIFY_TO env var not set — no email sent.');
+    if (req.method !== 'POST') {
+      return new Response('Method not allowed', { status: 405 });
     }
 
-    // --- 2) Optional Slack ping (set SLACK_WEBHOOK_URL if you want this too)
-    const slack = process.env.SLACK_WEBHOOK_URL;
-    if (slack) {
-      await fetch(slack, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: `New *${form}* submission:\n${pairs}` })
+    const body = await req.json(); // Netlify sends JSON with payload + data
+    const { payload } = body || {};
+    if (!payload) return new Response('No payload', { status: 400 });
+
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    const FROM = process.env.FROM_EMAIL || 'info@ohshaven.com';
+    const NOTIFY = (process.env.NOTIFY_TO || 'info@ohshaven.com, tharmendesigan36@gmail.com')
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    if (!RESEND_API_KEY) {
+      // Soft-success so form still works even if email isn’t configured
+      return new Response('Missing RESEND_API_KEY; skipping mail', { status: 200 });
+    }
+
+    const formName = (payload.form_name || payload.form_name || '').toLowerCase();
+    const data = payload.data || {};
+    const submitterEmail =
+      data.email || data.Email || data.user_email || '';
+
+    const subject =
+      formName === 'contact'
+        ? `New contact: ${data.name || 'Visitor'}`
+        : formName === 'daily-checklist'
+        ? `Daily checklist — ${data.site || 'Unknown Site'} (${data.shift || ''})`
+        : `New form: ${formName}`;
+
+    const rows = Object.entries(data)
+      .map(([k, v]) => `<tr><td style="padding:6px 10px;border:1px solid #e5e7eb;background:#fafafa">${k}</td><td style="padding:6px 10px;border:1px solid #e5e7eb">${String(v || '')}</td></tr>`)
+      .join('');
+
+    const adminHtml = `
+      <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
+        <table width="100%" cellspacing="0" cellpadding="0" style="max-width:720px;margin:auto;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden">
+          <tr><td style="background:#0b1c2e;color:#fff;padding:14px 18px;border-bottom:2px solid #FF6A00">
+            <div style="font-weight:900;font-size:18px">OHS Haven</div>
+            <div style="color:#9fb4c9;font-size:13px">New ${formName} submission</div>
+          </td></tr>
+          <tr><td style="padding:0">
+            <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">${rows}</table>
+          </td></tr>
+          <tr><td style="padding:14px 18px">
+            <div style="font-size:12px;color:#6b7280">Form: ${formName} • Path: ${payload.url || ''}</div>
+          </td></tr>
+          <tr><td style="background:#0b1626;color:#9fb4c9;padding:12px 18px;font-size:12px">
+            © 2025 OHS Haven • Auto-email by Netlify + Resend
+          </td></tr>
+        </table>
+      </div>
+    `;
+
+    // Send admin alert (one email per NOTIFY)
+    for (const recipient of NOTIFY) {
+      await sendEmail(RESEND_API_KEY, {
+        from: `OHS Haven <${FROM}>`,
+        to: recipient,
+        subject,
+        html: adminHtml
       });
-      console.log('[MELLY] Slack ping sent');
     }
 
-    return { statusCode: 200, body: JSON.stringify({ ok: true }) };
-  } catch (err) {
-    console.error('[MELLY] submission-created error', err);
-    return { statusCode: 200, body: JSON.stringify({ ok: false, error: String(err) }) };
+    // Send visitor receipt (if they gave an email)
+    if (submitterEmail && /@/.test(submitterEmail)) {
+      const receiptHtml = `
+        <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif">
+          <table width="100%" cellspacing="0" cellpadding="0" style="max-width:680px;margin:auto;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden">
+            <tr><td style="background:#0b1c2e;color:#fff;padding:14px 18px;border-bottom:2px solid #FF6A00">
+              <div style="font-weight:900;font-size:18px">OHS Haven</div>
+              <div style="color:#9fb4c9;font-size:13px">Thanks — we received your ${formName} submission</div>
+            </td></tr>
+            <tr><td style="padding:16px">
+              <p>Hi ${escapeHtml(data.name || '').trim() || 'there'},</p>
+              <p>Thanks for getting in touch. We’ve received your details and will respond ASAP. A copy is below:</p>
+              <div style="border:1px solid #e5e7eb;border-radius:10px;overflow:hidden">
+                <table width="100%" cellspacing="0" cellpadding="0" style="border-collapse:collapse">${rows}</table>
+              </div>
+              <p style="margin-top:14px">Need something urgent? WhatsApp us: +27 71 123 4567</p>
+            </td></tr>
+            <tr><td style="background:#0b1626;color:#9fb4c9;padding:12px 18px;font-size:12px">
+              © 2025 OHS Haven
+            </td></tr>
+          </table>
+        </div>
+      `;
+      await sendEmail(RESEND_API_KEY, {
+        from: `OHS Haven <${FROM}>`,
+        to: submitterEmail,
+        subject: `OHS Haven — ${formName} received`,
+        html: receiptHtml
+      });
+    }
+
+    return new Response('OK', { status: 200 });
+  } catch (e) {
+    // Don’t fail the form—log and return OK
+    return new Response(`Skipped mail: ${e.message}`, { status: 200 });
   }
+};
+
+function escapeHtml(str='') {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+async function sendEmail(API_KEY, payload){
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(JSON.stringify(json));
+  return json;
 }
